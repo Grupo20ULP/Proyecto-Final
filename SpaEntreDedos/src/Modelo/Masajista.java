@@ -10,24 +10,24 @@ public class Masajista {
     private String nombreYapellido;
     private int telefono;
     private String especialidad;
-    private boolean activo;
+    private boolean estado;
 
     public Masajista () {
     }
 
-    public Masajista (String nombreYapellido, int telefono, String especialidad, boolean activo) {
+    public Masajista (String nombreYapellido, int telefono, String especialidad, boolean estado) {
         this.nombreYapellido = nombreYapellido;
         this.telefono = telefono;
         this.especialidad = especialidad;
-        this.activo = activo;
+        this.estado = estado;
     }
 
-    public Masajista (int matricula, String nombreYapellido, int telefono, String especialidad, boolean activo) {
+    public Masajista (int matricula, String nombreYapellido, int telefono, String especialidad, boolean estado) {
         this.matricula = matricula;
         this.nombreYapellido = nombreYapellido;
         this.telefono = telefono;
         this.especialidad = especialidad;
-        this.activo = activo;
+        this.estado = estado;
     }
 
     public int getMatricula () {
@@ -62,18 +62,18 @@ public class Masajista {
         this.especialidad = especialidad;
     }
 
-    public boolean isActivo () {
-        return activo;
+    public boolean isEstado () {
+        return estado;
     }
 
-    public void setActivo (boolean activo) {
-        this.activo = activo;
+    public void setEstado (boolean estado) {
+        this.estado = estado;
     }
 
     @Override
     public String toString () {
         return "Masajista{" + "matricula=" + matricula + ", nombreYapellido="
             + nombreYapellido + ", telefono=" + telefono + ", especialidad="
-            + especialidad + ", activo=" + activo + '}';
+            + especialidad + ", estado=" + estado + '}';
     }
 }
