@@ -52,8 +52,9 @@ local.properties
 *.zip
 *.tar.gz
 *.rar
-!jcalendar-1.4.jar
-!mariadb-java-client-3.5.5.jar
+!lib/
+!lib/jcalendar-1.4.jar
+!lib/mariadb-java-client-3.5.5.jar
 
 # Archivos de compilación de Java
 build/
