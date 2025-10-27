@@ -19,7 +19,7 @@ public class Dia_De_Spa {
     private String estado; // Ej: "Reservado", "Activo", "Anulado"
     private List<Sesion> sesiones;
 
-    // CONSTRUCTORES
+    // constructores
     public Dia_De_Spa() {
         this.sesiones = new ArrayList<>();
         this.estado = "Reservado";
@@ -36,7 +36,7 @@ public class Dia_De_Spa {
         this.sesiones = new ArrayList<>();
     }
 
-    // GETTERS Y SETTERS
+    // get y set
     public int getCodPack() {
         return codPack;
     }
@@ -93,7 +93,7 @@ public class Dia_De_Spa {
         this.sesiones = sesiones;
     }
 
-    // METODOS FUNCIONALES
+    // metodos funcionales
     // Agrega una sesion al Dia de Spa 
     public void agregarSesion(Sesion sesion) {
         if (sesiones == null) sesiones = new ArrayList<>();
@@ -120,47 +120,47 @@ public class Dia_De_Spa {
 //        this.monto = total;
 //    }
     
-    // Devuelve un resumen del Dia de Spa con todas sus sesiones
-//    public String listarItinerario() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("Día de Spa N° ").append(codPack)
-//          .append(" | Cliente: ").append(cliente.getNombreCompleto())   //NOMBRE COMPLETO LO SACO DE CLIENTE UNA VEZ CREADA LA CLASE
-//          .append("\nFecha: ").append(fechaHora)
-//          .append("\nPreferencias: ").append(preferencias)
-//          .append("\nEstado: ").append(estado)
-//          .append("\n--- Sesiones ---\n");
-//
-//        if (sesiones.isEmpty()) {
-//            sb.append("Sin sesiones registradas.\n");
-//        } else {
-//            for (Sesion s : sesiones) {
-//                sb.append(s.toString()).append("\n");
-//            }
-//        }
-//
-//        sb.append("\nMonto Total: $").append(monto);
-//        return sb.toString();
-//    }
-//
+     //Devuelve un resumen del Dia de Spa con todas sus sesiones
+    public String listarItinerario() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Día de Spa N° ").append(codPack)
+          .append(" | Cliente: ").append(cliente.getNombre_completo()) 
+          .append("\nFecha: ").append(fechaHora)
+          .append("\nPreferencias: ").append(preferencias)
+          .append("\nEstado: ").append(estado)
+          .append("\n--- Sesiones ---\n");
+
+        if (sesiones.isEmpty()) {
+            sb.append("Sin sesiones registradas.\n");
+        } else {
+            for (Sesion s : sesiones) {
+                sb.append(s.toString()).append("\n");
+            }
+        }
+
+        sb.append("\nMonto Total: $").append(monto);
+        return sb.toString();
+    }
+
 //    /** Cambia el estado del Día de Spa */
-//    public void cambiarEstado(String nuevoEstado) {
-//        this.estado = nuevoEstado;
-//    }
-//
-//    /** Verifica si el Día de Spa contiene una sesión en una fecha/hora específica */
+    public void cambiarEstado(String nuevoEstado) {
+        this.estado = nuevoEstado;
+    }
+
+    /** Verifica si el Día de Spa contiene una sesión en una fecha/hora específica */
 //    public boolean contieneSesion(LocalDateTime fechaInicio) {
 //        if (sesiones == null) return false;
 //        for (Sesion s : sesiones) {
-//            if (s.getFechaHoraInicio().equals(fechaInicio)) return true;
+//            if (s.getFechaHoraInicio().equals(fechaInicio)) return true;  //getFechaHoraInicio LO SACO DE  SESION UNA VEZ CREADA LA CLASE
 //        }
 //        return false;
 //    }
-//
-//    @Override
-//    public String toString() {
-//        return "Día de Spa #" + codPack + " - " + cliente.getNombreCompleto() +   //NOMBRE COMPLETO LO SACO DE CLIENTE UNA VEZ CREADA LA CLASE
-//                " - Estado: " + estado + " - Total: $" + monto;
-//    }
+
+    @Override
+    public String toString() {
+        return "Día de Spa #" + codPack + " - " + cliente.getNombre_completo()+   //NOMBRE COMPLETO LO SACO DE CLIENTE UNA VEZ CREADA LA CLASE
+                " - Estado: " + estado + " - Total: $" + monto;
+    }
 }
 
 
