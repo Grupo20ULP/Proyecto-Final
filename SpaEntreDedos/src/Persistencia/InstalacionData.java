@@ -2,7 +2,7 @@ package Persistencia;
 
 /**
  *
- * @author Heber Gomez
+ * @author Federico Galan
  */
 public class InstalacionData {
 
