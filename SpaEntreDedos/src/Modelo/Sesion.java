@@ -175,7 +175,7 @@ public class Sesion {
 
     public boolean masajistaEsEspecialista() {
         if (masajista != null && tratamiento != null) {
-            return masajista.getEspecialidad().equalsIgnoreCase(tratamiento.getTipo());
+            return masajista.getEspecialidad().equalsIgnoreCase(tratamiento.getTipo().name());
         }
         return false;
     }

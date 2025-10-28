@@ -8,16 +8,16 @@ public class Tratamiento {
 
     private int codTratam;
     private String nombre;
-    private String tipo;
+    private TipoDeTratamiento tipo;
     private String detalle;
-    private double duracion;
+    private int duracion;
     private double costo;
-    private boolean activo;
+    private String activo;
 
     public Tratamiento () {
     }
 
-    public Tratamiento (String nombre, String tipo, String detalle, double duracion, double costo, boolean activo) {
+    public Tratamiento (String nombre, TipoDeTratamiento tipo, String detalle, int duracion, double costo, String activo) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.detalle = detalle;
@@ -26,7 +26,7 @@ public class Tratamiento {
         this.activo = activo;
     }
 
-    public Tratamiento (int codTratam, String nombre, String tipo, String detalle, double duracion, double costo, boolean activo) {
+    public Tratamiento (int codTratam, String nombre, TipoDeTratamiento tipo, String detalle, int duracion, double costo, String activo) {
         this.codTratam = codTratam;
         this.nombre = nombre;
         this.tipo = tipo;
@@ -52,11 +52,11 @@ public class Tratamiento {
         this.nombre = nombre;
     }
 
-    public String getTipo () {
+    public TipoDeTratamiento getTipo () {
         return tipo;
     }
 
-    public void setTipo (String tipo) {
+    public void setTipo (TipoDeTratamiento tipo) {
         this.tipo = tipo;
     }
 
@@ -68,11 +68,11 @@ public class Tratamiento {
         this.detalle = detalle;
     }
 
-    public double getDuracion () {
+    public int getDuracion () {
         return duracion;
     }
 
-    public void setDuracion (double duracion) {
+    public void setDuracion (int duracion) {
         this.duracion = duracion;
     }
 
@@ -84,11 +84,11 @@ public class Tratamiento {
         this.costo = costo;
     }
 
-    public boolean isActivo () {
+    public String getActivo () {
         return activo;
     }
 
-    public void setActivo (boolean activo) {
+    public void setActivo (String activo) {
         this.activo = activo;
     }
 
