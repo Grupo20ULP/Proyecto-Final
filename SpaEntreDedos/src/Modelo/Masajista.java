@@ -8,21 +8,21 @@ public class Masajista {
 
     private int matricula;
     private String nombreYapellido;
-    private int telefono;
+    private String telefono;
     private String especialidad;
-    private boolean estado;
+    private String estado;
 
     public Masajista () {
     }
 
-    public Masajista (String nombreYapellido, int telefono, String especialidad, boolean estado) {
+    public Masajista (String nombreYapellido, String telefono, String especialidad, String estado) {
         this.nombreYapellido = nombreYapellido;
         this.telefono = telefono;
         this.especialidad = especialidad;
         this.estado = estado;
     }
 
-    public Masajista (int matricula, String nombreYapellido, int telefono, String especialidad, boolean estado) {
+    public Masajista (int matricula, String nombreYapellido, String telefono, String especialidad, String estado) {
         this.matricula = matricula;
         this.nombreYapellido = nombreYapellido;
         this.telefono = telefono;
@@ -46,11 +46,11 @@ public class Masajista {
         this.nombreYapellido = nombreYapellido;
     }
 
-    public int getTelefono () {
+    public String getTelefono () {
         return telefono;
     }
 
-    public void setTelefono (int telefono) {
+    public void setTelefono (String telefono) {
         this.telefono = telefono;
     }
 
@@ -62,11 +62,11 @@ public class Masajista {
         this.especialidad = especialidad;
     }
 
-    public boolean isEstado () {
+    public String getEstado () {
         return estado;
     }
 
-    public void setEstado (boolean estado) {
+    public void setEstado (String estado) {
         this.estado = estado;
     }
 
