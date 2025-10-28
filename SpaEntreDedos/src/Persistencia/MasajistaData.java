@@ -40,6 +40,7 @@ public class MasajistaData {
 //                        "Masajista guardado exitosamente. ID: " + m.
 //                            getMatricula());
                 }
+                rs.close();
                 return true;
             }
             ps.close();
@@ -171,6 +172,7 @@ public class MasajistaData {
                 masajista.setEspecialidad(rs.getString("especialidad"));
                 masajista.setEstado(rs.getString("estado"));
             }
+            rs.close();
             ps.close();
         }
         catch (SQLException e) {
