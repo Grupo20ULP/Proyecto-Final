@@ -15,7 +15,7 @@ public class Conexion {
     private static final String USUARIO = "root";
     private static final String CLAVE = "";
     private static Connection conexion;
-    
+        
     
     public static Connection getConectar () {
         if (conexion == null) {
