@@ -5,6 +5,8 @@ import Modelo.Tratamiento;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import org.mariadb.jdbc.Connection;
 import org.mariadb.jdbc.Statement;
 
@@ -153,5 +155,33 @@ public class TratamientoData {
                     getMessage());
         }
         return tratamiento;
+    }
+
+    public List<Tratamiento> listarTratamientosPorTipo (TipoDeTratamiento tipo) {
+        List<Tratamiento> tratamientos = new ArrayList<>();
+        String sql = "SELECT * FROM tratamiento WHERE tipo = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, tipo.name());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Tratamiento t = new Tratamiento();
+                t.setCodTratam(rs.getInt("codTratam"));
+                t.setNombre(rs.getString("nombre"));
+                t.setTipo(tipo);
+                t.setDetalle(rs.getString("detalle"));
+                t.setDuracion(rs.getInt("duracion"));
+                t.setCosto(rs.getDouble("costo"));
+                t.setActivo(rs.getString("activo"));
+                tratamientos.add(t);
+            }
+            rs.close();
+            ps.close();
+        }
+        catch (SQLException e) {
+            System.err.println("Error al listar tratamientos por tipo: " + e.
+                getMessage());
+        }
+        return tratamientos;
     }
 }

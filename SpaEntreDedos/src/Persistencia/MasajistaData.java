@@ -1,9 +1,12 @@
 package Persistencia;
 
 import Modelo.Masajista;
+import Modelo.TipoDeTratamiento;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import org.mariadb.jdbc.Connection;
 import org.mariadb.jdbc.Statement;
 
@@ -181,5 +184,57 @@ public class MasajistaData {
                     getMessage());
         }
         return masajista;
+    }
+
+    public List<Masajista> listarMasajistas () {
+        List<Masajista> masajistas = new ArrayList<>();
+        String sql = "SELECT * FROM masajista";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Masajista m = new Masajista();
+                m.setMatricula(rs.getInt("matricula"));
+                m.setNombreYapellido(rs.getString("nombre_apellido"));
+                m.setTelefono(rs.getString("telefono"));
+                m.setEspecialidad(rs.getString(
+                    "especialidad"));
+                m.setEstado(rs.getString("estado"));
+                masajistas.add(m);
+                rs.close();
+            }
+            ps.close();
+        }
+        catch (SQLException ex) {
+            System.err.print("Error al listar masajistas: " + ex.getMessage());
+        }
+        return masajistas;
+    }
+
+    public List<Masajista> listarMasajistasPorEspecialidad (TipoDeTratamiento tipo) {
+        List<Masajista> masajistas = new ArrayList<>();
+        String sql = "SELECT * FROM masajista WHERE especialidad = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, tipo.name());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Masajista m = new Masajista();
+                m.setMatricula(rs.getInt("matricula"));
+                m.setNombreYapellido(rs.getString("nombre_apellido"));
+                m.setTelefono(rs.getString("telefono"));
+                m.setEspecialidad(rs.getString(
+                    "especialidad"));
+                m.setEstado(rs.getString("estado"));
+                masajistas.add(m);
+            }
+            rs.close();
+            ps.close();
+        }
+        catch (SQLException e) {
+            System.err.println("Error al listar Masajista por tipo: " + e.
+                getMessage());
+        }
+        return masajistas;
     }
 }
