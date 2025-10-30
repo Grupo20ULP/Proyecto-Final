@@ -4,6 +4,10 @@
  */
 package Vistas;
 
+import java.awt.Graphics;
+import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
+
 /**
  *
  * @author Heber Gomez PC
@@ -15,6 +19,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal () {
         initComponents();
+        imagenFondo();
     }
 
     /**
@@ -35,9 +40,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu3Consultorio = new javax.swing.JMenu();
         jMenu4Instalaciones = new javax.swing.JMenu();
         jMenu5Masajista = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu6Producto = new javax.swing.JMenu();
-        jMenuItemProducto = new javax.swing.JMenuItem();
-        jMenuItemTratamiento = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,7 +50,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 408, Short.MAX_VALUE)
+            .addGap(0, 419, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -57,7 +62,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItemDiaDeSpa.setText("Dia de Spa");
         jMenu1Sesion.add(jMenuItemDiaDeSpa);
 
-        jMenuItemSesion.setText("Sesion");
+        jMenuItemSesion.setText("Buscar ");
         jMenuItemSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemSesionActionPerformed(evt);
@@ -77,26 +82,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4Instalaciones);
 
         jMenu5Masajista.setText("Masajista");
+
+        jMenuItem1.setText("Agregar masajista");
+        jMenu5Masajista.add(jMenuItem1);
+
+        jMenuItem2.setText("jMenuItem2");
+        jMenu5Masajista.add(jMenuItem2);
+
         jMenuBar1.add(jMenu5Masajista);
 
-        jMenu6Producto.setText("Producto");
-
-        jMenuItemProducto.setText("Producto");
-        jMenuItemProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemProductoActionPerformed(evt);
-            }
-        });
-        jMenu6Producto.add(jMenuItemProducto);
-
-        jMenuItemTratamiento.setText("Tratamiento");
-        jMenuItemTratamiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemTratamientoActionPerformed(evt);
-            }
-        });
-        jMenu6Producto.add(jMenuItemTratamiento);
-
+        jMenu6Producto.setText("Tratamiento");
         jMenuBar1.add(jMenu6Producto);
 
         setJMenuBar(jMenuBar1);
@@ -114,14 +109,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMenuItemTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTratamientoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemTratamientoActionPerformed
-
-    private void jMenuItemProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemProductoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemProductoActionPerformed
 
     private void jMenuItemSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSesionActionPerformed
         // TODO add your handling code here:
@@ -180,9 +167,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5Masajista;
     private javax.swing.JMenu jMenu6Producto;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemDiaDeSpa;
-    private javax.swing.JMenuItem jMenuItemProducto;
     private javax.swing.JMenuItem jMenuItemSesion;
-    private javax.swing.JMenuItem jMenuItemTratamiento;
     // End of variables declaration//GEN-END:variables
+  private void imagenFondo () {
+        jDesktopPane1 = new JDesktopPane() {
+            @Override
+            protected void paintComponent (Graphics g) {
+                super.paintComponent(g);
+                ImageIcon icon = new ImageIcon(getClass().
+                    getResource(
+                        "/img/SpaEntreDedos.png"));
+                g.
+                    drawImage(icon.getImage(), 0, 0, getWidth(), getHeight(),
+                        this);
+            }
+        };
+        this.setContentPane(jDesktopPane1);
+    }
 }

@@ -15,6 +15,10 @@ public class Masajista {
     public Masajista () {
     }
 
+    public Masajista (int matricula) {
+        this.matricula = matricula;
+    }
+
     public Masajista (String nombreYapellido, String telefono, String especialidad, String estado) {
         this.nombreYapellido = nombreYapellido;
         this.telefono = telefono;
