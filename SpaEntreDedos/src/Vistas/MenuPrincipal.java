@@ -40,6 +40,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         insertarYmodCliente = new javax.swing.JMenuItem();
         jMenu3Consultorio = new javax.swing.JMenu();
         jMenu4Instalaciones = new javax.swing.JMenu();
+        jMenuInstalacionesVer = new javax.swing.JMenuItem();
+        jMenuEditAdd = new javax.swing.JMenuItem();
         jMenu5Masajista = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -51,11 +53,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Escritorio.setLayout(EscritorioLayout);
         EscritorioLayout.setHorizontalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 419, Short.MAX_VALUE)
+            .addGap(0, 702, Short.MAX_VALUE)
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addGap(0, 472, Short.MAX_VALUE)
         );
 
         jMenu1Sesion.setText("Sesion");
@@ -89,6 +91,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3Consultorio);
 
         jMenu4Instalaciones.setText("Instalaciones");
+
+        jMenuInstalacionesVer.setText("Ver Instalaciones");
+        jMenuInstalacionesVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuInstalacionesVerActionPerformed(evt);
+            }
+        });
+        jMenu4Instalaciones.add(jMenuInstalacionesVer);
+
+        jMenuEditAdd.setText("Editar / Agregar");
+        jMenu4Instalaciones.add(jMenuEditAdd);
+
         jMenuBar1.add(jMenu4Instalaciones);
 
         jMenu5Masajista.setText("Masajista");
@@ -136,6 +150,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         int y = (Escritorio.getHeight() - insertModClient.getHeight()) / 2;
         insertModClient.setLocation(x, y);
     }//GEN-LAST:event_insertarYmodClienteActionPerformed
+
+    private void jMenuInstalacionesVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuInstalacionesVerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuInstalacionesVerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,6 +209,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6Producto;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCliente;
+    private javax.swing.JMenuItem jMenuEditAdd;
+    private javax.swing.JMenuItem jMenuInstalacionesVer;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemDiaDeSpa;
