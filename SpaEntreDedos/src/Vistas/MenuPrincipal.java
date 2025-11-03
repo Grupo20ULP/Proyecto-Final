@@ -31,12 +31,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        Escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1Sesion = new javax.swing.JMenu();
         jMenuItemDiaDeSpa = new javax.swing.JMenuItem();
         jMenuItemSesion = new javax.swing.JMenuItem();
-        jMenu2Cliente = new javax.swing.JMenu();
+        jMenuCliente = new javax.swing.JMenu();
+        insertarYmodCliente = new javax.swing.JMenuItem();
         jMenu3Consultorio = new javax.swing.JMenu();
         jMenu4Instalaciones = new javax.swing.JMenu();
         jMenu5Masajista = new javax.swing.JMenu();
@@ -46,14 +47,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
+        Escritorio.setLayout(EscritorioLayout);
+        EscritorioLayout.setHorizontalGroup(
+            EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 419, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        EscritorioLayout.setVerticalGroup(
+            EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 277, Short.MAX_VALUE)
         );
 
@@ -72,8 +73,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1Sesion);
 
-        jMenu2Cliente.setText("Cliente");
-        jMenuBar1.add(jMenu2Cliente);
+        jMenuCliente.setText("Cliente");
+
+        insertarYmodCliente.setText("Registro y Modificacion de Clientes");
+        insertarYmodCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertarYmodClienteActionPerformed(evt);
+            }
+        });
+        jMenuCliente.add(insertarYmodCliente);
+
+        jMenuBar1.add(jMenuCliente);
 
         jMenu3Consultorio.setText("Consultorio");
         jMenuBar1.add(jMenu3Consultorio);
@@ -100,11 +110,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(Escritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(Escritorio)
         );
 
         pack();
@@ -113,6 +123,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItemSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSesionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemSesionActionPerformed
+
+    private void insertarYmodClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarYmodClienteActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint(); 
+        Cliente insertModClient = new Cliente();
+        insertModClient.setVisible(true);
+        Escritorio.add(insertModClient);
+        Escritorio.moveToFront(insertModClient);
+        int x = (Escritorio.getWidth() - insertModClient.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - insertModClient.getHeight()) / 2;
+        insertModClient.setLocation(x, y);
+    }//GEN-LAST:event_insertarYmodClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,21 +182,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane Escritorio;
+    private javax.swing.JMenuItem insertarYmodCliente;
     private javax.swing.JMenu jMenu1Sesion;
-    private javax.swing.JMenu jMenu2Cliente;
     private javax.swing.JMenu jMenu3Consultorio;
     private javax.swing.JMenu jMenu4Instalaciones;
     private javax.swing.JMenu jMenu5Masajista;
     private javax.swing.JMenu jMenu6Producto;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCliente;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemDiaDeSpa;
     private javax.swing.JMenuItem jMenuItemSesion;
     // End of variables declaration//GEN-END:variables
   private void imagenFondo () {
-        jDesktopPane1 = new JDesktopPane() {
+        Escritorio = new JDesktopPane() {
             @Override
             protected void paintComponent (Graphics g) {
                 super.paintComponent(g);
@@ -185,6 +209,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         this);
             }
         };
-        this.setContentPane(jDesktopPane1);
+        this.setContentPane(Escritorio);
     }
 }
