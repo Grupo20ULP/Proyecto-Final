@@ -40,24 +40,29 @@ public class MenuPrincipal extends javax.swing.JFrame {
         insertarYmodCliente = new javax.swing.JMenuItem();
         jMenu3Consultorio = new javax.swing.JMenu();
         jMenu4Instalaciones = new javax.swing.JMenu();
-        jMenuInstalacionesVer = new javax.swing.JMenuItem();
-        jMenuEditAdd = new javax.swing.JMenuItem();
         jMenu5Masajista = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItemRegistroAlta = new javax.swing.JMenuItem();
+        jMenuItemModificarBuscar = new javax.swing.JMenuItem();
+        jMenuItemAltaBajaLogica = new javax.swing.JMenuItem();
+        jMenuItemListarConsultar = new javax.swing.JMenuItem();
         jMenu6Producto = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        Escritorio.setEnabled(false);
+        Escritorio.setMaximumSize(new java.awt.Dimension(1024, 1024));
+        Escritorio.setMinimumSize(new java.awt.Dimension(490, 490));
 
         javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
         Escritorio.setLayout(EscritorioLayout);
         EscritorioLayout.setHorizontalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 702, Short.MAX_VALUE)
+            .addGap(0, 788, Short.MAX_VALUE)
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
 
         jMenu1Sesion.setText("Sesion");
@@ -91,27 +96,41 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3Consultorio);
 
         jMenu4Instalaciones.setText("Instalaciones");
-
-        jMenuInstalacionesVer.setText("Ver Instalaciones");
-        jMenuInstalacionesVer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuInstalacionesVerActionPerformed(evt);
-            }
-        });
-        jMenu4Instalaciones.add(jMenuInstalacionesVer);
-
-        jMenuEditAdd.setText("Editar / Agregar");
-        jMenu4Instalaciones.add(jMenuEditAdd);
-
         jMenuBar1.add(jMenu4Instalaciones);
 
-        jMenu5Masajista.setText("Masajista");
+        jMenu5Masajista.setText("Gestion de Masajista");
 
-        jMenuItem1.setText("Agregar masajista");
-        jMenu5Masajista.add(jMenuItem1);
+        jMenuItemRegistroAlta.setText("Registro / Alta");
+        jMenuItemRegistroAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistroAltaActionPerformed(evt);
+            }
+        });
+        jMenu5Masajista.add(jMenuItemRegistroAlta);
 
-        jMenuItem2.setText("jMenuItem2");
-        jMenu5Masajista.add(jMenuItem2);
+        jMenuItemModificarBuscar.setText("Modificar / Buscar");
+        jMenuItemModificarBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemModificarBuscarActionPerformed(evt);
+            }
+        });
+        jMenu5Masajista.add(jMenuItemModificarBuscar);
+
+        jMenuItemAltaBajaLogica.setText("Alta / Baja logica");
+        jMenuItemAltaBajaLogica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAltaBajaLogicaActionPerformed(evt);
+            }
+        });
+        jMenu5Masajista.add(jMenuItemAltaBajaLogica);
+
+        jMenuItemListarConsultar.setText("Listar / Consultar");
+        jMenuItemListarConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemListarConsultarActionPerformed(evt);
+            }
+        });
+        jMenu5Masajista.add(jMenuItemListarConsultar);
 
         jMenuBar1.add(jMenu5Masajista);
 
@@ -124,14 +143,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Escritorio)
+            .addComponent(Escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Escritorio)
+            .addComponent(Escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSesionActionPerformed
@@ -141,7 +161,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void insertarYmodClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarYmodClienteActionPerformed
         // TODO add your handling code here:
         Escritorio.removeAll();
-        Escritorio.repaint(); 
+        Escritorio.repaint();
         Cliente insertModClient = new Cliente();
         insertModClient.setVisible(true);
         Escritorio.add(insertModClient);
@@ -154,6 +174,58 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuInstalacionesVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuInstalacionesVerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuInstalacionesVerActionPerformed
+
+    private void jMenuItemRegistroAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistroAltaActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        MasajistaRegistroAlta am = new MasajistaRegistroAlta();
+        am.setVisible(true);
+        Escritorio.add(am);
+        Escritorio.moveToFront(am);
+        // con esto van a centrar la ventana que crearon
+        int x = (Escritorio.getWidth() - am.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - am.getHeight()) / 2;
+        am.setLocation(x, y);
+    }//GEN-LAST:event_jMenuItemRegistroAltaActionPerformed
+
+    private void jMenuItemModificarBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModificarBuscarActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        MasajistaModificarBuscar am = new MasajistaModificarBuscar();
+        am.setVisible(true);
+        Escritorio.add(am);
+        Escritorio.moveToFront(am);
+        // con esto van a centrar la ventana que crearon
+        int x = (Escritorio.getWidth() - am.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - am.getHeight()) / 2;
+        am.setLocation(x, y);
+    }//GEN-LAST:event_jMenuItemModificarBuscarActionPerformed
+
+    private void jMenuItemAltaBajaLogicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAltaBajaLogicaActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        MasajistaAltaBajaLogica am = new MasajistaAltaBajaLogica();
+        am.setVisible(true);
+        Escritorio.add(am);
+        Escritorio.moveToFront(am);
+        // con esto van a centrar la ventana que crearon
+        int x = (Escritorio.getWidth() - am.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - am.getHeight()) / 2;
+        am.setLocation(x, y);
+    }//GEN-LAST:event_jMenuItemAltaBajaLogicaActionPerformed
+
+    private void jMenuItemListarConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListarConsultarActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        MasajistaListarConsultar am = new MasajistaListarConsultar();
+        am.setVisible(true);
+        Escritorio.add(am);
+        Escritorio.moveToFront(am);
+        // con esto van a centrar la ventana que crearon
+        int x = (Escritorio.getWidth() - am.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - am.getHeight()) / 2;
+        am.setLocation(x, y);
+    }//GEN-LAST:event_jMenuItemListarConsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,11 +281,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6Producto;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCliente;
-    private javax.swing.JMenuItem jMenuEditAdd;
-    private javax.swing.JMenuItem jMenuInstalacionesVer;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemAltaBajaLogica;
     private javax.swing.JMenuItem jMenuItemDiaDeSpa;
+    private javax.swing.JMenuItem jMenuItemListarConsultar;
+    private javax.swing.JMenuItem jMenuItemModificarBuscar;
+    private javax.swing.JMenuItem jMenuItemRegistroAlta;
     private javax.swing.JMenuItem jMenuItemSesion;
     // End of variables declaration//GEN-END:variables
   private void imagenFondo () {
