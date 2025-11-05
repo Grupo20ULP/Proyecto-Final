@@ -126,7 +126,6 @@ public class MasajistaListarConsultar extends javax.swing.JInternalFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
