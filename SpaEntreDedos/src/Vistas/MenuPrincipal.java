@@ -31,6 +31,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuBar3 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuBar4 = new javax.swing.JMenuBar();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
         Escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1Sesion = new javax.swing.JMenu();
@@ -46,6 +55,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItemAltaBajaLogica = new javax.swing.JMenuItem();
         jMenuItemListarConsultar = new javax.swing.JMenuItem();
         jMenu6Producto = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+
+        jMenu1.setText("File");
+        jMenuBar2.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar2.add(jMenu2);
+
+        jMenu3.setText("File");
+        jMenuBar3.add(jMenu3);
+
+        jMenu4.setText("Edit");
+        jMenuBar3.add(jMenu4);
+
+        jMenu5.setText("File");
+        jMenuBar4.add(jMenu5);
+
+        jMenu6.setText("Edit");
+        jMenuBar4.add(jMenu6);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -135,6 +166,44 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu5Masajista);
 
         jMenu6Producto.setText("Tratamiento");
+        jMenu6Producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu6ProductoActionPerformed(evt);
+            }
+        });
+
+        jMenuItem1.setText("Registro/Alta");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu6Producto.add(jMenuItem1);
+
+        jMenuItem2.setText("Modificar / Buscar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu6Producto.add(jMenuItem2);
+
+        jMenuItem3.setText("Alta / Baja logica");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu6Producto.add(jMenuItem3);
+
+        jMenuItem4.setText("Listar / Consultar");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu6Producto.add(jMenuItem4);
+
         jMenuBar1.add(jMenu6Producto);
 
         setJMenuBar(jMenuBar1);
@@ -227,6 +296,62 @@ public class MenuPrincipal extends javax.swing.JFrame {
         am.setLocation(x, y);
     }//GEN-LAST:event_jMenuItemListarConsultarActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        TratamientoRegistroAlta am = new TratamientoRegistroAlta();
+        am.setVisible(true);
+        Escritorio.add(am);
+        Escritorio.moveToFront(am);
+        // con esto van a centrar la ventana que crearon
+        int x = (Escritorio.getWidth() - am.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - am.getHeight()) / 2;
+        am.setLocation(x, y);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenu6ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu6ProductoActionPerformed
+
+    }//GEN-LAST:event_jMenu6ProductoActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        TratamientoModificarBuscar am = new TratamientoModificarBuscar();
+        am.setVisible(true);
+        Escritorio.add(am);
+        Escritorio.moveToFront(am);
+        // con esto van a centrar la ventana que crearon
+        int x = (Escritorio.getWidth() - am.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - am.getHeight()) / 2;
+        am.setLocation(x, y);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        TratamientoAltaBajaLogica am = new TratamientoAltaBajaLogica();
+        am.setVisible(true);
+        Escritorio.add(am);
+        Escritorio.moveToFront(am);
+        // con esto van a centrar la ventana que crearon
+        int x = (Escritorio.getWidth() - am.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - am.getHeight()) / 2;
+        am.setLocation(x, y);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        TratamientoListarConsultar am = new TratamientoListarConsultar();
+        am.setVisible(true);
+        Escritorio.add(am);
+        Escritorio.moveToFront(am);
+        // con esto van a centrar la ventana que crearon
+        int x = (Escritorio.getWidth() - am.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - am.getHeight()) / 2;
+        am.setLocation(x, y);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -274,13 +399,26 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JMenuItem insertarYmodCliente;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu1Sesion;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu3Consultorio;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu4Instalaciones;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu5Masajista;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu6Producto;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JMenuBar jMenuBar4;
     private javax.swing.JMenu jMenuCliente;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItemAltaBajaLogica;
     private javax.swing.JMenuItem jMenuItemDiaDeSpa;
     private javax.swing.JMenuItem jMenuItemListarConsultar;
