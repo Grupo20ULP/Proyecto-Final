@@ -60,7 +60,7 @@ public class Consultorio {
         this.apto = apto;
     }
    
-    // --- Métodos Utiles ---
+    // --- Metodos Utiles ---
     @Override
     public String toString() {
         return "Consultorio Nº " + nroConsultorio + " (" + usos + ")";
