@@ -9,7 +9,7 @@ public class Consultorio {
     // --- Atributos ---
     private int nroConsultorio;
     private String usos;          // facial, corporal, relajacion o estetico
-    private String equipamiento;  // descripción del equipamiento disponible
+    private String equipamiento;  // descripcion del equipamiento disponible
     private String apto;          // "si" o "no"
     
     
@@ -19,7 +19,7 @@ public class Consultorio {
     public Consultorio() {
     }
 
-    // Constructor con todos los campos (útil para crear objetos directamente)
+    // Constructor con todos los campos (para crear objetos directamente)
     public Consultorio(int nroConsultorio, String usos, String equipamiento, String apto) {
         this.nroConsultorio = nroConsultorio;
         this.usos = usos;
