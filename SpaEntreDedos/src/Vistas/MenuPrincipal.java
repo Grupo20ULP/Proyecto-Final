@@ -384,14 +384,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         am.setLocation(x, y);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-<<<<<<< HEAD
     private void btnConsultorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultorioMouseClicked
         // TODO add your handling code here:
         VistaConsultorio vc = new VistaConsultorio();
         Escritorio.add(vc);
         vc.setVisible(true);
     }//GEN-LAST:event_btnConsultorioMouseClicked
-=======
+
     private void jMenuItemDiaDeSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDiaDeSpaActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
@@ -423,7 +422,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Insta.setLocation(x, y);
         
     }//GEN-LAST:event_JmenuInstalacionesActionPerformed
->>>>>>> 30c22becfdb8649d2480b9e150007fe2cc3b51bc
+
 
     /**
      * @param args the command line arguments
