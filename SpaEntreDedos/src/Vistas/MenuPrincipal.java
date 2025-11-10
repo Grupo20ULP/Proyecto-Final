@@ -17,7 +17,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal () {
+    public MenuPrincipal() {
         initComponents();
         imagenFondo();
     }
@@ -49,6 +49,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         insertarYmodCliente = new javax.swing.JMenuItem();
         btnConsultorio = new javax.swing.JMenu();
         jMenu4Instalaciones = new javax.swing.JMenu();
+        JmenuInstalaciones = new javax.swing.JMenuItem();
         jMenu5Masajista = new javax.swing.JMenu();
         jMenuItemRegistroAlta = new javax.swing.JMenuItem();
         jMenuItemModificarBuscar = new javax.swing.JMenuItem();
@@ -89,16 +90,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Escritorio.setLayout(EscritorioLayout);
         EscritorioLayout.setHorizontalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 788, Short.MAX_VALUE)
+            .addGap(0, 1137, Short.MAX_VALUE)
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
             .addGap(0, 531, Short.MAX_VALUE)
+=======
+            .addGap(0, 559, Short.MAX_VALUE)
+>>>>>>> 30c22becfdb8649d2480b9e150007fe2cc3b51bc
         );
 
         jMenu1Sesion.setText("Sesion");
 
         jMenuItemDiaDeSpa.setText("Dia de Spa");
+        jMenuItemDiaDeSpa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDiaDeSpaActionPerformed(evt);
+            }
+        });
         jMenu1Sesion.add(jMenuItemDiaDeSpa);
 
         jMenuItemSesion.setText("Buscar ");
@@ -132,6 +142,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(btnConsultorio);
 
         jMenu4Instalaciones.setText("Instalaciones");
+
+        JmenuInstalaciones.setText("Instalaciones");
+        JmenuInstalaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JmenuInstalacionesActionPerformed(evt);
+            }
+        });
+        jMenu4Instalaciones.add(JmenuInstalaciones);
+
         jMenuBar1.add(jMenu4Instalaciones);
 
         jMenu5Masajista.setText("Gestion de Masajista");
@@ -229,7 +248,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSesionActionPerformed
-        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        Dia_de_Spa insertModClient = new Dia_de_Spa();
+        insertModClient.setVisible(true);
+        Escritorio.add(insertModClient);
+        Escritorio.moveToFront(insertModClient);
+        int x = (Escritorio.getWidth() - insertModClient.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - insertModClient.getHeight()) / 2;
+        insertModClient.setLocation(x, y);
     }//GEN-LAST:event_jMenuItemSesionActionPerformed
 
     private void insertarYmodClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarYmodClienteActionPerformed
@@ -357,17 +384,51 @@ public class MenuPrincipal extends javax.swing.JFrame {
         am.setLocation(x, y);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+<<<<<<< HEAD
     private void btnConsultorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultorioMouseClicked
         // TODO add your handling code here:
         VistaConsultorio vc = new VistaConsultorio();
         Escritorio.add(vc);
         vc.setVisible(true);
     }//GEN-LAST:event_btnConsultorioMouseClicked
+=======
+    private void jMenuItemDiaDeSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDiaDeSpaActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+
+        Dia_de_Spa vistaSpa = new Dia_de_Spa();
+        vistaSpa.setVisible(true);
+        Escritorio.add(vistaSpa);
+        Escritorio.moveToFront(vistaSpa);
+
+        // Centrar la vista dentro del escritorio
+        int x = (Escritorio.getWidth() - vistaSpa.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - vistaSpa.getHeight()) / 2;
+        vistaSpa.setLocation(x, y);
+    }//GEN-LAST:event_jMenuItemDiaDeSpaActionPerformed
+
+    private void JmenuInstalacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmenuInstalacionesActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+
+        Instalacion Insta = new Instalacion();
+        Insta.setVisible(true);
+        Escritorio.add(Insta);
+        Escritorio.moveToFront(Insta);
+
+        // Centrar la vista dentro del escritorio
+        int x = (Escritorio.getWidth() - Insta.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - Insta.getHeight()) / 2;
+        Insta.setLocation(x, y);
+        
+    }//GEN-LAST:event_JmenuInstalacionesActionPerformed
+>>>>>>> 30c22becfdb8649d2480b9e150007fe2cc3b51bc
 
     /**
      * @param args the command line arguments
      */
-    public static void main (String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -375,34 +436,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.
-                getInstalledLookAndFeels()) {
+                    getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        }
-        catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).
-                log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex) {
+                    log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).
-                log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex) {
+                    log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).
-                log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex) {
+                    log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).
-                log(java.util.logging.Level.SEVERE, null, ex);
+                    log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run () {
+            public void run() {
                 new MenuPrincipal().setVisible(true);
             }
         });
@@ -410,7 +467,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
+<<<<<<< HEAD
     private javax.swing.JMenu btnConsultorio;
+=======
+    private javax.swing.JMenuItem JmenuInstalaciones;
+>>>>>>> 30c22becfdb8649d2480b9e150007fe2cc3b51bc
     private javax.swing.JMenuItem insertarYmodCliente;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu1Sesion;
@@ -438,17 +499,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemRegistroAlta;
     private javax.swing.JMenuItem jMenuItemSesion;
     // End of variables declaration//GEN-END:variables
-  private void imagenFondo () {
+  private void imagenFondo() {
         Escritorio = new JDesktopPane() {
             @Override
-            protected void paintComponent (Graphics g) {
+            protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 ImageIcon icon = new ImageIcon(getClass().
-                    getResource(
-                        "/img/SpaEntreDedos.png"));
+                        getResource(
+                                "/img/SpaEntreDedos.png"));
                 g.
-                    drawImage(icon.getImage(), 0, 0, getWidth(), getHeight(),
-                        this);
+                        drawImage(icon.getImage(), 0, 0, getWidth(), getHeight(),
+                                this);
             }
         };
         this.setContentPane(Escritorio);
