@@ -94,11 +94,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
+
             .addGap(0, 531, Short.MAX_VALUE)
-=======
             .addGap(0, 559, Short.MAX_VALUE)
->>>>>>> 30c22becfdb8649d2480b9e150007fe2cc3b51bc
         );
 
         jMenu1Sesion.setText("Sesion");
