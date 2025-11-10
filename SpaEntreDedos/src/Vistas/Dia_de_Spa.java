@@ -112,7 +112,7 @@ public class Dia_de_Spa extends javax.swing.JInternalFrame {
         getContentPane().add(jTextFieldHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 76, -1));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, 76, -1));
 
         jTextFieldMontoTOtal.setText("Noeditable");
         getContentPane().add(jTextFieldMontoTOtal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
