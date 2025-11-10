@@ -49,6 +49,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         insertarYmodCliente = new javax.swing.JMenuItem();
         jMenu3Consultorio = new javax.swing.JMenu();
         jMenu4Instalaciones = new javax.swing.JMenu();
+        JmenuInstalaciones = new javax.swing.JMenuItem();
         jMenu5Masajista = new javax.swing.JMenu();
         jMenuItemRegistroAlta = new javax.swing.JMenuItem();
         jMenuItemModificarBuscar = new javax.swing.JMenuItem();
@@ -89,11 +90,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Escritorio.setLayout(EscritorioLayout);
         EscritorioLayout.setHorizontalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 788, Short.MAX_VALUE)
+            .addGap(0, 1137, Short.MAX_VALUE)
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 559, Short.MAX_VALUE)
         );
 
         jMenu1Sesion.setText("Sesion");
@@ -132,6 +133,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3Consultorio);
 
         jMenu4Instalaciones.setText("Instalaciones");
+
+        JmenuInstalaciones.setText("Instalaciones");
+        JmenuInstalaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JmenuInstalacionesActionPerformed(evt);
+            }
+        });
+        jMenu4Instalaciones.add(JmenuInstalaciones);
+
         jMenuBar1.add(jMenu4Instalaciones);
 
         jMenu5Masajista.setText("Gestion de Masajista");
@@ -380,6 +390,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         vistaSpa.setLocation(x, y);
     }//GEN-LAST:event_jMenuItemDiaDeSpaActionPerformed
 
+    private void JmenuInstalacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmenuInstalacionesActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+
+        Instalacion Insta = new Instalacion();
+        Insta.setVisible(true);
+        Escritorio.add(Insta);
+        Escritorio.moveToFront(Insta);
+
+        // Centrar la vista dentro del escritorio
+        int x = (Escritorio.getWidth() - Insta.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - Insta.getHeight()) / 2;
+        Insta.setLocation(x, y);
+        
+    }//GEN-LAST:event_JmenuInstalacionesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -422,6 +449,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
+    private javax.swing.JMenuItem JmenuInstalaciones;
     private javax.swing.JMenuItem insertarYmodCliente;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu1Sesion;

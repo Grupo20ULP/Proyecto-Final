@@ -4,6 +4,9 @@
  */
 package Vistas;
 
+import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Heber Gomez PC
@@ -15,8 +18,27 @@ public class Instalacion extends javax.swing.JInternalFrame {
      */
     public Instalacion () {
         initComponents();
+        content.setLayout(new java.awt.BorderLayout());
+        initContent();
     }
-
+    private void initContent(){
+    try {
+        ListaInstalaciones list = new ListaInstalaciones();
+        list.setVisible(true);
+        
+        // Limpiar y agregar el internal frame
+        content.removeAll();
+        content.add(list, BorderLayout.CENTER);
+        
+        // Forzar la actualización
+        content.revalidate();
+        content.repaint();
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al cargar lista de instalaciones: " + e.getMessage());
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +48,81 @@ public class Instalacion extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        background = new javax.swing.JPanel();
+        Menu = new javax.swing.JPanel();
+        content = new javax.swing.JPanel();
+
+        background.setBackground(new java.awt.Color(104, 65, 0));
+
+        Menu.setBackground(new java.awt.Color(67, 54, 0));
+
+        javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
+        Menu.setLayout(MenuLayout);
+        MenuLayout.setHorizontalGroup(
+            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 199, Short.MAX_VALUE)
+        );
+        MenuLayout.setVerticalGroup(
+            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
+        content.setLayout(contentLayout);
+        contentLayout.setHorizontalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 618, Short.MAX_VALUE)
+        );
+        contentLayout.setVerticalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 428, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
+        background.setLayout(backgroundLayout);
+        backgroundLayout.setHorizontalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgroundLayout.createSequentialGroup()
+                .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        backgroundLayout.setVerticalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(backgroundLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        initContent();
+    }//GEN-LAST:event_jButton1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Menu;
+    private javax.swing.JPanel background;
+    private javax.swing.JPanel content;
     // End of variables declaration//GEN-END:variables
 }
