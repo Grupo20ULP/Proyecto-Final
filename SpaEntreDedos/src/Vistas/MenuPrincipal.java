@@ -17,7 +17,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal () {
+    public MenuPrincipal() {
         initComponents();
         imagenFondo();
     }
@@ -99,6 +99,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu1Sesion.setText("Sesion");
 
         jMenuItemDiaDeSpa.setText("Dia de Spa");
+        jMenuItemDiaDeSpa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDiaDeSpaActionPerformed(evt);
+            }
+        });
         jMenu1Sesion.add(jMenuItemDiaDeSpa);
 
         jMenuItemSesion.setText("Buscar ");
@@ -224,7 +229,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSesionActionPerformed
-        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        Dia_de_Spa insertModClient = new Dia_de_Spa();
+        insertModClient.setVisible(true);
+        Escritorio.add(insertModClient);
+        Escritorio.moveToFront(insertModClient);
+        int x = (Escritorio.getWidth() - insertModClient.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - insertModClient.getHeight()) / 2;
+        insertModClient.setLocation(x, y);
     }//GEN-LAST:event_jMenuItemSesionActionPerformed
 
     private void insertarYmodClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarYmodClienteActionPerformed
@@ -352,10 +365,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
         am.setLocation(x, y);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jMenuItemDiaDeSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDiaDeSpaActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+
+        Dia_de_Spa vistaSpa = new Dia_de_Spa();
+        vistaSpa.setVisible(true);
+        Escritorio.add(vistaSpa);
+        Escritorio.moveToFront(vistaSpa);
+
+        // Centrar la vista dentro del escritorio
+        int x = (Escritorio.getWidth() - vistaSpa.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - vistaSpa.getHeight()) / 2;
+        vistaSpa.setLocation(x, y);
+    }//GEN-LAST:event_jMenuItemDiaDeSpaActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main (String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -363,34 +391,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.
-                getInstalledLookAndFeels()) {
+                    getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        }
-        catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).
-                log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (InstantiationException ex) {
+                    log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).
-                log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (IllegalAccessException ex) {
+                    log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).
-                log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex) {
+                    log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).
-                log(java.util.logging.Level.SEVERE, null, ex);
+                    log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run () {
+            public void run() {
                 new MenuPrincipal().setVisible(true);
             }
         });
@@ -426,17 +450,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemRegistroAlta;
     private javax.swing.JMenuItem jMenuItemSesion;
     // End of variables declaration//GEN-END:variables
-  private void imagenFondo () {
+  private void imagenFondo() {
         Escritorio = new JDesktopPane() {
             @Override
-            protected void paintComponent (Graphics g) {
+            protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 ImageIcon icon = new ImageIcon(getClass().
-                    getResource(
-                        "/img/SpaEntreDedos.png"));
+                        getResource(
+                                "/img/SpaEntreDedos.png"));
                 g.
-                    drawImage(icon.getImage(), 0, 0, getWidth(), getHeight(),
-                        this);
+                        drawImage(icon.getImage(), 0, 0, getWidth(), getHeight(),
+                                this);
             }
         };
         this.setContentPane(Escritorio);
