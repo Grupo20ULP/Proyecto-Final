@@ -47,7 +47,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItemSesion = new javax.swing.JMenuItem();
         jMenuCliente = new javax.swing.JMenu();
         insertarYmodCliente = new javax.swing.JMenuItem();
-        jMenu3Consultorio = new javax.swing.JMenu();
+        btnConsultorio = new javax.swing.JMenu();
         jMenu4Instalaciones = new javax.swing.JMenu();
         jMenu5Masajista = new javax.swing.JMenu();
         jMenuItemRegistroAlta = new javax.swing.JMenuItem();
@@ -93,7 +93,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 531, Short.MAX_VALUE)
         );
 
         jMenu1Sesion.setText("Sesion");
@@ -123,8 +123,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuCliente);
 
-        jMenu3Consultorio.setText("Consultorio");
-        jMenuBar1.add(jMenu3Consultorio);
+        btnConsultorio.setText("Consultorio");
+        btnConsultorio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConsultorioMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(btnConsultorio);
 
         jMenu4Instalaciones.setText("Instalaciones");
         jMenuBar1.add(jMenu4Instalaciones);
@@ -352,6 +357,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         am.setLocation(x, y);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void btnConsultorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultorioMouseClicked
+        // TODO add your handling code here:
+        VistaConsultorio vc = new VistaConsultorio();
+        Escritorio.add(vc);
+        vc.setVisible(true);
+    }//GEN-LAST:event_btnConsultorioMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -398,12 +410,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
+    private javax.swing.JMenu btnConsultorio;
     private javax.swing.JMenuItem insertarYmodCliente;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu1Sesion;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu3Consultorio;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu4Instalaciones;
     private javax.swing.JMenu jMenu5;
