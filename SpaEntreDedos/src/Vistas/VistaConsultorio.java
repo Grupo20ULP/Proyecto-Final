@@ -327,7 +327,7 @@ private void pasarFilaAFormulario() {
         try {
         Consultorio c = leerFormulario();
         if (c.getUsos()==null || c.getApto()==null) {
-            JOptionPane.showMessageDialog(this, "Completá Usos y Apto.");
+            JOptionPane.showMessageDialog(this, "Completa Usos y Apto.");
             return;
         }
         consultorioData.guardarConsultorio(c);
@@ -343,7 +343,7 @@ private void pasarFilaAFormulario() {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
         if (txtNro.getText().isBlank()) {
-        JOptionPane.showMessageDialog(this, "Seleccioná un registro de la tabla.");
+        JOptionPane.showMessageDialog(this, "Selecciona un registro de la tabla.");
         return;
     }
     Consultorio c = leerFormulario();
@@ -354,12 +354,12 @@ private void pasarFilaAFormulario() {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         if (txtNro.getText().isBlank()) {
-        JOptionPane.showMessageDialog(this, "Seleccioná un registro.");
+        JOptionPane.showMessageDialog(this, "Selecciona un registro.");
         return;
     }
     int nro = Integer.parseInt(txtNro.getText());
     int ok = JOptionPane.showConfirmDialog(this,
-        "¿Eliminar consultorio Nº " + nro + "?", "Confirmación",
+        "¿Eliminar consultorio Nº " + nro + "?", "Confirmacion",
         JOptionPane.YES_NO_OPTION);
     if (ok == JOptionPane.YES_OPTION) {
         consultorioData.eliminarConsultorio(nro);
