@@ -24,7 +24,8 @@ private DefaultTableModel modelo;
     public VistaConsultorio () {
         initComponents();
         
-        ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/img/lupa.png"));
+//IMAGEN Y ESCALA DE IMAGEN LUPA         
+ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/img/lupa.png"));
 Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 btnBuscar.setIcon(new ImageIcon(imagenEscalada));
 
