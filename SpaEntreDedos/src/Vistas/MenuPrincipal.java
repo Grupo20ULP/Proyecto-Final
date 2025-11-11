@@ -241,7 +241,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItemSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSesionActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        Dia_de_Spa insertModClient = new Dia_de_Spa();
+        Dia_De_Spa insertModClient = new Dia_De_Spa();
         insertModClient.setVisible(true);
         Escritorio.add(insertModClient);
         Escritorio.moveToFront(insertModClient);
@@ -379,7 +379,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Escritorio.removeAll();
         Escritorio.repaint();
 
-        Dia_de_Spa vistaSpa = new Dia_de_Spa();
+        Dia_De_Spa vistaSpa = new Dia_De_Spa();
         vistaSpa.setVisible(true);
         Escritorio.add(vistaSpa);
         Escritorio.moveToFront(vistaSpa);
