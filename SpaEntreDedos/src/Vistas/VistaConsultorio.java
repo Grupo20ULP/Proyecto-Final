@@ -28,13 +28,13 @@ private DefaultTableModel modelo;
 Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 btnBuscar.setIcon(new ImageIcon(imagenEscalada));
 
-// Ruta: la imagen debe estar en src/img/...
+// IMAGEN SPA
 ImageIcon ico = new ImageIcon(getClass().getResource("/img/spa.png"));
-// ajustá el tamaño a gusto
+// TAMAÑO
 int w = 48, h = 48;
 Image img = ico.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH);
 lblLogo.setIcon(new ImageIcon(img));
-lblLogo.setText(null); // por si acaso
+lblLogo.setText(null);
 
         setClosable(true);
 setIconifiable(true);
