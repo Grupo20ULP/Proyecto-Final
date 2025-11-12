@@ -26,12 +26,21 @@ public class MasajistaListarConsultar extends javax.swing.JInternalFrame {
         initComponents();
         imagenFondo();
         visualfondo();
-        modelo = (DefaultTableModel) jTable1.getModel();
         cargarEspecialidades();
+        armarCabeceraTabla();
         mostrarTodos();
     }
     private MasajistaData md = new MasajistaData();
-    private DefaultTableModel modelo;
+    private DefaultTableModel modelo = new DefaultTableModel();
+
+    private void armarCabeceraTabla () {
+        modelo.addColumn("Matricula");
+        modelo.addColumn("Nombre y Apellido");
+        modelo.addColumn("Telefono");
+        modelo.addColumn("Especialidad");
+        modelo.addColumn("Estado");
+        jTable1.setModel(modelo);
+    }
 
     private void cargarTabla (java.util.List<Masajista> lista) {
         limpiarTabla();
@@ -62,29 +71,6 @@ public class MasajistaListarConsultar extends javax.swing.JInternalFrame {
         cargarTabla(lista);
     }
 
-//        private void cargarTablaAlumnos () {
-////      limpiamos la tabla antes de cargar los datos        
-//        modelo.setRowCount(0);
-//        Materia materiaSeleccionada = (Materia) jComboBoxFiltrarMateria.
-//            getSelectedItem();
-////      if donde decimos que si no hay una materia seleccionada no hacemos nada        
-//        if (materiaSeleccionada == null) {
-//            return;
-//        }
-////      buscar los alumnos (List<Alumno>) de la materia seleccionada usar metodo (cursadaData.obtenerAlumnosPorMateria)       
-//        List<Alumno> alumnos = cursadaData.obtenerAlumnosPorMateria(
-//            materiaSeleccionada.getIdMateria());
-////      recorremos la lista de alumnos        
-//        for (Alumno a : alumnos) {
-////          por cada alumno agregamos una fila a la tabla con su informacion            
-//            modelo.addRow(new Object[]{
-//                a.getIdAlumno(),
-//                a.getDni(),
-//                a.getApellido(),
-//                a.getNombre()
-//            });
-//        }
-//    }
     private void limpiarTabla () {
         modelo.setRowCount(0);
     }
@@ -280,7 +266,7 @@ public class MasajistaListarConsultar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBoxEspecialidadActionPerformed
 
     private void jButtonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtrasActionPerformed
-    this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
