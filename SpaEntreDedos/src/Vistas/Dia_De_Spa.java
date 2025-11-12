@@ -6,14 +6,14 @@ package Vistas;
 
 /**
  *
- * @author Heber Gomez PC
+ * @author Juan
  */
-public class Consultorio extends javax.swing.JInternalFrame {
+public class Dia_De_Spa extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form Consultorio
+     * Creates new form Dia_De_Spa
      */
-    public Consultorio () {
+    public Dia_De_Spa() {
         initComponents();
     }
 
