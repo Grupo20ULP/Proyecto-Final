@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Heber Gomez PC
+ * @author Federico Galan
  */
 public class Instalacion extends javax.swing.JInternalFrame {
 
