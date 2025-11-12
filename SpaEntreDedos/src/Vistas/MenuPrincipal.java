@@ -50,6 +50,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         insertarYmodCliente = new javax.swing.JMenuItem();
         btnConsultorio = new javax.swing.JMenu();
         jMenu4Instalaciones = new javax.swing.JMenu();
+        jMenuBtn = new javax.swing.JMenuItem();
         jMenu5Masajista = new javax.swing.JMenu();
         jMenuItemRegistroAlta = new javax.swing.JMenuItem();
         jMenuItemModificarBuscar = new javax.swing.JMenuItem();
@@ -131,6 +132,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(btnConsultorio);
 
         jMenu4Instalaciones.setText("Instalaciones");
+
+
+        jMenuBtn.setText("Instalaciones");
+        jMenuBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuBtnActionPerformed(evt);
+            }
+        });
+        jMenu4Instalaciones.add(jMenuBtn);
+
         jMenuBar1.add(jMenu4Instalaciones);
 
         jMenu5Masajista.setText("Gestion de Masajista");
@@ -210,6 +221,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuBtnActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        Instalacion instalacion = new Instalacion();
+        instalacion.setVisible(true);
+        Escritorio.add(instalacion);
+        Escritorio.moveToFront(instalacion);
+        int x = (Escritorio.getWidth() - instalacion.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - instalacion.getHeight()) / 2;
+        instalacion.setLocation(x, y);
+    }//GEN-LAST:event_jMenuBtnActionPerformed
 
     private void jMenuItemSesionActionPerformed (java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemSesionActionPerformed
         Escritorio.removeAll();
@@ -425,6 +448,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuBar jMenuBar4;
+    private javax.swing.JMenuItem jMenuBtn;
     private javax.swing.JMenu jMenuCliente;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
