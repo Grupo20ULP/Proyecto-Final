@@ -27,30 +27,30 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTTablaSesiones = new javax.swing.JTable();
-        jLFecha = new javax.swing.JLabel();
-        jTFFecha = new javax.swing.JTextField();
-        jLCP = new javax.swing.JLabel();
-        jTFCodPack = new javax.swing.JTextField();
-        jBtnBuscar = new javax.swing.JButton();
-        jLCliente = new javax.swing.JLabel();
-        jCBCliente = new javax.swing.JComboBox<>();
-        jLPrefe = new javax.swing.JLabel();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaPrefe = new javax.swing.JTextArea();
-        jLTotal = new javax.swing.JLabel();
-        jTFMontoT = new javax.swing.JTextField();
-        jBtnNuevoDia = new javax.swing.JButton();
-        jBtnGuardarDia = new javax.swing.JButton();
-        jBtnEliminarDIa = new javax.swing.JButton();
-        jBtnListarTodo = new javax.swing.JButton();
-        jBtnVerSesion = new javax.swing.JButton();
-        jBtnModTabla = new javax.swing.JButton();
-        jLTitulo = new javax.swing.JLabel();
-        jLSubTitulo = new javax.swing.JLabel();
-        jBtnEliminarSesion = new javax.swing.JButton();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
 
-        jTTablaSesiones.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -59,56 +59,56 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Hora Ini", "Hora Fin", "Masajista", "Consul.", "Tratam.", "Insta."
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
-        jScrollPane1.setViewportView(jTTablaSesiones);
+        jScrollPane1.setViewportView(jTable1);
 
-        jLFecha.setText("Fecha:");
+        jLabel1.setText("Fecha:");
 
-        jTFFecha.setText("jTextField1");
+        jTextField1.setText("jTextField1");
 
-        jLCP.setText("CodPack:");
+        jLabel2.setText("CodPack:");
 
-        jTFCodPack.setText("jTextField2");
+        jTextField2.setText("jTextField2");
 
-        jBtnBuscar.setText("Buscar");
+        jButton1.setText("Buscar");
 
-        jLCliente.setText("Cliente:");
+        jLabel3.setText("Cliente:");
 
-        jCBCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLPrefe.setText("Preferencias:");
+        jLabel4.setText("Preferencias:");
 
-        jTextAreaPrefe.setColumns(20);
-        jTextAreaPrefe.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaPrefe);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
 
-        jLTotal.setText("Monto Total:");
+        jLabel5.setText("Monto Total:");
 
-        jTFMontoT.setText("jTextField3");
+        jTextField3.setText("jTextField3");
 
-        jBtnNuevoDia.setText("Nuevo Día Spa");
+        jButton2.setText("Nuevo Día Spa");
 
-        jBtnGuardarDia.setText("Guardar");
+        jButton3.setText("Guardar");
 
-        jBtnEliminarDIa.setText("Eliminar");
+        jButton4.setText("Eliminar");
 
-        jBtnListarTodo.setText("Listar Todos");
+        jButton5.setText("Listar Todos");
 
-        jBtnVerSesion.setText("Ver Sesión");
+        jButton6.setText("Ver Sesión");
 
-        jBtnModTabla.setText("Modificar Tabla");
+        jButton7.setText("Modificar Tabla");
 
-        jLTitulo.setFont(new java.awt.Font("Gadugi", 1, 18)); // NOI18N
-        jLTitulo.setForeground(new java.awt.Color(0, 0, 0));
-        jLTitulo.setText("Gestión dia de Spa");
+        jLabel6.setFont(new java.awt.Font("Gadugi", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Gestión dia de Spa");
 
-        jLSubTitulo.setFont(new java.awt.Font("Gadugi", 1, 18)); // NOI18N
-        jLSubTitulo.setForeground(new java.awt.Color(0, 0, 0));
-        jLSubTitulo.setText("Sesiones vinculadas al Día de Spa ");
+        jLabel7.setFont(new java.awt.Font("Gadugi", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Sesiones vinculadas al Día de Spa ");
 
-        jBtnEliminarSesion.setText("Eliminar");
+        jButton8.setText("Eliminar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,101 +119,101 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLCliente)
-                            .addComponent(jLFecha))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTFFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLTitulo)
+                                    .addComponent(jLabel6)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLCP)
+                                        .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTFCodPack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(5, 5, 5)))
                                 .addGap(0, 15, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jBtnModTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jBtnBuscar))
+                                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1))
                                 .addGap(55, 55, 55))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLPrefe)
+                                .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jBtnNuevoDia)
+                                .addComponent(jButton2)
                                 .addGap(59, 59, 59)
-                                .addComponent(jBtnGuardarDia)
+                                .addComponent(jButton3)
                                 .addGap(52, 52, 52)
-                                .addComponent(jBtnEliminarDIa)
+                                .addComponent(jButton4)
                                 .addGap(76, 76, 76)
-                                .addComponent(jBtnListarTodo))
+                                .addComponent(jButton5))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jBtnVerSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(70, 70, 70)
-                                .addComponent(jBtnEliminarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1))
                         .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(182, 182, 182)
-                        .addComponent(jLSubTitulo))
+                        .addComponent(jLabel7))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jLTotal)
+                        .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(jTFMontoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLTitulo)
+                .addComponent(jLabel6)
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLFecha)
-                    .addComponent(jTFFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLCP)
-                    .addComponent(jTFCodPack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnBuscar))
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLCliente)
-                            .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLPrefe))
+                            .addComponent(jLabel3)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLTotal)
-                            .addComponent(jTFMontoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBtnListarTodo)
-                            .addComponent(jBtnEliminarDIa)
-                            .addComponent(jBtnGuardarDia)
-                            .addComponent(jBtnNuevoDia))
+                            .addComponent(jButton5)
+                            .addComponent(jButton4)
+                            .addComponent(jButton3)
+                            .addComponent(jButton2))
                         .addGap(48, 48, 48)))
-                .addComponent(jLSubTitulo)
+                .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnModTabla)
-                    .addComponent(jBtnVerSesion)
-                    .addComponent(jBtnEliminarSesion))
+                    .addComponent(jButton7)
+                    .addComponent(jButton6)
+                    .addComponent(jButton8))
                 .addGap(32, 32, 32))
         );
 
@@ -222,28 +222,28 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnBuscar;
-    private javax.swing.JButton jBtnEliminarDIa;
-    private javax.swing.JButton jBtnEliminarSesion;
-    private javax.swing.JButton jBtnGuardarDia;
-    private javax.swing.JButton jBtnListarTodo;
-    private javax.swing.JButton jBtnModTabla;
-    private javax.swing.JButton jBtnNuevoDia;
-    private javax.swing.JButton jBtnVerSesion;
-    private javax.swing.JComboBox<String> jCBCliente;
-    private javax.swing.JLabel jLCP;
-    private javax.swing.JLabel jLCliente;
-    private javax.swing.JLabel jLFecha;
-    private javax.swing.JLabel jLPrefe;
-    private javax.swing.JLabel jLSubTitulo;
-    private javax.swing.JLabel jLTitulo;
-    private javax.swing.JLabel jLTotal;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTFCodPack;
-    private javax.swing.JTextField jTFFecha;
-    private javax.swing.JTextField jTFMontoT;
-    private javax.swing.JTable jTTablaSesiones;
-    private javax.swing.JTextArea jTextAreaPrefe;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
