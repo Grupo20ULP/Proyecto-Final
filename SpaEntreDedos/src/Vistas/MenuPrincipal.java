@@ -10,7 +10,7 @@ import javax.swing.JDesktopPane;
 
 /**
  *
- * @author Heber Gomez PC
+ * @author Heber Gomez PC 
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
