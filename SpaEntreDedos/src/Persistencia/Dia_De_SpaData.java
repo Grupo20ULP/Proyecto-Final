@@ -34,26 +34,40 @@ public class Dia_De_SpaData {
     }
 
     // Trae un dia de spa por su codigo
-    public Dia_De_Spa buscarDiaDeSpa(int codPack) throws SQLException {
-        String sql = "SELECT * FROM dia_spa WHERE codPack = ?";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, codPack);
-        ResultSet rs = ps.executeQuery();
+public Dia_De_Spa buscarDiaDeSpa(int codPack) throws SQLException {
+    String sql = "SELECT d.*, c.codCli, c.dni, c.nombre_completo, c.telefono, c.edad, c.afecciones, c.estado " +
+                 "FROM dia_spa d JOIN cliente c ON d.cliente_id = c.codCli WHERE d.codPack = ?";
+    PreparedStatement ps = con.prepareStatement(sql);
+    ps.setInt(1, codPack);
+    ResultSet rs = ps.executeQuery();
 
-        Dia_De_Spa dia = null;
-        if (rs.next()) {
-            dia = new Dia_De_Spa();
-            dia.setCodPack(rs.getInt("codPack"));
-            dia.setFechaHora(rs.getTimestamp("fechaHora").toLocalDateTime());
-            dia.setPreferencias(rs.getString("preferencias"));
-            dia.setMonto(rs.getDouble("monto"));
-            dia.setEstado(rs.getString("estado"));
-        }
+    Dia_De_Spa dia = null;
+    if (rs.next()) {
+        dia = new Dia_De_Spa();
+        dia.setCodPack(rs.getInt("codPack"));
+        dia.setFechaHora(rs.getTimestamp("fechaHora").toLocalDateTime());
+        dia.setPreferencias(rs.getString("preferencias"));
+        dia.setMonto(rs.getDouble("monto"));
+        dia.setEstado(rs.getString("estado"));
 
-        rs.close();
-        ps.close();
-        return dia;
+        // Crear objeto Cliente asociado
+        Cliente cli = new Cliente(
+            rs.getInt("codCli"),
+            rs.getInt("dni"),
+            rs.getString("nombre_completo"),
+            rs.getString("telefono"),
+            rs.getInt("edad"),
+            rs.getString("afecciones"),
+            rs.getString("estado")
+        );
+
+        dia.setCliente(cli);
     }
+
+    rs.close();
+    ps.close();
+    return dia;
+}
 
 
     // Devuelve todos los dias de spa

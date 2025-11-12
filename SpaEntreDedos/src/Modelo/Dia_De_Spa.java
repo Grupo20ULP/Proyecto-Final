@@ -110,15 +110,17 @@ public class Dia_De_Spa {
     }
 
     // Calcula el monto total sumando los costos de las sesiones 
-    public void recalcularMonto() {}
-//        double total = 0;
-//        if (sesiones != null) {
-//            for (Sesion s : sesiones) {
-//                total += s.getCosto();   //GetCosto LO SACO DE  SESION UNA VEZ CREADA LA CLASE
-//            }
-//        }
-//        this.monto = total;
-//    }
+    public void recalcularMonto() {
+            double total = 0;
+        if (sesiones != null) {
+            for (Sesion s : sesiones) {
+                total += s.calcularCostoTotal();   //calcularCostoTotal LO SACO DE  SESION UNA VEZ CREADA LA CLASE
+            }
+        }
+        this.monto = total;
+    }
+    
+
     
      //Devuelve un resumen del Dia de Spa con todas sus sesiones
     public String listarItinerario() {
@@ -148,13 +150,13 @@ public class Dia_De_Spa {
     }
 
     /** Verifica si el Día de Spa contiene una sesión en una fecha/hora específica */
-//    public boolean contieneSesion(LocalDateTime fechaInicio) {
-//        if (sesiones == null) return false;
-//        for (Sesion s : sesiones) {
-//            if (s.getFechaHoraInicio().equals(fechaInicio)) return true;  //getFechaHoraInicio LO SACO DE  SESION UNA VEZ CREADA LA CLASE
-//        }
-//        return false;
-//    }
+    public boolean contieneSesion(LocalDateTime fechaInicio) {
+        if (sesiones == null) return false;
+        for (Sesion s : sesiones) {
+            if (s.getFechaHoraInicio().equals(fechaInicio)) return true;  //getFechaHoraInicio LO SACO DE  SESION UNA VEZ CREADA LA CLASE
+        }
+        return false;
+    }
 
     @Override
     public String toString() {

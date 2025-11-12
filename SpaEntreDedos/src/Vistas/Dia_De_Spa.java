@@ -4,6 +4,10 @@
  */
 package Vistas;
 
+import Persistencia.ClienteData;
+import java.util.List;
+import java.sql.SQLException;
+
 /**
  *
  * @author Juan
@@ -15,7 +19,11 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
      */
     public Dia_De_Spa() {
         initComponents();
+
+        
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,15 +34,12 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+
         );
 
         pack();
@@ -42,5 +47,6 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+
     // End of variables declaration//GEN-END:variables
 }
