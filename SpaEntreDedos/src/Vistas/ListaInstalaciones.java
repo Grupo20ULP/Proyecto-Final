@@ -6,7 +6,7 @@ package Vistas;
 
 /**
  *
- * @author TuMachGalan
+ * @author Federico Galan
  */
 public class ListaInstalaciones extends javax.swing.JInternalFrame {
 
