@@ -133,7 +133,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenu4Instalaciones.setText("Instalaciones");
 
-
         jMenuBtn.setText("Instalaciones");
         jMenuBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
