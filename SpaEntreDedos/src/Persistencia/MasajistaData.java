@@ -172,8 +172,8 @@ public class MasajistaData {
                 masajista.setMatricula(rs.getInt("matricula"));
                 masajista.setNombreYapellido(rs.getString("nombre_apellido"));
                 masajista.setTelefono(rs.getString("telefono"));
-                masajista.setEspecialidad(rs.getString("especialidad"));
-                masajista.setEstado(rs.getString("estado"));
+                masajista.setEspecialidad(rs.getString("especialidad").trim().toUpperCase());
+                masajista.setEstado(rs.getString("estado").trim().toUpperCase());
             }
             rs.close();
             ps.close();
@@ -198,8 +198,8 @@ public class MasajistaData {
                 m.setNombreYapellido(rs.getString("nombre_apellido"));
                 m.setTelefono(rs.getString("telefono"));
                 m.setEspecialidad(rs.getString(
-                    "especialidad"));
-                m.setEstado(rs.getString("estado"));
+                    "especialidad").trim().toUpperCase());
+                m.setEstado(rs.getString("estado").trim().toUpperCase());
                 masajistas.add(m);
                 rs.close();
             }
@@ -224,8 +224,8 @@ public class MasajistaData {
                 m.setNombreYapellido(rs.getString("nombre_apellido"));
                 m.setTelefono(rs.getString("telefono"));
                 m.setEspecialidad(rs.getString(
-                    "especialidad"));
-                m.setEstado(rs.getString("estado"));
+                    "especialidad").trim().toUpperCase());
+                m.setEstado(rs.getString("estado").trim().toUpperCase());
                 masajistas.add(m);
             }
             rs.close();

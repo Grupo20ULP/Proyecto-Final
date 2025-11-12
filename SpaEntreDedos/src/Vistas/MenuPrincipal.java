@@ -49,11 +49,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         insertarYmodCliente = new javax.swing.JMenuItem();
         jMenu3Consultorio = new javax.swing.JMenu();
         jMenu4Instalaciones = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu5Masajista = new javax.swing.JMenu();
         jMenuItemRegistroAlta = new javax.swing.JMenuItem();
         jMenuItemModificarBuscar = new javax.swing.JMenuItem();
-        jMenuItemAltaBajaLogica = new javax.swing.JMenuItem();
         jMenuItemListarConsultar = new javax.swing.JMenuItem();
         jMenu6Producto = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -100,11 +98,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu1Sesion.setText("Sesion");
 
         jMenuItemDiaDeSpa.setText("Dia de Spa");
-        jMenuItemDiaDeSpa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDiaDeSpaActionPerformed(evt);
-            }
-        });
         jMenu1Sesion.add(jMenuItemDiaDeSpa);
 
         jMenuItemSesion.setText("Buscar ");
@@ -133,15 +126,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3Consultorio);
 
         jMenu4Instalaciones.setText("Instalaciones");
-
-        jMenuItem5.setText("Instalaciones");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu4Instalaciones.add(jMenuItem5);
-
         jMenuBar1.add(jMenu4Instalaciones);
 
         jMenu5Masajista.setText("Gestion de Masajista");
@@ -161,14 +145,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu5Masajista.add(jMenuItemModificarBuscar);
-
-        jMenuItemAltaBajaLogica.setText("Alta / Baja logica");
-        jMenuItemAltaBajaLogica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemAltaBajaLogicaActionPerformed(evt);
-            }
-        });
-        jMenu5Masajista.add(jMenuItemAltaBajaLogica);
 
         jMenuItemListarConsultar.setText("Listar / Consultar");
         jMenuItemListarConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -292,19 +268,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         int y = (Escritorio.getHeight() - am.getHeight()) / 2;
         am.setLocation(x, y);
     }//GEN-LAST:event_jMenuItemModificarBuscarActionPerformed
-
-    private void jMenuItemAltaBajaLogicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAltaBajaLogicaActionPerformed
-        Escritorio.removeAll();
-        Escritorio.repaint();
-        MasajistaAltaBajaLogica am = new MasajistaAltaBajaLogica();
-        am.setVisible(true);
-        Escritorio.add(am);
-        Escritorio.moveToFront(am);
-        // con esto van a centrar la ventana que crearon
-        int x = (Escritorio.getWidth() - am.getWidth()) / 2;
-        int y = (Escritorio.getHeight() - am.getHeight()) / 2;
-        am.setLocation(x, y);
-    }//GEN-LAST:event_jMenuItemAltaBajaLogicaActionPerformed
 
     private void jMenuItemListarConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListarConsultarActionPerformed
         Escritorio.removeAll();
@@ -467,8 +430,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItemAltaBajaLogica;
     private javax.swing.JMenuItem jMenuItemDiaDeSpa;
     private javax.swing.JMenuItem jMenuItemListarConsultar;
     private javax.swing.JMenuItem jMenuItemModificarBuscar;
