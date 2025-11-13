@@ -10,14 +10,14 @@ import javax.swing.JDesktopPane;
 
 /**
  *
- * @author Heber Gomez PC 
+ * @author Heber Gomez PC
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal () {
+    public MenuPrincipal() {
         initComponents();
         imagenFondo();
     }
@@ -97,8 +97,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
 
         jMenu1Sesion.setText("Sesion");
+        jMenu1Sesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1SesionActionPerformed(evt);
+            }
+        });
 
         jMenuItemDiaDeSpa.setText("Dia de Spa");
+        jMenuItemDiaDeSpa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDiaDeSpaActionPerformed(evt);
+            }
+        });
         jMenu1Sesion.add(jMenuItemDiaDeSpa);
 
         jMenuItemSesion.setText("Buscar ");
@@ -233,7 +243,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         instalacion.setLocation(x, y);
     }//GEN-LAST:event_jMenuBtnActionPerformed
 
-    private void jMenuItemSesionActionPerformed (java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemSesionActionPerformed
+    private void jMenu1SesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1SesionActionPerformed
+
+    }//GEN-LAST:event_jMenu1SesionActionPerformed
+
+    private void jMenuItemDiaDeSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDiaDeSpaActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
         Dia_De_Spa insertModClient = new Dia_De_Spa();
@@ -243,9 +257,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         int x = (Escritorio.getWidth() - insertModClient.getWidth()) / 2;
         int y = (Escritorio.getHeight() - insertModClient.getHeight()) / 2;
         insertModClient.setLocation(x, y);
+    }//GEN-LAST:event_jMenuItemDiaDeSpaActionPerformed
+
+    private void jMenuItemSesionActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemSesionActionPerformed
+
     }// GEN-LAST:event_jMenuItemSesionActionPerformed
 
-    private void insertarYmodClienteActionPerformed (java.awt.event.ActionEvent evt) {// GEN-FIRST:event_insertarYmodClienteActionPerformed
+    private void insertarYmodClienteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_insertarYmodClienteActionPerformed
         // TODO add your handling code here:
         Escritorio.removeAll();
         Escritorio.repaint();
@@ -258,11 +276,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         insertModClient.setLocation(x, y);
     }// GEN-LAST:event_insertarYmodClienteActionPerformed
 
-    private void jMenuInstalacionesVerActionPerformed (java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuInstalacionesVerActionPerformed
+    private void jMenuInstalacionesVerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuInstalacionesVerActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_jMenuInstalacionesVerActionPerformed
 
-    private void jMenuItemRegistroAltaActionPerformed (java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemRegistroAltaActionPerformed
+    private void jMenuItemRegistroAltaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemRegistroAltaActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
         MasajistaRegistroAlta am = new MasajistaRegistroAlta();
@@ -275,7 +293,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         am.setLocation(x, y);
     }// GEN-LAST:event_jMenuItemRegistroAltaActionPerformed
 
-    private void jMenuItemModificarBuscarActionPerformed (java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemModificarBuscarActionPerformed
+    private void jMenuItemModificarBuscarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemModificarBuscarActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
         MasajistaModificarBuscar am = new MasajistaModificarBuscar();
@@ -288,7 +306,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         am.setLocation(x, y);
     }// GEN-LAST:event_jMenuItemModificarBuscarActionPerformed
 
-    private void jMenuItemListarConsultarActionPerformed (java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemListarConsultarActionPerformed
+    private void jMenuItemListarConsultarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemListarConsultarActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
         MasajistaListarConsultar am = new MasajistaListarConsultar();
@@ -301,7 +319,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         am.setLocation(x, y);
     }// GEN-LAST:event_jMenuItemListarConsultarActionPerformed
 
-    private void jMenuItem1ActionPerformed (java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem1ActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
         TratamientoRegistroAlta am = new TratamientoRegistroAlta();
@@ -314,10 +332,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         am.setLocation(x, y);
     }// GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenu6ProductoActionPerformed (java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenu6ProductoActionPerformed
+    private void jMenu6ProductoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenu6ProductoActionPerformed
     }// GEN-LAST:event_jMenu6ProductoActionPerformed
 
-    private void jMenuItem2ActionPerformed (java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem2ActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
         TratamientoModificarBuscar am = new TratamientoModificarBuscar();
@@ -330,7 +348,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         am.setLocation(x, y);
     }// GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem4ActionPerformed (java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem4ActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
         TratamientoListarConsultar am = new TratamientoListarConsultar();
@@ -343,27 +361,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         am.setLocation(x, y);
     }// GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void btnConsultorioMouseClicked (java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnConsultorioMouseClicked
+    private void btnConsultorioMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnConsultorioMouseClicked
         // TODO add your handling code here:
         VistaConsultorio vc = new VistaConsultorio();
         Escritorio.add(vc);
         vc.setVisible(true);
     }// GEN-LAST:event_btnConsultorioMouseClicked
 
-    private void jMenuItemDiaDeSpaActionPerformed (java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemDiaDeSpaActionPerformed
-        Escritorio.removeAll();
-        Escritorio.repaint();
-        Dia_De_Spa vistaSpa = new Dia_De_Spa();
-        vistaSpa.setVisible(true);
-        Escritorio.add(vistaSpa);
-        Escritorio.moveToFront(vistaSpa);
-        // Centrar la vista dentro del escritorio
-        int x = (Escritorio.getWidth() - vistaSpa.getWidth()) / 2;
-        int y = (Escritorio.getHeight() - vistaSpa.getHeight()) / 2;
-        vistaSpa.setLocation(x, y);
-    }// GEN-LAST:event_jMenuItemDiaDeSpaActionPerformed
-
-    private void JmenuInstalacionesActionPerformed (java.awt.event.ActionEvent evt) {// GEN-FIRST:event_JmenuInstalacionesActionPerformed
+    private void JmenuInstalacionesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_JmenuInstalacionesActionPerformed
         // TODO add your handling code here:
         Escritorio.removeAll();
         Escritorio.repaint();
@@ -380,7 +385,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main (String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
         // (optional) ">
@@ -392,38 +397,34 @@ public class MenuPrincipal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.
-                getInstalledLookAndFeels()) {
+                    getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        }
-        catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).
-                log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        }
-        catch (InstantiationException ex) {
+                    log(java.util.logging.Level.SEVERE, null,
+                            ex);
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).
-                log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        }
-        catch (IllegalAccessException ex) {
+                    log(java.util.logging.Level.SEVERE, null,
+                            ex);
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).
-                log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        }
-        catch (javax.swing.UnsupportedLookAndFeelException ex) {
+                    log(java.util.logging.Level.SEVERE, null,
+                            ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).
-                log(java.util.logging.Level.SEVERE, null,
-                    ex);
+                    log(java.util.logging.Level.SEVERE, null,
+                            ex);
         }
         // </editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run () {
+            public void run() {
                 new MenuPrincipal().setVisible(true);
             }
         });
@@ -458,16 +459,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemRegistroAlta;
     private javax.swing.JMenuItem jMenuItemSesion;
     // End of variables declaration//GEN-END:variables
-    private void imagenFondo () {
+    private void imagenFondo() {
         Escritorio = new JDesktopPane() {
             @Override
-            protected void paintComponent (Graphics g) {
+            protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 ImageIcon icon = new ImageIcon(getClass().
-                    getResource(
-                        "/img/SpaEntreDedos.png"));
+                        getResource(
+                                "/img/SpaEntreDedos.png"));
                 g.drawImage(icon.getImage(), 0, 0, getWidth(), getHeight(),
-                    this);
+                        this);
             }
         };
         this.setContentPane(Escritorio);
