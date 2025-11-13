@@ -47,7 +47,6 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
         jBtnVerSesiones = new javax.swing.JButton();
         jBtnActualizarTabla = new javax.swing.JButton();
         jBtnEliminarSesion = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         jTableSesiones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,7 +95,7 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
 
         jTFCodPack.setText("jTextField2");
 
-        jTFTotal.setText("jTextField3");
+        jTFTotal.setText("$100");
 
         jBtnNewdia.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jBtnNewdia.setForeground(new java.awt.Color(0, 0, 0));
@@ -125,8 +124,6 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
         jBtnEliminarSesion.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jBtnEliminarSesion.setForeground(new java.awt.Color(0, 0, 0));
         jBtnEliminarSesion.setText("Eliminar");
-
-        jLabel1.setText("Eliminame");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,9 +170,7 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
                                                 .addComponent(jLTITULO)
                                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jLMonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                            .addComponent(jLMonto)))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jTFCodPack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,13 +208,10 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLMonto)
-                                    .addComponent(jTFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLMonto)
+                                .addComponent(jTFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -260,7 +252,6 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLPrefe;
     private javax.swing.JLabel jLSUBTITULO;
     private javax.swing.JLabel jLTITULO;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTFCodPack;
