@@ -28,27 +28,15 @@ public class MasajistaModificarBuscar extends javax.swing.JInternalFrame {
         cargarEspecialidades();
         cargarEstados();
     }
-
-    private Masajista leerFormulario () {
-        Masajista m = new Masajista();
-        m.setNombreYapellido(jTextFieldNomYApe.getText());
-        m.setTelefono(jTextFieldTelefono.getText());
-        m.setEspecialidad(jComboBoxEspecialidad.getSelectedItem().
-            toString());
-        m.setEstado(jComboBoxEstado.getSelectedItem().
-            toString());
-        return m;
-    }
-
     private void buscarMasajista () {
         try {
             int matricula = Integer.parseInt(jTextFieldMatricula.getText());
             MasajistaData data = new MasajistaData();
-//             Guardar resultado de la búsqueda
+//             Guardar resultado de la busqueda
             Masajista m = data.buscarMasajistaPorId(matricula);
             if (m == null) {
                 JOptionPane.showMessageDialog(this,
-                    "No se encontró el masajista.");
+                    "No se encontro el masajista.");
                 return;
             }
 //              Cargar campos
@@ -59,7 +47,7 @@ public class MasajistaModificarBuscar extends javax.swing.JInternalFrame {
         }
         catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this,
-                "La matrícula debe ser un número.");
+                "La matricula debe ser un numero.");
         }
     }
 
@@ -71,7 +59,7 @@ private void modificarMasajista() {
 //          Buscar masajista original
         Masajista m = data.buscarMasajistaPorId(matricula);
         if (m == null) {
-            JOptionPane.showMessageDialog(this, "No se encontró el masajista.");
+            JOptionPane.showMessageDialog(this, "No se encontro el masajista.");
             return;
         }
 
@@ -88,7 +76,7 @@ private void modificarMasajista() {
 
         if (!telefono.matches("\\d+")) {
             JOptionPane.showMessageDialog(this,
-                "El teléfono solo puede contener números.");
+                "El telefono solo puede contener numeros.");
             return;
         }
 
@@ -101,10 +89,10 @@ private void modificarMasajista() {
 //          Guardar cambios
         data.modificarMasajista(m);
 
-        JOptionPane.showMessageDialog(this, "Masajista modificado con éxito.");
+        JOptionPane.showMessageDialog(this, "Masajista modificado con exito.");
 
     } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "La matrícula debe ser un número.");
+        JOptionPane.showMessageDialog(this, "La matricula debe ser un numero.");
     }
 }
 

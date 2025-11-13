@@ -65,7 +65,7 @@ public class MasajistaRegistroAlta extends javax.swing.JInternalFrame {
     private void registrarMasajista () {
         try {
             Masajista m = leerFormulario();
-            // Validación: campos obligatorios
+//             Validacion: campos obligatorios
             if (m.getNombreYapellido().
                 trim().
                 isEmpty() || m.getTelefono().
@@ -75,21 +75,21 @@ public class MasajistaRegistroAlta extends javax.swing.JInternalFrame {
                     showMessageDialog(this, "Complete todos los campos.");
                 return;
             }
-            // Validación: nombre solo letras
+//             Validacion: nombre solo letras
             if ( ! m.getNombreYapellido().
                 matches("[a-zA-Z ]+")) {
                 JOptionPane.showMessageDialog(this,
                     "El nombre solo puede contener letras de la A-Z.");
                 return;
             }
-            // Validación: teléfono solo números
+//             Validacion: telefono solo numeros
             if ( ! m.getTelefono().
                 matches("\\d+")) {
                 JOptionPane.showMessageDialog(this,
                     "El telefono solo puede contener numeros. ej 11501242458");
                 return;
             }
-            // Intentamos insertar en BD
+//             Intentamos insertar en BD
             MasajistaData md = new MasajistaData();
             boolean exito = md.insertarMasajista(m);
             if (exito) {
@@ -110,7 +110,7 @@ public class MasajistaRegistroAlta extends javax.swing.JInternalFrame {
     }
 
     private void cargarEspecialidades () {
-        // Limpia primero
+//         Limpia primero
         jComboBoxEspecialidad.removeAllItems();
         for (TipoDeTratamiento tipo : TipoDeTratamiento.values()) {
             jComboBoxEspecialidad.addItem(tipo.name());

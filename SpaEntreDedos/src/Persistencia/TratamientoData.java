@@ -127,20 +127,21 @@ public class TratamientoData {
     }
 
     // metodo Buscar Tratamiento
-    public Tratamiento buscarTratamientoPorId (Tratamiento t) {
+    public Tratamiento buscarTratamientoPorId (int t) {
         Tratamiento tratamiento = null;
         String sql
             = "SELECT * FROM tratamiento WHERE codTratam = ?;";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, t.getCodTratam());
+            ps.setInt(1, t);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 tratamiento = new Tratamiento();
                 tratamiento.setCodTratam(rs.getInt("codTratam"));
                 tratamiento.setNombre(rs.getString("nombre"));
                 String tipoStr = rs.getString("tipo");
-                tratamiento.setTipo(TipoDeTratamiento.valueOf(tipoStr));
+                tratamiento.setTipo(TipoDeTratamiento.valueOf(tipoStr.
+                    toUpperCase()));
                 tratamiento.setDetalle(rs.getString("detalle"));
                 tratamiento.setDuracion(rs.getInt("duracion"));
                 tratamiento.setCosto(rs.getDouble("costo"));
@@ -153,6 +154,33 @@ public class TratamientoData {
             System.err.println("Error al buscar Tratamiento: "
                 + e.
                     getMessage());
+        }
+        return tratamiento;
+    }
+
+    public List<Tratamiento> listarTratamiento () {
+        List<Tratamiento> tratamiento = new ArrayList<>();
+        String sql = "SELECT * FROM tratamiento";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Tratamiento t = new Tratamiento();
+                t.setCodTratam(rs.getInt("codTratam"));
+                t.setNombre(rs.getString("nombre"));
+                String tipoStr = rs.getString("tipo");
+                t.setTipo(TipoDeTratamiento.valueOf(tipoStr.toUpperCase()));
+                t.setDetalle(rs.getString("detalle"));
+                t.setDuracion(rs.getInt("duracion"));
+                t.setCosto(rs.getDouble("costo"));
+                t.setActivo(rs.getString("activo"));
+                tratamiento.add(t);
+            }
+            rs.close();
+            ps.close();
+        }
+        catch (SQLException ex) {
+            System.err.print("Error al listar Tratamiento: " + ex.getMessage());
         }
         return tratamiento;
     }

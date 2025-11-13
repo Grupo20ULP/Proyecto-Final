@@ -5,10 +5,14 @@
 package Vistas;
 
 import static java.awt.image.ImageObserver.*;
-
+import Modelo.TipoDeTratamiento;
+import Modelo.Tratamiento;
+import Persistencia.TratamientoData;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Heber Gomez PC
@@ -22,6 +26,63 @@ public class TratamientoListarConsultar extends javax.swing.JInternalFrame {
         initComponents();
         imagenFondo();
         visualfondo();
+        cargarEspecialidades();
+        armarCabeceraTabla();
+        mostrarTodos();
+    }
+    private TratamientoData md = new TratamientoData();
+    private DefaultTableModel modelo = new DefaultTableModel();
+
+    private void armarCabeceraTabla () {
+        modelo.addColumn("Codigo");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Tipo");
+        modelo.addColumn("Detalle");
+        modelo.addColumn("Duracion");
+        modelo.addColumn("Costo");
+        modelo.addColumn("Estado");
+        jTable1.setModel(modelo);
+    }
+
+    private void cargarTabla (java.util.List<Tratamiento> lista) {
+        limpiarTabla();
+        for (Tratamiento t : lista) {
+            modelo.addRow(new Object[]{
+                t.getCodTratam(),
+                t.getNombre(),
+                t.getTipo(),
+                t.getDetalle(),
+                t.getDuracion(),
+                t.getCosto(),
+                t.getActivo(),});
+        }
+    }
+
+    private void mostrarTodos () {
+        java.util.List<Tratamiento> lista = md.listarTratamiento();
+        cargarTabla(lista);
+    }
+
+    private void Filtrar () {
+        String esp = (String) jComboBoxTipoTratamiento.getSelectedItem();
+        if (esp == null) {
+            return;
+        }
+        TipoDeTratamiento tipo = TipoDeTratamiento.valueOf(esp);
+        java.util.List<Tratamiento> lista = md.listarTratamientosPorTipo(tipo);
+        cargarTabla(lista);
+    }
+
+    private void limpiarTabla () {
+        modelo.setRowCount(0);
+    }
+
+    private void cargarEspecialidades () {
+        // Limpia primero
+        jComboBoxTipoTratamiento.removeAllItems();
+        for (TipoDeTratamiento tipo : TipoDeTratamiento.values()) {
+            jComboBoxTipoTratamiento.addItem(tipo.name());
+        }
     }
 
     /**
@@ -62,11 +123,21 @@ public class TratamientoListarConsultar extends javax.swing.JInternalFrame {
         jButtonTodos.setForeground(new java.awt.Color(0, 0, 0));
         jButtonTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/todas.png"))); // NOI18N
         jButtonTodos.setText("TODOS");
+        jButtonTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTodosActionPerformed(evt);
+            }
+        });
 
         jButtonFiltrar.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jButtonFiltrar.setForeground(new java.awt.Color(0, 0, 0));
         jButtonFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/filtrar.png"))); // NOI18N
         jButtonFiltrar.setText("FILTRAR");
+        jButtonFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFiltrarActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,6 +153,11 @@ public class TratamientoListarConsultar extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/volver.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -154,9 +230,20 @@ public class TratamientoListarConsultar extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxTipoTratamientoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoTratamientoItemStateChanged
-        System.out.println("Hola mundo");
 // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxTipoTratamientoItemStateChanged
+
+    private void jButtonFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFiltrarActionPerformed
+        Filtrar();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonFiltrarActionPerformed
+
+    private void jButtonTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTodosActionPerformed
+        mostrarTodos();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonTodosActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;

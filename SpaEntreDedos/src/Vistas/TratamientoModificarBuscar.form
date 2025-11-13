@@ -71,26 +71,26 @@
                           <Group type="102" attributes="0">
                               <EmptySpace pref="30" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabelDuracion" alignment="1" min="-2" pref="125" max="-2" attributes="0"/>
                                   <Component id="jLabelDetalle" alignment="1" min="-2" pref="106" max="-2" attributes="0"/>
                                   <Component id="jLabelNombre" alignment="1" min="-2" pref="106" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabelCosto" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jLabelEstado" alignment="1" pref="106" max="32767" attributes="0"/>
-                                  </Group>
                                   <Component id="jLabelCodTra" alignment="1" pref="249" max="32767" attributes="0"/>
                                   <Component id="jLabelTipo" alignment="1" max="32767" attributes="0"/>
+                                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabelEstado" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="jLabelCosto" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="jLabelDuracion" alignment="1" pref="125" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jTextFieldDuracion" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <Component id="jComboBoxTipoTratamiento" min="-2" pref="153" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxTipo" min="-2" pref="153" max="-2" attributes="0"/>
                                   <Component id="jScrollPane2" min="-2" pref="148" max="-2" attributes="0"/>
                                   <Component id="jComboBoxEstado" min="-2" pref="153" max="-2" attributes="0"/>
                                   <Component id="jTextFieldCosto" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                   <Component id="jTextFieldNombre" min="-2" pref="100" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jTextFieldCodTra" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldCodigo" min="-2" pref="100" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jButtonBuscar" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -119,19 +119,22 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel7" min="-2" pref="49" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabelCodTra" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="jTextFieldCodTra" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jButtonBuscar" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelCodTra" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jTextFieldCodigo" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelNombre" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                           <Component id="jTextFieldNombre" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jComboBoxTipoTratamiento" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="jComboBoxTipo" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="jLabelTipo" min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -161,7 +164,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="19" max="32767" attributes="0"/>
+                              <EmptySpace pref="17" max="32767" attributes="0"/>
                               <Component id="jButtonGuardar" min="-2" pref="50" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                           </Group>
@@ -242,6 +245,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar Cambios"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGuardarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelCosto">
               <Properties>
@@ -279,14 +285,14 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBoxTipoTratamiento">
+            <Component class="javax.swing.JComboBox" name="jComboBoxTipo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;TipoDeTratamiento&gt;"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldNombre">
@@ -301,8 +307,11 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Buscar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBuscarActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldCodTra">
+            <Component class="javax.swing.JTextField" name="jTextFieldCodigo">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelTipo">
               <Properties>
@@ -385,7 +394,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="jTextArea2">
+                <Component class="javax.swing.JTextArea" name="jTextAreaDetalle">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="lineWrap" type="boolean" value="true"/>

@@ -5,10 +5,14 @@
 package Vistas;
 
 import static java.awt.image.ImageObserver.*;
-
+import Modelo.TipoDeTratamiento;
+import Modelo.Tratamiento;
+import Persistencia.TratamientoData;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Heber Gomez PC
@@ -22,7 +26,131 @@ public class TratamientoModificarBuscar extends javax.swing.JInternalFrame {
         initComponents();
         imagenFondo();
         visualfondo();
-        
+        cargarEspecialidades();
+        cargarEstados();
+    }
+
+    private void cargarEspecialidades () {
+        // Limpia primero
+        jComboBoxTipo.removeAllItems();
+        for (TipoDeTratamiento tipo : TipoDeTratamiento.values()) {
+            jComboBoxTipo.addItem(tipo);
+        }
+    }
+
+    private void cargarEstados () {
+        jComboBoxEstado.removeAllItems();
+        jComboBoxEstado.addItem("Activo");
+        jComboBoxEstado.addItem("Inactivo");
+    }
+
+    private void buscarTratamiento () {
+        try {
+            int codigo = Integer.parseInt(jTextFieldCodigo.getText());
+            TratamientoData data = new TratamientoData();
+//             Guardar resultado de la busqueda
+            Tratamiento t = data.buscarTratamientoPorId(codigo);
+            if (t == null) {
+                JOptionPane.showMessageDialog(this,
+                    "No se encontro el Tratamiento.");
+                return;
+            }
+//              Cargar campos
+            jTextFieldNombre.setText(t.getNombre());
+            jComboBoxTipo.setSelectedItem(t.getTipo());
+            jTextAreaDetalle.setText(t.getDetalle());
+            jTextFieldDuracion.setText(String.valueOf(t.getDuracion()));
+            jTextFieldCosto.setText(String.valueOf(t.getCosto()));
+//            creamos esta alternativa por que se creo mal la Base de Datos que recibe si y no en lugar de Activo Inactivo
+            if (t.getActivo().
+                equalsIgnoreCase("si")) {
+                jComboBoxEstado.setSelectedItem("Activo");
+            }
+            else {
+                jComboBoxEstado.setSelectedItem("Inactivo");
+            }
+        }
+        catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                "El codigo debe ser un nuymero valido.");
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                "Error al buscar el tratamiento: " + ex.getMessage());
+        }
+    }
+
+    private void modificarTratamiento () {
+        try {
+            int cod = Integer.parseInt(jTextFieldCodigo.getText());
+            TratamientoData data = new TratamientoData();
+//          Buscar masajista original
+            Tratamiento t = data.buscarTratamientoPorId(cod);
+            if (t == null) {
+                JOptionPane.showMessageDialog(this,
+                    "No se encontro el Tratamiento.");
+                return;
+            }
+//          Tomar valores del formulario
+            String nombre = jTextFieldNombre.getText().
+                trim();
+            String detalle = jTextAreaDetalle.getText().
+                trim();
+//          Validaciones
+            if ( ! nombre.matches("[a-zA-Z ]+")) {
+                JOptionPane.showMessageDialog(this,
+                    "El nombre solo puede contener letras y espacios.");
+                return;
+            }
+            if (detalle.length() > 60) {
+                JOptionPane.showMessageDialog(this,
+                    "El detalle no puede tener mas de 60 caracteres.");
+                return;
+            }
+            String duracionStr = jTextFieldDuracion.getText().
+                trim();
+            if ( ! duracionStr.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this,
+                    "La duracion debe ser un numero entero valido.");
+                return;
+            }
+            int duracion = Integer.parseInt(duracionStr);
+            if (duracion <= 0 || duracion >= 720) {
+                JOptionPane.showMessageDialog(this,
+                    "Solo se permiten duraciones entre 1 y 720 minutos.");
+                return;
+            }
+            String costostr = jTextFieldCosto.getText().
+                trim();
+            if ( ! costostr.matches("\\d+(\\.\\d+)?")) {
+                JOptionPane.showMessageDialog(this,
+                    "El costo debe ser un numero.");
+                return;
+            }
+//          Actualizar objeto Tratamiento
+            t.setNombre(nombre);
+            t.setTipo((TipoDeTratamiento) jComboBoxTipo.getSelectedItem());
+            t.setDetalle(detalle);
+            t.setDuracion(duracion);
+            t.setCosto(Double.parseDouble(jTextFieldCosto.getText()));
+//            alternativa del estado
+            if (jComboBoxEstado.getSelectedItem().
+                toString().
+                equalsIgnoreCase("Activo")) {
+                t.setActivo("si");
+            }
+            else {
+                t.setActivo("no");
+            }
+//          Guardar cambios
+            data.modificarTratamiento(t);
+            JOptionPane.showMessageDialog(this,
+                "Tratamiento modificado con exito.");
+        }
+        catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                "Error Verifique bien el Formulario a Modificar.");
+        }
     }
 
     /**
@@ -45,16 +173,16 @@ public class TratamientoModificarBuscar extends javax.swing.JInternalFrame {
         jButtonGuardar = new javax.swing.JButton();
         jLabelCosto = new javax.swing.JLabel();
         jLabelDuracion = new javax.swing.JLabel();
-        jComboBoxTipoTratamiento = new javax.swing.JComboBox<>();
+        jComboBoxTipo = new javax.swing.JComboBox<>();
         jTextFieldNombre = new javax.swing.JTextField();
         jButtonBuscar = new javax.swing.JButton();
-        jTextFieldCodTra = new javax.swing.JTextField();
+        jTextFieldCodigo = new javax.swing.JTextField();
         jLabelTipo = new javax.swing.JLabel();
         jLabelDetalle = new javax.swing.JLabel();
         jLabelNombre = new javax.swing.JLabel();
         jLabelCodTra = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        jTextAreaDetalle = new javax.swing.JTextArea();
 
         setClosable(true);
 
@@ -81,6 +209,11 @@ public class TratamientoModificarBuscar extends javax.swing.JInternalFrame {
 
         jButtonGuardar.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jButtonGuardar.setText("Guardar Cambios");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
         jLabelCosto.setBackground(new java.awt.Color(204, 204, 204));
         jLabelCosto.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
@@ -104,6 +237,11 @@ public class TratamientoModificarBuscar extends javax.swing.JInternalFrame {
 
         jButtonBuscar.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jButtonBuscar.setText("Buscar");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
 
         jLabelTipo.setBackground(new java.awt.Color(204, 204, 204));
         jLabelTipo.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
@@ -135,10 +273,10 @@ public class TratamientoModificarBuscar extends javax.swing.JInternalFrame {
         jLabelCodTra.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabelCodTra.setOpaque(true);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setLineWrap(true);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        jTextAreaDetalle.setColumns(20);
+        jTextAreaDetalle.setLineWrap(true);
+        jTextAreaDetalle.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaDetalle);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -149,24 +287,24 @@ public class TratamientoModificarBuscar extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(30, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabelDuracion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelDetalle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabelCosto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabelEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
                             .addComponent(jLabelCodTra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                            .addComponent(jLabelTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabelTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabelEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelCosto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelDuracion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))
                         .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxTipoTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextFieldCodTra, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButtonBuscar))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -187,17 +325,19 @@ public class TratamientoModificarBuscar extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelCodTra, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldCodTra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBuscar))
-                .addGap(10, 10, 10)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTextFieldCodigo)
+                        .addGap(2, 2, 2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxTipoTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -220,7 +360,7 @@ public class TratamientoModificarBuscar extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabelEstado))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                         .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -266,20 +406,27 @@ public class TratamientoModificarBuscar extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtrasActionPerformed
-        // TODO add your handling code here:
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNombreActionPerformed
 
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        buscarTratamiento();
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        modificarTratamiento();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtras;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JComboBox<String> jComboBoxEstado;
-    private javax.swing.JComboBox<String> jComboBoxTipoTratamiento;
+    private javax.swing.JComboBox<TipoDeTratamiento> jComboBoxTipo;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelCodTra;
@@ -291,8 +438,8 @@ public class TratamientoModificarBuscar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelTipo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextFieldCodTra;
+    private javax.swing.JTextArea jTextAreaDetalle;
+    private javax.swing.JTextField jTextFieldCodigo;
     private javax.swing.JTextField jTextFieldCosto;
     private javax.swing.JTextField jTextFieldDuracion;
     private javax.swing.JTextField jTextFieldNombre;
