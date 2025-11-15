@@ -89,12 +89,20 @@
             <Property name="text" type="java.lang.String" value="Cliente"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="insertarYmodCliente">
+            <MenuItem class="javax.swing.JMenuItem" name="registrarCliente">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Registro y Modificacion de Clientes"/>
+                <Property name="text" type="java.lang.String" value="Registrar Clientes"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="insertarYmodClienteActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registrarClienteActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="modificarCliente">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Modificar Clientes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modificarClienteActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

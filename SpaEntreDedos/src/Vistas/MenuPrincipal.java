@@ -47,7 +47,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItemDiaDeSpa = new javax.swing.JMenuItem();
         jMenuItemSesion = new javax.swing.JMenuItem();
         jMenuCliente = new javax.swing.JMenu();
-        insertarYmodCliente = new javax.swing.JMenuItem();
+        registrarCliente = new javax.swing.JMenuItem();
+        modificarCliente = new javax.swing.JMenuItem();
         btnConsultorio = new javax.swing.JMenu();
         jMenu4Instalaciones = new javax.swing.JMenu();
         jMenuBtn = new javax.swing.JMenuItem();
@@ -123,13 +124,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuCliente.setText("Cliente");
 
-        insertarYmodCliente.setText("Registro y Modificacion de Clientes");
-        insertarYmodCliente.addActionListener(new java.awt.event.ActionListener() {
+        registrarCliente.setText("Registrar Clientes");
+        registrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                insertarYmodClienteActionPerformed(evt);
+                registrarClienteActionPerformed(evt);
             }
         });
-        jMenuCliente.add(insertarYmodCliente);
+        jMenuCliente.add(registrarCliente);
+
+        modificarCliente.setText("Modificar Clientes");
+        modificarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarClienteActionPerformed(evt);
+            }
+        });
+        jMenuCliente.add(modificarCliente);
 
         jMenuBar1.add(jMenuCliente);
 
@@ -259,22 +268,36 @@ public class MenuPrincipal extends javax.swing.JFrame {
         insertModClient.setLocation(x, y);
     }//GEN-LAST:event_jMenuItemDiaDeSpaActionPerformed
 
+    private void registrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarClienteActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        RegistroCliente registrarClient = new RegistroCliente();
+        registrarClient.setVisible(true);
+        Escritorio.add(registrarClient);
+        Escritorio.moveToFront(registrarClient);
+        int x = (Escritorio.getWidth() - registrarClient.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - registrarClient.getHeight()) / 2;
+        registrarClient.setLocation(x, y);
+    }//GEN-LAST:event_registrarClienteActionPerformed
+
+    private void modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarClienteActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        ModificarCliente modClient = new ModificarCliente();
+        modClient.setVisible(true);
+        Escritorio.add(modClient);
+        Escritorio.moveToFront(modClient);
+        int x = (Escritorio.getWidth() - modClient.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - modClient.getHeight()) / 2;
+        modClient.setLocation(x, y);
+    }//GEN-LAST:event_modificarClienteActionPerformed
+
     private void jMenuItemSesionActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemSesionActionPerformed
 
     }// GEN-LAST:event_jMenuItemSesionActionPerformed
 
-    private void insertarYmodClienteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_insertarYmodClienteActionPerformed
-        // TODO add your handling code here:
-        Escritorio.removeAll();
-        Escritorio.repaint();
-        Cliente insertModClient = new Cliente();
-        insertModClient.setVisible(true);
-        Escritorio.add(insertModClient);
-        Escritorio.moveToFront(insertModClient);
-        int x = (Escritorio.getWidth() - insertModClient.getWidth()) / 2;
-        int y = (Escritorio.getHeight() - insertModClient.getHeight()) / 2;
-        insertModClient.setLocation(x, y);
-    }// GEN-LAST:event_insertarYmodClienteActionPerformed
 
     private void jMenuInstalacionesVerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuInstalacionesVerActionPerformed
         // TODO add your handling code here:
@@ -433,7 +456,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JMenu btnConsultorio;
-    private javax.swing.JMenuItem insertarYmodCliente;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu1Sesion;
     private javax.swing.JMenu jMenu2;
@@ -458,6 +480,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemModificarBuscar;
     private javax.swing.JMenuItem jMenuItemRegistroAlta;
     private javax.swing.JMenuItem jMenuItemSesion;
+    private javax.swing.JMenuItem modificarCliente;
+    private javax.swing.JMenuItem registrarCliente;
     // End of variables declaration//GEN-END:variables
     private void imagenFondo() {
         Escritorio = new JDesktopPane() {
