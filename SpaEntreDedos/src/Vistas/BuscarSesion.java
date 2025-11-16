@@ -4,17 +4,131 @@
  */
 package Vistas;
 
+import Modelo.Sesion;
+import Persistencia.SesionData;
+import java.time.LocalDateTime;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
- * @author TuMachGalan
+ * @author Federico Galan
  */
 public class BuscarSesion extends javax.swing.JInternalFrame {
+
+    private SesionData sesionData;
+    private DefaultTableModel modeloTabla;
 
     /**
      * Creates new form BuscarSesion
      */
     public BuscarSesion() {
         initComponents();
+        inicializarDatos();
+        configurarTabla();
+        cargarTodasLasSesiones();
+    }
+
+    private void inicializarDatos() {
+        sesionData = new SesionData();
+    }
+    
+    private void configurarTabla() {
+        modeloTabla = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Hacer la tabla no editable
+            }
+        };
+        
+        String[] columnas = {"CodSesion", "Hora Inicio", "Hora Fin", "Tratamiento", 
+                           "Consultorio", "Masajista", "N° Dia Spa", "Instalacion", "Estado"};
+        modeloTabla.setColumnIdentifiers(columnas);
+        jTable1.setModel(modeloTabla);
+    }
+    private void buscarSesiones() {
+        if (jDateChooser1.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione una fecha para buscar");
+            return;
+        }
+        
+        try {
+            LocalDateTime fechaBusqueda = construirFechaHora(
+                jDateChooser1, jSpinhoraInicio, jSpinMinInicio
+            );
+            
+            List<Sesion> sesiones = sesionData.buscarSesionesPorFecha(fechaBusqueda);
+        
+            modeloTabla.setRowCount(0);
+            
+            if (sesiones.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No se encontraron sesiones para la fecha: " + fechaBusqueda.toLocalDate());
+                return;
+            }
+            
+            for (Sesion sesion : sesiones) {
+                Object[] fila = {
+                    sesion.getCodSesion(),
+                    sesion.getFechaHoraInicio().toString(),
+                    sesion.getFechaHoraFin().toString(),
+                    (sesion.getTratamiento() != null) ? sesion.getTratamiento().getNombre() : "No disponible",
+                    (sesion.getConsultorio() != null) ? "Consultorio " + sesion.getConsultorio().getNroConsultorio() : "No asignado",
+                    (sesion.getMasajista() != null) ? sesion.getMasajista().getNombreYapellido() : "No disponible",
+                    (sesion.getDiaSpa() != null) ? "Día " + sesion.getDiaSpa().getCodPack() : "No asignado",
+                    (sesion.getInstalacion() != null) ? sesion.getInstalacion().getNombre() : "No asignada",
+                    sesion.getEstado()
+                };
+                modeloTabla.addRow(fila);
+            }
+            
+            JOptionPane.showMessageDialog(this, "Se encontraron " + sesiones.size() + " sesiones para: " + fechaBusqueda.toLocalDate());
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error en búsqueda: " + e.getMessage());
+        }
+    }
+    
+    private void cargarTodasLasSesiones() {
+        try {
+            modeloTabla.setRowCount(0); 
+            
+            List<Sesion> sesiones = sesionData.listarTodasLasSesiones();
+            
+            if (sesiones.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No hay sesiones registradas en la base de datos");
+                return;
+            }
+            
+            for (Sesion sesion : sesiones) {
+                Object[] fila = {
+                    sesion.getCodSesion(),
+                    sesion.getFechaHoraInicio().toString(),
+                    sesion.getFechaHoraFin().toString(),
+                    (sesion.getTratamiento() != null) ? sesion.getTratamiento().getNombre() : "No disponible",
+                    (sesion.getConsultorio() != null) ? "Consultorio " + sesion.getConsultorio().getNroConsultorio() : "No asignado",
+                    (sesion.getMasajista() != null) ? sesion.getMasajista().getNombreYapellido() : "No disponible",
+                    (sesion.getDiaSpa() != null) ? "Día " + sesion.getDiaSpa().getCodPack() : "No asignado",
+                    (sesion.getInstalacion() != null) ? sesion.getInstalacion().getNombre() : "No asignada",
+                    sesion.getEstado()
+                };
+                modeloTabla.addRow(fila);
+            }
+            
+            JOptionPane.showMessageDialog(this, "Se cargaron " + sesiones.size() + " sesiones");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar sesiones: " + e.getMessage());
+        }
+    }
+    
+    private LocalDateTime construirFechaHora(com.toedter.calendar.JDateChooser dateChooser, 
+                                           com.toedter.components.JSpinField hora, 
+                                           com.toedter.components.JSpinField minutos) {
+        java.util.Date fecha = dateChooser.getDate();
+        return LocalDateTime.of(
+            fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate(),
+            java.time.LocalTime.of(hora.getValue(), minutos.getValue())
+        );
     }
 
     /**
@@ -56,8 +170,18 @@ public class BuscarSesion extends javax.swing.JInternalFrame {
         jLabel3.setText("Dia");
 
         BtnBuscar.setText("Buscar");
+        BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarActionPerformed(evt);
+            }
+        });
 
         BtnTodas.setText("Ver Todas");
+        BtnTodas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTodasActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,18 +221,18 @@ public class BuscarSesion extends javax.swing.JInternalFrame {
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jSpinhoraInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(79, 79, 79)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jSpinMinInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(29, 29, 29)
                         .addComponent(BtnBuscar)
                         .addGap(18, 18, 18)
                         .addComponent(BtnTodas)
-                        .addGap(0, 115, Short.MAX_VALUE))
+                        .addGap(115, 115, 115))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1)))
@@ -169,6 +293,16 @@ public class BuscarSesion extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
+        // TODO add your handling code here:
+        buscarSesiones();
+    }//GEN-LAST:event_BtnBuscarActionPerformed
+
+    private void BtnTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTodasActionPerformed
+        // TODO add your handling code here:
+        cargarTodasLasSesiones();
+    }//GEN-LAST:event_BtnTodasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

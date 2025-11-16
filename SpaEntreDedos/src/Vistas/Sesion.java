@@ -64,18 +64,33 @@ public class Sesion extends javax.swing.JInternalFrame {
         BtnCrearSesion.setText("Crear Sesion");
         BtnCrearSesion.setBorder(null);
         BtnCrearSesion.setBorderPainted(false);
+        BtnCrearSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnCrearSesionMouseClicked(evt);
+            }
+        });
 
         BtnBuscarSesion.setBackground(new java.awt.Color(77, 54, 54));
         BtnBuscarSesion.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
         BtnBuscarSesion.setText("Buscar Sesion");
         BtnBuscarSesion.setBorder(null);
         BtnBuscarSesion.setBorderPainted(false);
+        BtnBuscarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnBuscarSesionMouseClicked(evt);
+            }
+        });
 
         BtnEditarSesion.setBackground(new java.awt.Color(77, 54, 54));
         BtnEditarSesion.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
         BtnEditarSesion.setText("Editar Sesion");
         BtnEditarSesion.setBorder(null);
         BtnEditarSesion.setBorderPainted(false);
+        BtnEditarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnEditarSesionMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout JMenuLayout = new javax.swing.GroupLayout(JMenu);
         JMenu.setLayout(JMenuLayout);
@@ -83,11 +98,11 @@ public class Sesion extends javax.swing.JInternalFrame {
             JMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JMenuLayout.createSequentialGroup()
                 .addGap(103, 103, 103)
-                .addComponent(BtnCrearSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                .addComponent(BtnCrearSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                 .addGap(88, 88, 88)
-                .addComponent(BtnBuscarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(BtnBuscarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                 .addGap(89, 89, 89)
-                .addComponent(BtnEditarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                .addComponent(BtnEditarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                 .addGap(84, 84, 84))
         );
         JMenuLayout.setVerticalGroup(
@@ -137,6 +152,59 @@ public class Sesion extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnCrearSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCrearSesionMouseClicked
+        try {
+            CrearSesion list = new CrearSesion();
+            list.setVisible(true);
+
+            content.removeAll();
+            content.add(list, BorderLayout.CENTER);
+            
+            content.revalidate();
+            content.repaint();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar lista de instalaciones: " + e.getMessage());
+        }
+    }//GEN-LAST:event_BtnCrearSesionMouseClicked
+
+    private void BtnBuscarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBuscarSesionMouseClicked
+        // TODO add your handling code here:
+        try {
+            BuscarSesion list = new BuscarSesion();
+            list.setVisible(true);
+
+            content.removeAll();
+            content.add(list, BorderLayout.CENTER);
+            
+            content.revalidate();
+            content.repaint();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar lista de instalaciones: " + e.getMessage());
+        }
+    }//GEN-LAST:event_BtnBuscarSesionMouseClicked
+
+    private void BtnEditarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEditarSesionMouseClicked
+        // TODO add your handling code here:
+                try {
+            EditarSesion list = new EditarSesion();
+            list.setVisible(true);
+
+            content.removeAll();
+            content.add(list, BorderLayout.CENTER);
+            
+            content.revalidate();
+            content.repaint();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar lista de instalaciones: " + e.getMessage());
+        }
+    }//GEN-LAST:event_BtnEditarSesionMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,18 +4,358 @@
  */
 package Vistas;
 
+import Modelo.Sesion;
+import Modelo.Tratamiento;
+import Modelo.Masajista;
+import Modelo.Consultorio;
+import Modelo.Dia_De_Spa;
+import Modelo.Instalacion;
+import Persistencia.SesionData;
+import Persistencia.TratamientoData;
+import Persistencia.MasajistaData;
+import Persistencia.ConsultorioData;
+import Persistencia.Dia_De_SpaData;
+import Persistencia.InstalacionData;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 /**
  *
- * @author TuMachGalan
+ * @author Federico Galan
  */
 public class EditarSesion extends javax.swing.JInternalFrame {
+
+    private SesionData sesionData;
+    private TratamientoData tratamientoData;
+    private MasajistaData masajistaData;
+    private ConsultorioData consultorioData;
+    private Dia_De_SpaData diaSpaData;
+    private InstalacionData instalacionData;
+    private Sesion sesionActual;
 
     /**
      * Creates new form EditarSesion
      */
     public EditarSesion() {
         initComponents();
+        inicializarDatos();
+        cargarCombos();
+        cargarSesiones();
     }
+    
+    private void inicializarDatos() {
+        sesionData = new SesionData();
+        tratamientoData = new TratamientoData();
+        masajistaData = new MasajistaData();
+        consultorioData = new ConsultorioData();
+        try {
+            diaSpaData = new Dia_De_SpaData();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al inicializar datos de días spa: " + e.getMessage());
+        }
+        instalacionData = new InstalacionData();
+    }
+    
+    private void cargarCombos() {
+        cargarTratamientos();
+        cargarMasajistas();
+        cargarConsultorios();
+        cargarDiasSpa();
+        cargarInstalaciones();
+    }
+    
+    private void cargarSesiones() {
+        try {
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.addElement("Seleccione sesión");
+            
+            List<Sesion> sesiones = sesionData.listarTodasLasSesiones();
+            
+            for (Sesion sesion : sesiones) {
+                String nombreTratamiento = (sesion.getTratamiento() != null) ? 
+                    sesion.getTratamiento().getNombre() : "Tratamiento no disponible";
+                String nombreCliente = (sesion.getDiaSpa() != null && sesion.getDiaSpa().getCliente() != null) ? 
+                    sesion.getDiaSpa().getCliente().getNombre_completo() : "Cliente no disponible";
+                
+                model.addElement(sesion.getCodSesion() + " - " + nombreTratamiento + " - " + nombreCliente);
+            }
+            
+            ComboSesiones.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar sesiones: " + e.getMessage());
+        }
+    }
+    
+    private void cargarTratamientos() {
+        try {
+            List<Tratamiento> tratamientos = tratamientoData.listarTratamiento();
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.addElement("Seleccione tratamiento");
+            for (Tratamiento t : tratamientos) {
+                if ("si".equalsIgnoreCase(t.getActivo())) {
+                    model.addElement(t.getCodTratam() + " - " + t.getNombre() + " ($" + t.getCosto() + ")");
+                }
+            }
+            ComboTratamiento.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar tratamientos: " + e.getMessage());
+        }
+    }
+    
+    private void cargarMasajistas() {
+        try {
+            List<Masajista> masajistas = masajistaData.listarMasajistas();
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.addElement("Seleccione masajista");
+            for (Masajista m : masajistas) {
+                if ("activo".equalsIgnoreCase(m.getEstado())) {
+                    model.addElement(m.getMatricula() + " - " + m.getNombreYapellido() + " (" + m.getEspecialidad() + ")");
+                }
+            }
+            ComboMasajista.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar masajistas: " + e.getMessage());
+        }
+    }
+    
+    private void cargarConsultorios() {
+        try {
+            List<Consultorio> consultorios = consultorioData.listarConsultorios();
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.addElement("Seleccione consultorio");
+            for (Consultorio c : consultorios) {
+                if ("si".equalsIgnoreCase(c.getApto())) {
+                    model.addElement("Consultorio " + c.getNroConsultorio() + " (" + c.getUsos() + ")");
+                }
+            }
+            ComboConsultorio.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar consultorios: " + e.getMessage());
+        }
+    }
+    
+    private void cargarDiasSpa() {
+        try {
+            List<Dia_De_Spa> diasSpa = diaSpaData.listarDiasDeSpa();
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.addElement("Seleccione día spa");
+            
+            for (Dia_De_Spa dia : diasSpa) {
+                String clienteNombre = (dia.getCliente() != null) ? 
+                    dia.getCliente().getNombre_completo() : "Cliente no disponible";
+                
+                model.addElement("Día " + dia.getCodPack() + " - " + clienteNombre + 
+                               " (" + dia.getFechaHora().toLocalDate() + ")");
+            }
+            
+            ComboDiaSpa.setModel(model);
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar días spa: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error inesperado al cargar días spa: " + e.getMessage());
+        }
+    }
+    
+    private void cargarInstalaciones() {
+        try {
+            List<Instalacion> instalaciones = instalacionData.listarInstalacionesActivas();
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.addElement("Sin instalación");
+            for (Instalacion i : instalaciones) {
+                model.addElement(i.getCodInstal() + " - " + i.getNombre() + " ($" + i.getPrecio30m() + "/30min)");
+            }
+            ComboInstalacion.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar instalaciones: " + e.getMessage());
+        }
+    }
+    
+    
+    private void cargarDatosSesion() {
+        try {
+            String sesionSeleccionada = (String) ComboSesiones.getSelectedItem();
+            int codSesion = Integer.parseInt(sesionSeleccionada.split(" - ")[0]);
+            
+
+            sesionActual = sesionData.buscarSesionPorId(codSesion);
+            
+            if (sesionActual != null) {
+                jDateInicio.setDate(java.sql.Date.valueOf(sesionActual.getFechaHoraInicio().toLocalDate()));
+                jSpinhoraInicio.setValue(sesionActual.getFechaHoraInicio().getHour());
+                jSpinMinInicio.setValue(sesionActual.getFechaHoraInicio().getMinute());
+                
+                jDateFin.setDate(java.sql.Date.valueOf(sesionActual.getFechaHoraFin().toLocalDate()));
+                jSpinHoraFin.setValue(sesionActual.getFechaHoraFin().getHour());
+                jSpinMinFin.setValue(sesionActual.getFechaHoraFin().getMinute());
+                
+                seleccionarComboPorId(ComboTratamiento, sesionActual.getTratamiento().getCodTratam());
+                seleccionarComboPorId(ComboMasajista, sesionActual.getMasajista().getMatricula());
+                seleccionarComboPorId(ComboDiaSpa, sesionActual.getDiaSpa().getCodPack());
+                
+                if (sesionActual.getConsultorio() != null) {
+                    seleccionarComboPorId(ComboConsultorio, sesionActual.getConsultorio().getNroConsultorio());
+                } else {
+                    ComboConsultorio.setSelectedIndex(0);
+                }
+                
+                if (sesionActual.getInstalacion() != null) {
+                    seleccionarComboPorId(ComboInstalacion, sesionActual.getInstalacion().getCodInstal());
+                } else {
+                    ComboInstalacion.setSelectedIndex(0);
+                }
+                
+                for (int i = 0; i < ComboEstado.getItemCount(); i++) {
+                    if (ComboEstado.getItemAt(i).equals(sesionActual.getEstado())) {
+                        ComboEstado.setSelectedIndex(i);
+                        break;
+                    }
+                }
+                
+                JOptionPane.showMessageDialog(this, "Datos de sesión cargados correctamente");
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró la sesión seleccionada");
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar datos de la sesión: " + e.getMessage());
+        }
+    }
+    
+    private void seleccionarComboPorId(javax.swing.JComboBox<String> combo, int id) {
+        for (int i = 0; i < combo.getItemCount(); i++) {
+            String item = combo.getItemAt(i);
+            if (item.startsWith(id + " - ")) {
+                combo.setSelectedIndex(i);
+                return;
+            }
+        }
+        for (int i = 0; i < combo.getItemCount(); i++) {
+            String item = combo.getItemAt(i);
+            if (item.contains(" " + id + " ") || item.endsWith(" " + id)) {
+                combo.setSelectedIndex(i);
+                return;
+            }
+        }
+        combo.setSelectedIndex(0);
+    }
+    
+    
+    private boolean validarCampos() {
+        if (ComboTratamiento.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un tratamiento");
+            return false;
+        }
+        if (ComboMasajista.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un masajista");
+            return false;
+        }
+        if (ComboDiaSpa.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un día spa");
+            return false;
+        }
+        if (jDateInicio.getDate() == null || jDateFin.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione fechas de inicio y fin");
+            return false;
+        }
+        
+        LocalDateTime inicio = construirFechaHora(jDateInicio, jSpinhoraInicio, jSpinMinInicio);
+        LocalDateTime fin = construirFechaHora(jDateFin, jSpinHoraFin, jSpinMinFin);
+        
+        if (!fin.isAfter(inicio)) {
+            JOptionPane.showMessageDialog(this, "La fecha de fin debe ser posterior a la de inicio");
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private void actualizarSesion() {
+        try {
+            LocalDateTime inicio = construirFechaHora(jDateInicio, jSpinhoraInicio, jSpinMinInicio);
+            LocalDateTime fin = construirFechaHora(jDateFin, jSpinHoraFin, jSpinMinFin);
+            
+            sesionActual.setFechaHoraInicio(inicio);
+            sesionActual.setFechaHoraFin(fin);
+            sesionActual.setEstado((String) ComboEstado.getSelectedItem());
+            
+            String tratamientoStr = (String) ComboTratamiento.getSelectedItem();
+            int codTratamiento = Integer.parseInt(tratamientoStr.split(" - ")[0]);
+            Tratamiento tratamiento = tratamientoData.buscarTratamientoPorId(codTratamiento);
+            sesionActual.setTratamiento(tratamiento);
+
+            String masajistaStr = (String) ComboMasajista.getSelectedItem();
+            int matricula = Integer.parseInt(masajistaStr.split(" - ")[0]);
+            Masajista masajista = masajistaData.buscarMasajistaPorId(matricula);
+            sesionActual.setMasajista(masajista);
+
+            String diaSpaStr = (String) ComboDiaSpa.getSelectedItem();
+            int codPack = Integer.parseInt(diaSpaStr.split(" - ")[0].split(" ")[1]);
+            Dia_De_Spa diaSpa = diaSpaData.buscarDiaDeSpa(codPack);
+            sesionActual.setDiaSpa(diaSpa);
+            
+            if (ComboConsultorio.getSelectedIndex() > 0) {
+                String consultorioStr = (String) ComboConsultorio.getSelectedItem();
+                int nroConsultorio = Integer.parseInt(consultorioStr.split(" ")[1]);
+                Consultorio consultorio = consultorioData.buscarConsultorio(nroConsultorio);
+                sesionActual.setConsultorio(consultorio);
+            } else {
+                sesionActual.setConsultorio(null);
+            }
+            
+            if (ComboInstalacion.getSelectedIndex() > 0) {
+                String instalacionStr = (String) ComboInstalacion.getSelectedItem();
+                int codInstalacion = Integer.parseInt(instalacionStr.split(" - ")[0]);
+                Instalacion instalacion = instalacionData.buscarInstalacionPorId(codInstalacion);
+                sesionActual.setInstalacion(instalacion);
+            } else {
+                sesionActual.setInstalacion(null);
+            }
+            
+            
+            sesionData.modificarSesion(sesionActual);
+            
+            JOptionPane.showMessageDialog(this, "Sesión actualizada exitosamente");
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error de base de datos al actualizar sesión: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error en el formato de los datos: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar sesión: " + e.getMessage());
+        }
+    }
+
+    private void limpiarCampos() {
+        ComboSesiones.setSelectedIndex(0);
+        ComboTratamiento.setSelectedIndex(0);
+        ComboMasajista.setSelectedIndex(0);
+        ComboConsultorio.setSelectedIndex(0);
+        ComboDiaSpa.setSelectedIndex(0);
+        ComboInstalacion.setSelectedIndex(0);
+        ComboEstado.setSelectedIndex(0);
+        jDateInicio.setDate(null);
+        jDateFin.setDate(null);
+        jSpinhoraInicio.setValue(9);
+        jSpinMinInicio.setValue(0);
+        jSpinHoraFin.setValue(10);
+        jSpinMinFin.setValue(0);
+        sesionActual = null;
+    }
+    
+    private LocalDateTime construirFechaHora(com.toedter.calendar.JDateChooser dateChooser, 
+                                           com.toedter.components.JSpinField hora, 
+                                           com.toedter.components.JSpinField minutos) {
+        java.util.Date fecha = dateChooser.getDate();
+        return LocalDateTime.of(
+            fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate(),
+            java.time.LocalTime.of(hora.getValue(), minutos.getValue())
+        );
+    }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,8 +368,9 @@ public class EditarSesion extends javax.swing.JInternalFrame {
 
         Escritorio = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        ComboSesiones = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        BtnCargarDatosSesion = new javax.swing.JToggleButton();
         jLabel2 = new javax.swing.JLabel();
         jDateInicio = new com.toedter.calendar.JDateChooser();
         jSpinhoraInicio = new com.toedter.components.JSpinField();
@@ -57,10 +398,22 @@ public class EditarSesion extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboSesiones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboSesiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboSesionesActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jLabel1.setText("Seleccione Sesion");
+
+        BtnCargarDatosSesion.setText("Cargar Datos");
+        BtnCargarDatosSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCargarDatosSesionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -69,15 +422,18 @@ public class EditarSesion extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(54, 54, 54)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(209, 209, 209))
+                .addGap(38, 38, 38)
+                .addComponent(ComboSesiones, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnCargarDatosSesion)
+                .addGap(158, 158, 158))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addComponent(jLabel1))
+                .addComponent(ComboSesiones, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addComponent(BtnCargarDatosSesion))
         );
 
         jLabel2.setText("Inicio");
@@ -131,8 +487,18 @@ public class EditarSesion extends javax.swing.JInternalFrame {
         jLabel4.setText("Tratamiento");
 
         BtnLimpiar.setText("Limpiar");
+        BtnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLimpiarActionPerformed(evt);
+            }
+        });
 
         BtnActualizar.setText("Actualizar");
+        BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnActualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
         Escritorio.setLayout(EscritorioLayout);
@@ -149,47 +515,49 @@ public class EditarSesion extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jDateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(56, 56, 56)
-                        .addComponent(jSpinhoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSpinhoraInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(94, 94, 94)
-                        .addComponent(jSpinMinInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(EscritorioLayout.createSequentialGroup()
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(EscritorioLayout.createSequentialGroup()
-                                    .addComponent(BtnLimpiar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(BtnActualizar))
-                                .addGroup(EscritorioLayout.createSequentialGroup()
-                                    .addComponent(jDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jSpinHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(32, 32, 32)
-                                    .addComponent(jLabel12)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jSpinMinFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EscritorioLayout.createSequentialGroup()
-                            .addGap(2, 2, 2)
-                            .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel9))
-                            .addGap(18, 18, 18)
-                            .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(ComboConsultorio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ComboMasajista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ComboTratamiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ComboDiaSpa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ComboInstalacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ComboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(70, 70, 70))))
-                .addContainerGap(141, Short.MAX_VALUE))
+                        .addComponent(jSpinMinInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EscritorioLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(EscritorioLayout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(EscritorioLayout.createSequentialGroup()
+                                        .addComponent(BtnLimpiar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(BtnActualizar))
+                                    .addGroup(EscritorioLayout.createSequentialGroup()
+                                        .addComponent(jDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jSpinHoraFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(32, 32, 32)
+                                        .addComponent(jLabel12)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jSpinMinFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EscritorioLayout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addGap(18, 18, 18)
+                                .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(ComboConsultorio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ComboMasajista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ComboTratamiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ComboDiaSpa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ComboInstalacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ComboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(70, 70, 70)))))
+                .addGap(141, 141, 141))
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,18 +625,51 @@ public class EditarSesion extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarActionPerformed
+        // TODO add your handling code here:
+         limpiarCampos();
+    }//GEN-LAST:event_BtnLimpiarActionPerformed
+
+    private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+        // TODO add your handling code here:
+        if (validarCampos() && sesionActual != null) {
+            actualizarSesion();
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una sesión y complete todos los campos obligatorios");
+        }
+    }//GEN-LAST:event_BtnActualizarActionPerformed
+
+    private void BtnCargarDatosSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCargarDatosSesionActionPerformed
+        // TODO add your handling code here:
+        if(ComboSesiones.getSelectedIndex()> 0){
+            cargarDatosSesion();
+        }else{
+            limpiarCampos();
+        }
+    }//GEN-LAST:event_BtnCargarDatosSesionActionPerformed
+
+    private void ComboSesionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboSesionesActionPerformed
+        // TODO add your handling code here:
+        /*if(ComboSesiones.getSelectedIndex()> 0){
+            cargarDatosSesion();
+        }else{
+            limpiarCampos();
+        }*/
+    }//GEN-LAST:event_ComboSesionesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
+    private javax.swing.JToggleButton BtnCargarDatosSesion;
     private javax.swing.JButton BtnLimpiar;
     private javax.swing.JComboBox<String> ComboConsultorio;
     private javax.swing.JComboBox<String> ComboDiaSpa;
     private javax.swing.JComboBox<String> ComboEstado;
     private javax.swing.JComboBox<String> ComboInstalacion;
     private javax.swing.JComboBox<String> ComboMasajista;
+    private javax.swing.JComboBox<String> ComboSesiones;
     private javax.swing.JComboBox<String> ComboTratamiento;
     private javax.swing.JPanel Escritorio;
-    private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateFin;
     private com.toedter.calendar.JDateChooser jDateInicio;
     private javax.swing.JLabel jLabel1;

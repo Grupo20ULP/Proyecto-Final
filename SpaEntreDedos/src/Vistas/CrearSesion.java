@@ -4,17 +4,296 @@
  */
 package Vistas;
 
+import Modelo.Sesion;
+import Modelo.Tratamiento;
+import Modelo.Masajista;
+import Modelo.Consultorio;
+import Modelo.Dia_De_Spa;
+import Modelo.Instalacion;
+import Persistencia.SesionData;
+import Persistencia.TratamientoData;
+import Persistencia.MasajistaData;
+import Persistencia.ConsultorioData;
+import Persistencia.Dia_De_SpaData;
+import Persistencia.InstalacionData;
+
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
- * @author TuMachGalan
+ * @author Federico Galan
  */
 public class CrearSesion extends javax.swing.JInternalFrame {
+
+    private SesionData sesionData;
+    private TratamientoData tratamientoData;
+    private MasajistaData masajistaData;
+    private ConsultorioData consultorioData;
+    private Dia_De_SpaData diaSpaData;
+    private InstalacionData instalacionData;
+
 
     /**
      * Creates new form CrearSesion
      */
     public CrearSesion() {
         initComponents();
+        inicializarDatos();
+        cargarCombos();
+    }
+    
+    private void inicializarDatos() {
+        sesionData = new SesionData();
+        tratamientoData = new TratamientoData();
+        masajistaData = new MasajistaData();
+        consultorioData = new ConsultorioData();
+        try {
+            diaSpaData = new Dia_De_SpaData();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al inicializar datos de días spa: " + e.getMessage());
+        }
+        instalacionData = new InstalacionData();
+    }
+    
+    private void cargarCombos() {
+        cargarTratamientos();
+        cargarMasajistas();
+        cargarConsultorios();
+        cargarDiasSpa();
+        cargarInstalaciones();
+    }
+    
+    private void cargarTratamientos() {
+        try {
+            List<Tratamiento> tratamientos = tratamientoData.listarTratamiento();
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.addElement("Seleccione tratamiento");
+            for (Tratamiento t : tratamientos) {
+                if ("si".equalsIgnoreCase(t.getActivo())) {
+                    model.addElement(t.getCodTratam() + " - " + t.getNombre() + " ($" + t.getCosto() + ")");
+                }
+            }
+            ComboTratamiento.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar tratamientos: " + e.getMessage());
+        }
+    }
+    
+    private void cargarMasajistas() {
+        try {
+            List<Masajista> masajistas = masajistaData.listarMasajistas();
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.addElement("Seleccione masajista");
+            for (Masajista m : masajistas) {
+                if ("activo".equalsIgnoreCase(m.getEstado())) {
+                    model.addElement(m.getMatricula() + " - " + m.getNombreYapellido() + " (" + m.getEspecialidad() + ")");
+                }
+            }
+            ComboMasajista.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar masajistas: " + e.getMessage());
+        }
+    }
+    
+    private void cargarConsultorios() {
+        try {
+            List<Consultorio> consultorios = consultorioData.listarConsultorios();
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.addElement("Seleccione consultorio");
+            for (Consultorio c : consultorios) {
+                if ("si".equalsIgnoreCase(c.getApto())) {
+                    model.addElement("Consultorio " + c.getNroConsultorio() + " (" + c.getUsos() + ")");
+                }
+            }
+            ComboConsultorio.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar consultorios: " + e.getMessage());
+        }
+    }
+    
+    private void cargarDiasSpa() {
+        try {
+            // Usando el método listarDiasDeSpa() de Dia_De_SpaData
+            List<Dia_De_Spa> diasSpa = diaSpaData.listarDiasDeSpa();
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.addElement("Seleccione día spa");
+            
+            for (Dia_De_Spa dia : diasSpa) {
+                // Verificar que el día spa esté en estado válido para agregar sesiones
+                if (dia.getEstado().equalsIgnoreCase("Reservado") || 
+                    dia.getEstado().equalsIgnoreCase("Activo") ||
+                    dia.getEstado().equalsIgnoreCase("pendiente") ||
+                    dia.getEstado().equalsIgnoreCase("confirmado")) {
+                    
+                    String clienteNombre = (dia.getCliente() != null) ? 
+                        dia.getCliente().getNombre_completo() : "Cliente no disponible";
+                    
+                    model.addElement("Día " + dia.getCodPack() + " - " + clienteNombre + 
+                                   " (" + dia.getFechaHora().toLocalDate() + ")");
+                }
+            }
+            
+            ComboDiaSpa.setModel(model);
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar días spa: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error inesperado al cargar días spa: " + e.getMessage());
+        }
+    }
+    
+    private void cargarInstalaciones() {
+        try {
+            List<Instalacion> instalaciones = instalacionData.listarInstalacionesActivas();
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.addElement("Sin instalación");
+            for (Instalacion i : instalaciones) {
+                model.addElement(i.getCodInstal() + " - " + i.getNombre() + " ($" + i.getPrecio30m() + "/30min)");
+            }
+            ComboInstalacion.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar instalaciones: " + e.getMessage());
+        }
+    }
+    
+    
+    
+    
+    
+    
+    private boolean validarCampos() {
+        if (ComboTratamiento.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un tratamiento");
+            return false;
+        }
+        if (ComboMasajista.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un masajista");
+            return false;
+        }
+        if (ComboDiaSpa.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un día spa");
+            return false;
+        }
+        if (jDateInicio.getDate() == null || jDateFin.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione fechas de inicio y fin");
+            return false;
+        }
+        
+        // Validar que la fecha de fin sea posterior a la de inicio
+        LocalDateTime inicio = construirFechaHora(jDateInicio, jSpinhoraInicio, jSpinMinInicio);
+        LocalDateTime fin = construirFechaHora(jDateFin, jSpinHoraFin, jSpinMinFin);
+        
+        if (!fin.isAfter(inicio)) {
+            JOptionPane.showMessageDialog(this, "La fecha de fin debe ser posterior a la de inicio");
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private void guardarSesion() {
+        try {
+            Sesion sesion = new Sesion();
+            
+            LocalDateTime inicio = construirFechaHora(jDateInicio, jSpinhoraInicio, jSpinMinInicio);
+            LocalDateTime fin = construirFechaHora(jDateFin, jSpinHoraFin, jSpinMinFin);
+            
+            sesion.setFechaHoraInicio(inicio);
+            sesion.setFechaHoraFin(fin);
+            
+            String tratamientoStr = (String) ComboTratamiento.getSelectedItem();
+            int codTratamiento = Integer.parseInt(tratamientoStr.split(" - ")[0]);
+            Tratamiento tratamiento = tratamientoData.buscarTratamientoPorId(codTratamiento);
+            sesion.setTratamiento(tratamiento);
+            
+            String masajistaStr = (String) ComboMasajista.getSelectedItem();
+            int matricula = Integer.parseInt(masajistaStr.split(" - ")[0]);
+            Masajista masajista = masajistaData.buscarMasajistaPorId(matricula);
+            sesion.setMasajista(masajista);
+            
+            String diaSpaStr = (String) ComboDiaSpa.getSelectedItem();
+            int codPack = Integer.parseInt(diaSpaStr.split(" - ")[0].split(" ")[1]);
+            Dia_De_Spa diaSpa = diaSpaData.buscarDiaDeSpa(codPack);
+            sesion.setDiaSpa(diaSpa);
+            
+            if (ComboConsultorio.getSelectedIndex() > 0) {
+                String consultorioStr = (String) ComboConsultorio.getSelectedItem();
+                int nroConsultorio = Integer.parseInt(consultorioStr.split(" ")[1]);
+                Consultorio consultorio = consultorioData.buscarConsultorio(nroConsultorio);
+                sesion.setConsultorio(consultorio);
+            }
+            
+            if (ComboInstalacion.getSelectedIndex() > 0) {
+                String instalacionStr = (String) ComboInstalacion.getSelectedItem();
+                int codInstalacion = Integer.parseInt(instalacionStr.split(" - ")[0]);
+                Instalacion instalacion = instalacionData.buscarInstalacionPorId(codInstalacion);
+                sesion.setInstalacion(instalacion);
+            }
+            
+            sesion.setEstado((String) ComboEstado.getSelectedItem());
+            
+            // Guardar sesión
+            sesionData.insertarSesion(sesion);
+            JOptionPane.showMessageDialog(this, "Sesión creada exitosamente");
+            
+            recalcularMontoDiaSpa(diaSpa);
+            
+            limpiarCampos();
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error de base de datos al crear sesión: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error en el formato de los datos: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al crear sesión: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    private void recalcularMontoDiaSpa(Dia_De_Spa diaSpa) {
+        try {
+            diaSpa.recalcularMonto();
+            
+            diaSpaData.actualizarDiaDeSpa(diaSpa);
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar monto del día spa: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error inesperado al recalcular monto: " + e.getMessage());
+        }
+    }
+    
+    private LocalDateTime construirFechaHora(com.toedter.calendar.JDateChooser dateChooser, 
+                                           com.toedter.components.JSpinField hora, 
+                                           com.toedter.components.JSpinField minutos) {
+        java.util.Date fecha = dateChooser.getDate();
+        return LocalDateTime.of(
+            fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate(),
+            java.time.LocalTime.of(hora.getValue(), minutos.getValue())
+        );
+    }
+    
+    public void actualizarListaDiasSpa() {
+        cargarDiasSpa();
+    }
+    
+    private void limpiarCampos() {
+        ComboTratamiento.setSelectedIndex(0);
+        ComboMasajista.setSelectedIndex(0);
+        ComboConsultorio.setSelectedIndex(0);
+        ComboDiaSpa.setSelectedIndex(0);
+        ComboInstalacion.setSelectedIndex(0);
+        ComboEstado.setSelectedIndex(0);
+        jDateInicio.setDate(null);
+        jDateFin.setDate(null);
+        jSpinhoraInicio.setValue(9);
+        jSpinMinInicio.setValue(0);
+        jSpinHoraFin.setValue(10);
+        jSpinMinFin.setValue(0);
     }
 
     /**
@@ -109,8 +388,18 @@ public class CrearSesion extends javax.swing.JInternalFrame {
         jSpinMinFin.setMinimum(0);
 
         BtnGuardar.setText("Guardar");
+        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarActionPerformed(evt);
+            }
+        });
 
         BtnLimpiar.setText("Limpiar");
+        BtnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
         Escritorio.setLayout(EscritorioLayout);
@@ -237,6 +526,18 @@ public class CrearSesion extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_BtnLimpiarActionPerformed
+
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+        // TODO add your handling code here:
+        if (validarCampos()) {
+            guardarSesion();
+        }
+        
+    }//GEN-LAST:event_BtnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
