@@ -112,7 +112,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1Sesion.add(jMenuItemDiaDeSpa);
 
-        jMenuItemSesion.setText("Buscar ");
+        jMenuItemSesion.setText("Sesion");
         jMenuItemSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemSesionActionPerformed(evt);
@@ -295,7 +295,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_modificarClienteActionPerformed
 
     private void jMenuItemSesionActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemSesionActionPerformed
-
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        Sesion Sesion = new Sesion();
+        Sesion.setVisible(true);
+        Escritorio.add(Sesion);
+        Escritorio.moveToFront(Sesion);
+        int x = (Escritorio.getWidth() - Sesion.getWidth()) / 2;
+        int y = (Escritorio.getHeight() - Sesion.getHeight()) / 2;
+        Sesion.setLocation(x, y);
     }// GEN-LAST:event_jMenuItemSesionActionPerformed
 
 

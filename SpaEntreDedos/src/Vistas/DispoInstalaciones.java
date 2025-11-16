@@ -4,18 +4,105 @@
  */
 package Vistas;
 
+import Modelo.Instalacion;
+import Persistencia.InstalacionData;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Federico Galan
  */
 public class DispoInstalaciones extends javax.swing.JInternalFrame {
 
+    private InstalacionData instalacionData;
+    private DefaultTableModel modeloTabla;
+
     /**
      * Creates new form DispoInstalaciones
      */
     public DispoInstalaciones() {
         initComponents();
+        instalacionData = new InstalacionData();
+        configurarTabla();
+        configurarSpinners();
     }
+
+    private void configurarTabla() {
+        modeloTabla = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
+        String[] columnas = {"Código", "Nombre", "Detalle", "Precio 30min", "Estado"};
+        modeloTabla.setColumnIdentifiers(columnas);
+        jTableInstalaciones.setModel(modeloTabla);
+    }
+    
+    private void configurarSpinners() {
+        jSpinHours.setMinimum(0);
+        jSpinHours.setMaximum(23);
+        jSpinHours.setValue(12);
+        
+        jSpinMin.setMinimum(0);
+        jSpinMin.setMaximum(59);
+        jSpinMin.setValue(0);
+    }
+    
+    private void buscarDisponibilidad() {
+        try {
+            if (jDateInstalaciones.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione una fecha.");
+                return;
+            }
+            
+            java.util.Date fechaSeleccionada = jDateInstalaciones.getDate();
+            int hora = jSpinHours.getValue();
+            int minutos = jSpinMin.getValue();
+            
+            LocalDateTime fechaHoraInicio = LocalDateTime.of(
+                fechaSeleccionada.getYear() + 1900,
+                fechaSeleccionada.getMonth() + 1,
+                fechaSeleccionada.getDate(),
+                hora, minutos
+            );
+            
+            LocalDateTime fechaHoraFin = fechaHoraInicio.plusMinutes(30);
+            
+            Timestamp inicio = Timestamp.valueOf(fechaHoraInicio);
+            Timestamp fin = Timestamp.valueOf(fechaHoraFin);
+            
+            List<Instalacion> instalacionesLibres = instalacionData.listarInstalacionesLibres(inicio, fin);
+            
+            modeloTabla.setRowCount(0);
+            for (Instalacion inst : instalacionesLibres) {
+                Object[] fila = {
+                    inst.getCodInstal(),
+                    inst.getNombre(),
+                    inst.getDetalleUso(),
+                    String.format("$%.2f", inst.getPrecio30m()),
+                    inst.getEstado()
+                };
+                modeloTabla.addRow(fila);
+            }
+            
+            if (instalacionesLibres.isEmpty()) {
+                JOptionPane.showMessageDialog(this, 
+                    "No hay instalaciones disponibles para la fecha y hora seleccionada.");
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "Se encontraron " + instalacionesLibres.size() + " instalaciones disponibles.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al buscar disponibilidad: " + e.getMessage());
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,7 +115,7 @@ public class DispoInstalaciones extends javax.swing.JInternalFrame {
 
         Background = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableInstalaciones = new javax.swing.JTable();
         BtnBuscarDispo = new javax.swing.JButton();
         jDateInstalaciones = new com.toedter.calendar.JDateChooser();
         jSpinHours = new com.toedter.components.JSpinField();
@@ -39,7 +126,7 @@ public class DispoInstalaciones extends javax.swing.JInternalFrame {
 
         Background.setBackground(new java.awt.Color(53, 30, 0));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableInstalaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -50,12 +137,17 @@ public class DispoInstalaciones extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableInstalaciones);
 
         BtnBuscarDispo.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         BtnBuscarDispo.setText("Buscar");
         BtnBuscarDispo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.white, java.awt.Color.darkGray, java.awt.Color.red));
         BtnBuscarDispo.setBorderPainted(false);
+        BtnBuscarDispo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarDispoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -122,6 +214,11 @@ public class DispoInstalaciones extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BtnBuscarDispoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarDispoActionPerformed
+        // TODO add your handling code here:
+        buscarDisponibilidad();
+    }//GEN-LAST:event_BtnBuscarDispoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
@@ -133,6 +230,6 @@ public class DispoInstalaciones extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.components.JSpinField jSpinHours;
     private com.toedter.components.JSpinField jSpinMin;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableInstalaciones;
     // End of variables declaration//GEN-END:variables
 }

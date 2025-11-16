@@ -26,12 +26,10 @@ public class Instalacion extends javax.swing.JInternalFrame {
         try {
             ListaInstalaciones list = new ListaInstalaciones();
             list.setVisible(true);
-
-            // Limpiar y agregar el internal frame
+        
             content.removeAll();
             content.add(list, BorderLayout.CENTER);
 
-            // Forzar la actualización
             content.revalidate();
             content.repaint();
 
@@ -48,7 +46,7 @@ public class Instalacion extends javax.swing.JInternalFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
@@ -58,6 +56,7 @@ public class Instalacion extends javax.swing.JInternalFrame {
         BtnListarInstalaciones = new javax.swing.JButton();
         Salir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnAddInsta = new javax.swing.JButton();
         content = new javax.swing.JPanel();
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
@@ -68,6 +67,7 @@ public class Instalacion extends javax.swing.JInternalFrame {
         BtnEditarInstalaciones.setText("Editar Instalaciones");
         BtnEditarInstalaciones.setBorder(null);
         BtnEditarInstalaciones.setBorderPainted(false);
+        BtnEditarInstalaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnEditarInstalaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnEditarInstalacionesMouseClicked(evt);
@@ -78,6 +78,7 @@ public class Instalacion extends javax.swing.JInternalFrame {
         BtnVerDispo.setText("Ver Disponibles");
         BtnVerDispo.setBorder(null);
         BtnVerDispo.setBorderPainted(false);
+        BtnVerDispo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnVerDispo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnVerDispoMouseClicked(evt);
@@ -88,19 +89,28 @@ public class Instalacion extends javax.swing.JInternalFrame {
         BtnListarInstalaciones.setText("Lista Instalaciones");
         BtnListarInstalaciones.setBorder(null);
         BtnListarInstalaciones.setBorderPainted(false);
+        BtnListarInstalaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnListarInstalaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnListarInstalacionesMouseClicked(evt);
             }
         });
 
-        Salir.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Salir.setBackground(new java.awt.Color(255, 153, 153));
+        Salir.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        Salir.setForeground(new java.awt.Color(0, 0, 0));
         Salir.setText("Salir");
         Salir.setBorder(null);
         Salir.setBorderPainted(false);
+        Salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Salir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 SalirMouseClicked(evt);
+            }
+        });
+        Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirActionPerformed(evt);
             }
         });
 
@@ -108,89 +118,117 @@ public class Instalacion extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Menu Instalaciones");
 
+        btnAddInsta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnAddInsta.setText("Agregar Instalacion");
+        btnAddInsta.setBorder(null);
+        btnAddInsta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAddInsta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddInstaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout JmenuLayout = new javax.swing.GroupLayout(Jmenu);
         Jmenu.setLayout(JmenuLayout);
         JmenuLayout.setHorizontalGroup(
-                JmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(BtnEditarInstalaciones, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnVerDispo, javax.swing.GroupLayout.Alignment.TRAILING,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                Short.MAX_VALUE)
-                        .addComponent(Salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                Short.MAX_VALUE)
-                        .addGroup(JmenuLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
-                        .addComponent(BtnListarInstalaciones, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            JmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(BtnEditarInstalaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(BtnVerDispo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(JmenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(BtnListarInstalaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnAddInsta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
         JmenuLayout.setVerticalGroup(
-                JmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(JmenuLayout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122,
-                                        Short.MAX_VALUE)
-                                .addComponent(BtnListarInstalaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 35,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BtnEditarInstalaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BtnVerDispo, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(85, 85, 85)
-                                .addComponent(Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 29,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)));
+            JmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JmenuLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1)
+                .addGap(88, 88, 88)
+                .addComponent(BtnListarInstalaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnEditarInstalaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnVerDispo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAddInsta, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
+        );
 
         content.setBackground(new java.awt.Color(57, 34, 0));
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
-                contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 586, Short.MAX_VALUE));
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 586, Short.MAX_VALUE)
+        );
         contentLayout.setVerticalGroup(
-                contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE));
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(Jmenu, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(Jmenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
         jPanel2Layout.setVerticalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(Jmenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                Short.MAX_VALUE)
-                        .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Jmenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAddInstaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddInstaMouseClicked
         // TODO add your handling code here:
-    }// GEN-LAST:event_jButton1ActionPerformed
+        try {
+            AddInstalacion list = new AddInstalacion();
+            list.setVisible(true);
+
+            
+            content.removeAll();
+            content.add(list, BorderLayout.CENTER);
+
+            
+            content.revalidate();
+            content.repaint();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar lista de instalaciones: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnAddInstaMouseClicked
+
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_SalirActionPerformed
+    // GEN-FIRST:event_jButton1ActionPerformed
+    // TODO add your handling code here:
+    // GEN-LAST:event_jButton1ActionPerformed
+
 
     private void BtnListarInstalacionesMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_BtnListarInstalacionesMouseClicked
         initContent();
@@ -201,11 +239,9 @@ public class Instalacion extends javax.swing.JInternalFrame {
             EditInstalaciones list = new EditInstalaciones();
             list.setVisible(true);
 
-            // Limpiar y agregar el internal frame
             content.removeAll();
             content.add(list, BorderLayout.CENTER);
-
-            // Forzar la actualización
+            
             content.revalidate();
             content.repaint();
 
@@ -221,11 +257,9 @@ public class Instalacion extends javax.swing.JInternalFrame {
             DispoInstalaciones list = new DispoInstalaciones();
             list.setVisible(true);
 
-            // Limpiar y agregar el internal frame
             content.removeAll();
             content.add(list, BorderLayout.CENTER);
-
-            // Forzar la actualización
+            
             content.revalidate();
             content.repaint();
 
@@ -245,6 +279,7 @@ public class Instalacion extends javax.swing.JInternalFrame {
     private javax.swing.JButton BtnVerDispo;
     private javax.swing.JPanel Jmenu;
     private javax.swing.JButton Salir;
+    private javax.swing.JButton btnAddInsta;
     private javax.swing.JPanel content;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;

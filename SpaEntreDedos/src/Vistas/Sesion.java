@@ -4,6 +4,9 @@
  */
 package Vistas;
 
+import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Heber Gomez PC
@@ -15,6 +18,25 @@ public class Sesion extends javax.swing.JInternalFrame {
      */
     public Sesion () {
         initComponents();
+        content.setLayout(new java.awt.BorderLayout());
+        initContent();
+    }
+    
+        private void initContent() {
+        try {
+            CrearSesion list = new CrearSesion();
+            list.setVisible(true);
+        
+            content.removeAll();
+            content.add(list, BorderLayout.CENTER);
+
+            content.revalidate();
+            content.repaint();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar lista de instalaciones: " + e.getMessage());
+        }
     }
 
     /**
@@ -26,15 +48,91 @@ public class Sesion extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Escritorio = new javax.swing.JPanel();
+        JMenu = new javax.swing.JPanel();
+        BtnCrearSesion = new javax.swing.JToggleButton();
+        BtnBuscarSesion = new javax.swing.JToggleButton();
+        BtnEditarSesion = new javax.swing.JToggleButton();
+        content = new javax.swing.JPanel();
+
+        Escritorio.setBackground(new java.awt.Color(40, 24, 0));
+
+        JMenu.setBackground(new java.awt.Color(75, 48, 24));
+
+        BtnCrearSesion.setBackground(new java.awt.Color(77, 54, 54));
+        BtnCrearSesion.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
+        BtnCrearSesion.setText("Crear Sesion");
+        BtnCrearSesion.setBorder(null);
+        BtnCrearSesion.setBorderPainted(false);
+
+        BtnBuscarSesion.setBackground(new java.awt.Color(77, 54, 54));
+        BtnBuscarSesion.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
+        BtnBuscarSesion.setText("Buscar Sesion");
+        BtnBuscarSesion.setBorder(null);
+        BtnBuscarSesion.setBorderPainted(false);
+
+        BtnEditarSesion.setBackground(new java.awt.Color(77, 54, 54));
+        BtnEditarSesion.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
+        BtnEditarSesion.setText("Editar Sesion");
+        BtnEditarSesion.setBorder(null);
+        BtnEditarSesion.setBorderPainted(false);
+
+        javax.swing.GroupLayout JMenuLayout = new javax.swing.GroupLayout(JMenu);
+        JMenu.setLayout(JMenuLayout);
+        JMenuLayout.setHorizontalGroup(
+            JMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JMenuLayout.createSequentialGroup()
+                .addGap(103, 103, 103)
+                .addComponent(BtnCrearSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                .addGap(88, 88, 88)
+                .addComponent(BtnBuscarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addGap(89, 89, 89)
+                .addComponent(BtnEditarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                .addGap(84, 84, 84))
+        );
+        JMenuLayout.setVerticalGroup(
+            JMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(BtnBuscarSesion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+            .addComponent(BtnCrearSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(BtnEditarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
+        content.setLayout(contentLayout);
+        contentLayout.setHorizontalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        contentLayout.setVerticalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 452, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
+        Escritorio.setLayout(EscritorioLayout);
+        EscritorioLayout.setHorizontalGroup(
+            EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(JMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        EscritorioLayout.setVerticalGroup(
+            EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EscritorioLayout.createSequentialGroup()
+                .addComponent(JMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addComponent(Escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addComponent(Escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -42,5 +140,11 @@ public class Sesion extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton BtnBuscarSesion;
+    private javax.swing.JToggleButton BtnCrearSesion;
+    private javax.swing.JToggleButton BtnEditarSesion;
+    private javax.swing.JPanel Escritorio;
+    private javax.swing.JPanel JMenu;
+    private javax.swing.JPanel content;
     // End of variables declaration//GEN-END:variables
 }
