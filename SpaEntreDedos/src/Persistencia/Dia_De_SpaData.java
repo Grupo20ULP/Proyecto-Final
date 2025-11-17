@@ -11,15 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dia_De_SpaData {
- private Connection con;
+
+    private Connection con;
 
     public Dia_De_SpaData() throws SQLException {
         this.con = Conexion.getConectar();
     }
 
-
     // Inserta un nuevo registro en la tabla
-
     public void guardarDiaDeSpa(Dia_De_Spa dia) throws SQLException {
         String sql = "INSERT INTO dia_de_spa (codPack, fechaHora, preferencias, cliente_id, monto, estado) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -34,43 +33,42 @@ public class Dia_De_SpaData {
     }
 
     // Trae un dia de spa por su codigo
-public Dia_De_Spa buscarDiaDeSpa(int codPack) throws SQLException {
-    String sql = "SELECT d.codPack, d.fecha_hora, d.preferencias, d.cliente_id, d.monto_total, d.estado, " +
-                "c.codCli, c.dni, c.nombre_completo, c.telefono, c.edad, c.afecciones, c.estado as estado_cliente " +
-                "FROM dia_de_spa d JOIN cliente c ON d.cliente_id = c.codCli WHERE d.codPack = ?";
-        
-    PreparedStatement ps = con.prepareStatement(sql);
-    ps.setInt(1, codPack);
-    ResultSet rs = ps.executeQuery();
+    public Dia_De_Spa buscarDiaDeSpa(int codPack) throws SQLException {
+        String sql = "SELECT d.codPack, d.fecha_hora, d.preferencias, d.cliente_id, d.monto_total, d.estado, "
+                + "c.codCli, c.dni, c.nombre_completo, c.telefono, c.edad, c.afecciones, c.estado as estado_cliente "
+                + "FROM dia_de_spa d JOIN cliente c ON d.cliente_id = c.codCli WHERE d.codPack = ?";
 
-    Dia_De_Spa dia = null;
-    if (rs.next()) {
-        dia = new Dia_De_Spa();
-        dia.setCodPack(rs.getInt("codPack"));
-        dia.setFechaHora(rs.getTimestamp("fecha_hora").toLocalDateTime());
-        dia.setPreferencias(rs.getString("preferencias"));
-        dia.setMonto(rs.getDouble("monto_total"));
-        dia.setEstado(rs.getString("estado"));
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, codPack);
+        ResultSet rs = ps.executeQuery();
 
-        // Crear objeto Cliente asociado
-        Cliente cli = new Cliente(
-            rs.getInt("codCli"),
-            rs.getInt("dni"),
-            rs.getString("nombre_completo"),
-            rs.getString("telefono"),
-            rs.getInt("edad"),
-            rs.getString("afecciones"),
-            rs.getString("estado_cliente")
-        );
+        Dia_De_Spa dia = null;
+        if (rs.next()) {
+            dia = new Dia_De_Spa();
+            dia.setCodPack(rs.getInt("codPack"));
+            dia.setFechaHora(rs.getTimestamp("fecha_hora").toLocalDateTime());
+            dia.setPreferencias(rs.getString("preferencias"));
+            dia.setMonto(rs.getDouble("monto_total"));
+            dia.setEstado(rs.getString("estado"));
 
-        dia.setCliente(cli);
+            // Crear objeto Cliente asociado
+            Cliente cli = new Cliente(
+                    rs.getInt("codCli"),
+                    rs.getInt("dni"),
+                    rs.getString("nombre_completo"),
+                    rs.getString("telefono"),
+                    rs.getInt("edad"),
+                    rs.getString("afecciones"),
+                    rs.getString("estado_cliente")
+            );
+
+            dia.setCliente(cli);
+        }
+
+        rs.close();
+        ps.close();
+        return dia;
     }
-
-    rs.close();
-    ps.close();
-    return dia;
-}
-
 
     // Devuelve todos los dias de spa
 /* 
@@ -94,14 +92,14 @@ public Dia_De_Spa buscarDiaDeSpa(int codPack) throws SQLException {
         st.close();
         return lista;
     }
- */
+     */
 // Devuelve todos los dias de spa corregido
     public List<Dia_De_Spa> listarDiasDeSpa() throws SQLException {
         List<Dia_De_Spa> lista = new ArrayList<>();
-        String sql = "SELECT d.codPack, d.fecha_hora, d.preferencias, d.cliente_id, d.monto_total, d.estado, " +
-                    "c.codCli, c.dni, c.nombre_completo, c.telefono, c.edad, c.afecciones, c.estado as estado_cliente " +
-                    "FROM dia_de_spa d JOIN cliente c ON d.cliente_id = c.codCli";
-        
+        String sql = "SELECT d.codPack, d.fecha_hora, d.preferencias, d.cliente_id, d.monto_total, d.estado, "
+                + "c.codCli, c.dni, c.nombre_completo, c.telefono, c.edad, c.afecciones, c.estado as estado_cliente "
+                + "FROM dia_de_spa d JOIN cliente c ON d.cliente_id = c.codCli";
+
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
@@ -115,13 +113,13 @@ public Dia_De_Spa buscarDiaDeSpa(int codPack) throws SQLException {
 
             // Crear objeto Cliente asociado
             Cliente cli = new Cliente(
-                rs.getInt("codCli"),
-                rs.getInt("dni"),
-                rs.getString("nombre_completo"),
-                rs.getString("telefono"),
-                rs.getInt("edad"),
-                rs.getString("afecciones"),
-                rs.getString("estado_cliente")
+                    rs.getInt("codCli"),
+                    rs.getInt("dni"),
+                    rs.getString("nombre_completo"),
+                    rs.getString("telefono"),
+                    rs.getInt("edad"),
+                    rs.getString("afecciones"),
+                    rs.getString("estado_cliente")
             );
 
             dia.setCliente(cli);
@@ -131,10 +129,9 @@ public Dia_De_Spa buscarDiaDeSpa(int codPack) throws SQLException {
         rs.close();
         ps.close();
         return lista;
-}
+    }
 
     // Modifica los datos existentes
-
     public void actualizarDiaDeSpa(Dia_De_Spa dia) throws SQLException {
         String sql = "UPDATE dia_de_spa SET fecha_hora = ?, preferencias = ?, cliente_id = ?, monto_total = ?, estado = ? WHERE codPack = ?";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -148,26 +145,34 @@ public Dia_De_Spa buscarDiaDeSpa(int codPack) throws SQLException {
         ps.close();
     }
 
-
-    // Delete (Elimina el registro por codigo)
-    public void eliminarDiaDeSpa(int codPack) throws SQLException {
+// Delete (Elimina el registro por codigo)
+    public boolean eliminarDiaDeSpa(int codPack) throws SQLException {
         String sql = "DELETE FROM dia_de_spa WHERE codPack = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, codPack);
-        ps.executeUpdate();
+        int filasAfectadas = ps.executeUpdate();
         ps.close();
+        return filasAfectadas > 0; 
     }
-    
-//    //    Prueba
-//    public boolean tieneSesiones(int codPack) throws SQLException {
-//        String sql = "SELECT COUNT(*) FROM sesion WHERE codPack = ?";
-//        try (PreparedStatement ps = con.prepareStatement(sql)) {
-//            ps.setInt(1, codPack);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                return rs.getInt(1) > 0; // si hay al menos una sesión
-//            }
-//        }
-//        return false;
-//    }
+    // Elimina todas las sesiones de un día de spa
+public boolean eliminarSesionesPorDia(int codPack) throws SQLException {
+    String sql = "DELETE FROM sesion WHERE dia_spa_id = ?";
+    PreparedStatement ps = con.prepareStatement(sql);
+    ps.setInt(1, codPack);
+    int filas = ps.executeUpdate();
+    ps.close();
+    return filas > 0; // Devuelve true si había sesiones eliminadas
+}
+
+//       Prueba
+public boolean actualizarEstadoYPreferencias(int codPack, String estado, String preferencias) throws SQLException {
+    String sql = "UPDATE dia_de_spa SET estado = ?, preferencias = ? WHERE codPack = ?";
+    PreparedStatement ps = con.prepareStatement(sql);
+    ps.setString(1, estado);
+    ps.setString(2, preferencias);
+    ps.setInt(3, codPack);
+    int filas = ps.executeUpdate();
+    ps.close();
+    return filas > 0;
+}
 }

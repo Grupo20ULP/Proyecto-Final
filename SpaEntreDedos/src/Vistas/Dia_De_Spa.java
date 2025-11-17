@@ -11,8 +11,9 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
-import Modelo.Cliente;
+import Modelo.Sesion;
 import java.time.format.DateTimeFormatter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,6 +27,7 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
     public Dia_De_Spa() {
         initComponents();
         inicializarComboBox();
+        jTFTotal.setEditable(false);
     }
 
     private void limpiarCampos() {
@@ -35,6 +37,35 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
         jTFTotal.setText("");
         jCBCliente.setSelectedIndex(-1);
         jCBEstado.setSelectedIndex(-1);
+    }
+
+    private void mostrarSesiones(List<Sesion> sesiones) {
+        // Crear modelo de tabla
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        // Columnas
+        modelo.addColumn("Hora Ini");
+        modelo.addColumn("Hora Fin");
+        modelo.addColumn("Masajista");
+        modelo.addColumn("Consultorio");
+        modelo.addColumn("Tratam.");
+        modelo.addColumn("Insta.");
+
+        // Llenar filas
+        for (Sesion s : sesiones) {
+            Object[] fila = {
+                s.getFechaHoraInicio(), // Hora Ini
+                s.getFechaHoraFin(), // Hora Fin
+                s.getMasajista() != null ? s.getMasajista().getNombreYapellido() : "", // Masajista
+                s.getConsultorio() != null ? s.getConsultorio().getNroConsultorio() : "", // Consultorio
+                s.getTratamiento() != null ? s.getTratamiento().getNombre() : "", // Tratamiento
+                s.getInstalacion() != null ? s.getInstalacion().getNombre() : "" // Instalación
+            };
+            modelo.addRow(fila);
+        }
+
+        // Asignar modelo a la tabla
+        jTableSesiones.setModel(modelo);
     }
 
     private void inicializarComboBox() {
@@ -47,10 +78,10 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
         }
         // Cargar estados posibles
         jCBEstado.removeAllItems();
-        jCBEstado.addItem("Activo");
-        jCBEstado.addItem("Cancelado");
-        jCBEstado.addItem("Completado");
-        jCBEstado.addItem("Pendiente");
+        jCBEstado.addItem("pendiente");
+        jCBEstado.addItem("confirmado");
+        jCBEstado.addItem("realizado");
+        jCBEstado.addItem("cancelado");
     }
 
     /**
@@ -77,13 +108,12 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
         jTXTAREAPREF = new javax.swing.JTextArea();
         jTFCodPack = new javax.swing.JTextField();
         jTFTotal = new javax.swing.JTextField();
-        jBtnNewdia = new javax.swing.JButton();
-        jBtnGuardarDia = new javax.swing.JButton();
         jBtnEliminarDia = new javax.swing.JButton();
         jBtnListarDias = new javax.swing.JButton();
         jLestado = new javax.swing.JLabel();
         jCBEstado = new javax.swing.JComboBox<>();
         BtnBuscarCodPack = new javax.swing.JButton();
+        BtnActualizar = new javax.swing.JButton();
 
         jTableSesiones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -139,33 +169,29 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
             }
         });
 
-        jTFTotal.setText("$100");
-
-        jBtnNewdia.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jBtnNewdia.setForeground(new java.awt.Color(0, 0, 0));
-        jBtnNewdia.setText("Nuevo Día Spa");
-        jBtnNewdia.addActionListener(new java.awt.event.ActionListener() {
+        jTFTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnNewdiaActionPerformed(evt);
-            }
-        });
-
-        jBtnGuardarDia.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jBtnGuardarDia.setForeground(new java.awt.Color(0, 0, 0));
-        jBtnGuardarDia.setText("Guardar Cambios");
-        jBtnGuardarDia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnGuardarDiaActionPerformed(evt);
+                jTFTotalActionPerformed(evt);
             }
         });
 
         jBtnEliminarDia.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jBtnEliminarDia.setForeground(new java.awt.Color(0, 0, 0));
         jBtnEliminarDia.setText("Elimiar Día");
+        jBtnEliminarDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEliminarDiaActionPerformed(evt);
+            }
+        });
 
         jBtnListarDias.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jBtnListarDias.setForeground(new java.awt.Color(0, 0, 0));
         jBtnListarDias.setText("Listar Todo");
+        jBtnListarDias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnListarDiasActionPerformed(evt);
+            }
+        });
 
         jLestado.setText("Estado:");
 
@@ -178,25 +204,20 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnActualizar.setText("Actualizar");
+        BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jBtnNewdia)
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLSUBTITULO)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jBtnGuardarDia)
-                                .addGap(41, 41, 41)
-                                .addComponent(jBtnEliminarDia)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtnListarDias))
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLMonto)
                         .addGap(18, 18, 18)
@@ -206,9 +227,9 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(43, 43, 43)
@@ -235,9 +256,21 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(67, 67, 67)
                                         .addComponent(BtnBuscarCodPack))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(53, 53, 53)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(97, 97, 97)
+                                        .addComponent(jBtnEliminarDia)
+                                        .addGap(74, 74, 74)
+                                        .addComponent(jBtnListarDias))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(170, 170, 170)
+                                        .addComponent(jLSUBTITULO)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnActualizar)))
                         .addGap(0, 18, Short.MAX_VALUE)))
                 .addGap(41, 41, 41))
         );
@@ -275,10 +308,9 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
                                     .addComponent(jTFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(45, 45, 45)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBtnNewdia)
-                            .addComponent(jBtnGuardarDia)
                             .addComponent(jBtnEliminarDia)
-                            .addComponent(jBtnListarDias))
+                            .addComponent(jBtnListarDias)
+                            .addComponent(BtnActualizar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addComponent(jLSUBTITULO)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -348,6 +380,8 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
 
                 // Seleccionar estado
                 jCBEstado.setSelectedItem(dia.getEstado());
+                // 👉 Cargar sesiones en la tabla
+                mostrarSesiones(dia.getSesiones());
 
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "No se encontró el Día de Spa con ese código.");
@@ -362,21 +396,93 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BtnBuscarCodPackActionPerformed
 
-    private void jBtnNewdiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnNewdiaActionPerformed
-        limpiarCampos();
-    }//GEN-LAST:event_jBtnNewdiaActionPerformed
+    private void jBtnListarDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnListarDiasActionPerformed
+        try {
+            Dia_De_SpaData diaData = new Dia_De_SpaData();
+            List<Modelo.Dia_De_Spa> dias = diaData.listarDiasDeSpa();
 
-    private void jBtnGuardarDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarDiaActionPerformed
-        
-    }//GEN-LAST:event_jBtnGuardarDiaActionPerformed
+            // Crear modelo para la tabla
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("CodPack");
+            modelo.addColumn("Fecha");
+            modelo.addColumn("Cliente");
+            modelo.addColumn("Monto");
+            modelo.addColumn("Estado");
+
+            for (Modelo.Dia_De_Spa dia : dias) {
+                Object[] fila = {
+                    dia.getCodPack(),
+                    dia.getFechaHora().toString(),
+                    dia.getCliente().getNombre_completo(),
+                    dia.getMonto(),
+                    dia.getEstado()
+                };
+                modelo.addRow(fila);
+            }
+
+            jTableSesiones.setModel(modelo);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al listar los días de spa.");
+        }
+    }//GEN-LAST:event_jBtnListarDiasActionPerformed
+
+    private void jBtnEliminarDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarDiaActionPerformed
+        try {
+            int codPack = Integer.parseInt(jTFCodPack.getText().trim());
+            Dia_De_SpaData diaData = new Dia_De_SpaData();
+
+            // Primero eliminamos las sesiones vinculadas al día
+            boolean sesionesEliminadas = diaData.eliminarSesionesPorDia(codPack);
+
+            // Después eliminamos el día de spa
+            boolean eliminado = diaData.eliminarDiaDeSpa(codPack);
+
+            if (eliminado) {
+                JOptionPane.showMessageDialog(this, "Día de Spa y sus sesiones eliminados correctamente.");
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró el Día de Spa a eliminar.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un número válido en CodPack.");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jBtnEliminarDiaActionPerformed
+
+    private void jTFTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFTotalActionPerformed
+
+    }//GEN-LAST:event_jTFTotalActionPerformed
+
+    private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+        try {
+            int codPack = Integer.parseInt(jTFCodPack.getText().trim());
+            String nuevoEstado = jCBEstado.getSelectedItem().toString().trim().toLowerCase();
+            String nuevasPreferencias = jTXTAREAPREF.getText().trim();
+
+            Dia_De_SpaData diaData = new Dia_De_SpaData();
+            boolean actualizado = diaData.actualizarEstadoYPreferencias(codPack, nuevoEstado, nuevasPreferencias);
+
+            if (actualizado) {
+                JOptionPane.showMessageDialog(this, "Día de Spa actualizado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró el Día de Spa a actualizar.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un número válido en CodPack.");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_BtnActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnBuscarCodPack;
     private javax.swing.JButton jBtnEliminarDia;
-    private javax.swing.JButton jBtnGuardarDia;
     private javax.swing.JButton jBtnListarDias;
-    private javax.swing.JButton jBtnNewdia;
     private javax.swing.JComboBox<String> jCBCliente;
     private javax.swing.JComboBox<String> jCBEstado;
     private javax.swing.JLabel jLCP;
