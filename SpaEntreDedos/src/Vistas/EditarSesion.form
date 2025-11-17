@@ -46,9 +46,9 @@
                           <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Component id="jDateInicio" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                          <Component id="jSpinhoraInicio" max="32767" attributes="0"/>
+                          <Component id="jSpinhoraInicio" pref="83" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
-                          <Component id="jSpinMinInicio" max="32767" attributes="0"/>
+                          <Component id="jSpinMinInicio" pref="84" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
@@ -158,7 +158,7 @@
                       <Component id="ComboEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="33" max="32767" attributes="0"/>
+                  <EmptySpace pref="30" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="BtnActualizar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="BtnLimpiar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -180,22 +180,22 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                      <Component id="ComboSesiones" min="-2" pref="106" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="BtnCargarDatosSesion" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" pref="118" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="ComboSesiones" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="BtnCargarDatosSesion" min="-2" pref="133" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="ComboSesiones" alignment="3" pref="39" max="32767" attributes="0"/>
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="BtnCargarDatosSesion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ComboSesiones" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="BtnCargarDatosSesion" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
