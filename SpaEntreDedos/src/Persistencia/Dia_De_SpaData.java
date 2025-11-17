@@ -157,4 +157,17 @@ public Dia_De_Spa buscarDiaDeSpa(int codPack) throws SQLException {
         ps.executeUpdate();
         ps.close();
     }
+    
+//    //    Prueba
+//    public boolean tieneSesiones(int codPack) throws SQLException {
+//        String sql = "SELECT COUNT(*) FROM sesion WHERE codPack = ?";
+//        try (PreparedStatement ps = con.prepareStatement(sql)) {
+//            ps.setInt(1, codPack);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                return rs.getInt(1) > 0; // si hay al menos una sesión
+//            }
+//        }
+//        return false;
+//    }
 }

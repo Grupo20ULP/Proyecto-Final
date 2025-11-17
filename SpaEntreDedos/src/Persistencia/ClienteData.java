@@ -210,5 +210,29 @@ public class ClienteData {
         }
         return cliente;
     }
-     
+     //Prueba
+    public Cliente buscarClientePorNombre(String nombre) {
+    Cliente cliente = null;
+    String sql = "SELECT * FROM cliente WHERE nombre_completo = ?";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, nombre);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            cliente = new Cliente();
+            cliente.setCodCli(rs.getInt("codCli"));
+            cliente.setDni(rs.getInt("dni"));
+            cliente.setNombre_completo(rs.getString("nombre_completo"));
+            cliente.setTelefono(rs.getString("telefono"));
+            cliente.setEdad(rs.getInt("edad"));
+            cliente.setAfecciones(rs.getString("afecciones"));
+            cliente.setEstado(rs.getString("estado"));
+        }
+        rs.close();
+        ps.close();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al buscar cliente por nombre: " + e.getMessage());
+    }
+    return cliente;
+}
 }
