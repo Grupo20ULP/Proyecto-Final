@@ -6,7 +6,6 @@ package Vistas;
 
 import Modelo.Cliente;
 import Persistencia.ClienteData;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -227,6 +226,26 @@ public class RegistroCliente extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios para poder registrar al cliente.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            
+            if (!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")) {
+                JOptionPane.showMessageDialog(this, "Solo puede contener letras y espacios.", "Error", JOptionPane.ERROR_MESSAGE);
+                txtNombre.requestFocus();
+                return;
+            } if (nombre.length() < 5) {
+                JOptionPane.showMessageDialog(this, "Debe tener un minimo de 5 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+                txtNombre.requestFocus();
+                return;
+            }
+
+            if (!afecciones.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")) {
+                JOptionPane.showMessageDialog(this, "Solo puede contener letras y espacios.", "Error", JOptionPane.ERROR_MESSAGE);
+                txtAfecciones.requestFocus();
+                return;
+            } if (afecciones.length() < 5) {
+                JOptionPane.showMessageDialog(this, "Debe tener un minimo de 5 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+                txtAfecciones.requestFocus();
+                return;
+            }
         
             int dni = 0;
             int edad = 0;
@@ -238,16 +257,8 @@ public class RegistroCliente extends javax.swing.JInternalFrame {
                 txtDni.requestFocus();
                 return;
             }
-        
-            try {
-                edad = Integer.parseInt(edadT);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "En el campo EDAD deben ser solo numeros enteros, sin coma.", "Error", JOptionPane.ERROR_MESSAGE);
-                txtDni.requestFocus();
-                return;
-            }
-        
 
+        
             if (dni < 6000000) {
                 JOptionPane.showMessageDialog(this, "El DNI debe ser un numero entero de 7 sifras (minimo '6.000.000').", "Error", JOptionPane.ERROR_MESSAGE);
                 txtDni.requestFocus();
@@ -257,6 +268,14 @@ public class RegistroCliente extends javax.swing.JInternalFrame {
             if (edad <= 5 || edad > 100) {
                 JOptionPane.showMessageDialog(this, "La Edad debe estar en un rango de (6 a 100 años).", "Error", JOptionPane.ERROR_MESSAGE);
                 txtEdad.requestFocus();
+                return;
+            }
+            
+            try {
+                edad = Integer.parseInt(edadT);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "En el campo EDAD deben ser solo numeros enteros, sin coma.", "Error", JOptionPane.ERROR_MESSAGE);
+                txtDni.requestFocus();
                 return;
             }
     
@@ -279,8 +298,7 @@ public class RegistroCliente extends javax.swing.JInternalFrame {
             txtTelefono.setText("");
             txtEdad.setText("");
             txtAfecciones.setText("");
-            cmbxActInac.setSelectedIndex(0); 
-            
+            cmbxActInac.setSelectedIndex(0);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Paso algo, que no sabemos que es : " + e.getMessage(), "FATAL ERROR", JOptionPane.ERROR_MESSAGE);
         }

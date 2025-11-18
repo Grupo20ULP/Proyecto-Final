@@ -157,6 +157,7 @@ public class ClienteData {
         }
         return clientesActivos;
     }
+    
 /////////////////// CLIENTES INACTIVOS (TODOS) //////////////////////
     public List<Cliente> todosLosClientes() {
     List<Cliente> clientes = new ArrayList<>();
@@ -235,4 +236,116 @@ public class ClienteData {
     }
     return cliente;
 }
+    
+////////////////////// BUSQUEDA POR DNI ////////////////////////////
+    public List<Cliente> busquedaDNI(String dni) {
+        List<Cliente> clientesDNI = new ArrayList<>();
+        String sql = "SELECT codCli, dni, nombre_completo, telefono, edad, afecciones, estado FROM cliente " + "WHERE dni LIKE ?"; 
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, dni + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setCodCli(rs.getInt("codCli"));
+                cliente.setDni(rs.getInt("dni"));
+                cliente.setNombre_completo(rs.getString("nombre_completo"));
+                cliente.setTelefono(rs.getString("telefono"));
+                cliente.setEdad(rs.getInt("edad"));
+                cliente.setAfecciones(rs.getString("afecciones"));
+                cliente.setEstado(rs.getString("estado"));
+                clientesDNI.add(cliente);
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar clientes por DNI: " + ex.getMessage());
+        }
+        return clientesDNI;
+    }
+    
+////////////////////////// LISTAR TODOS LOS CLIENTES /////////////////////////
+    public List<Cliente> clientesAll () {
+        List<Cliente> clientes = new ArrayList<>();
+        String sql = "SELECT * FROM cliente ORDER BY nombre_completo";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setCodCli(rs.getInt("codCli"));
+                cliente.setDni(rs.getInt("dni"));
+                cliente.setNombre_completo(rs.getString("nombre_completo"));
+                cliente.setTelefono(rs.getString("telefono"));
+                cliente.setEdad(rs.getInt("edad"));
+                cliente.setAfecciones(rs.getString("afecciones"));
+                cliente.setEstado(rs.getString("estado"));
+                clientes.add(cliente);
+            }
+            ps.close();
+        }
+        catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al listar Clientes: "
+                + e.
+                    getMessage());
+        }
+        return clientes;
+    }
+    
+///////////////////// METODO PARA MODIFICAR CLIENTES /////////////////////////
+    public boolean actualizarCampo(int codCli, String campo, String nuevoValor) {
+        String Valor = "";
+        Object valorParaSQL = null;
+        switch (campo) {
+            case "Apellido y Nombre":
+                Valor = "nombre_completo";
+                valorParaSQL = nuevoValor;
+                break;
+            case "DNI":
+                try {
+                    Valor = "dni";
+                    valorParaSQL = Integer.parseInt(nuevoValor);
+                }
+                catch (NumberFormatException e){
+                    return false;
+                }
+                break;
+            case "Telefono":
+                Valor = "telefono";
+                valorParaSQL = nuevoValor;
+                break;
+            case "Edad":
+                try {
+                    Valor = "edad";
+                    valorParaSQL = Integer.parseInt(nuevoValor);
+                    if ((int)valorParaSQL <= 0 || (int)valorParaSQL > 150){
+                        return false;
+                    }
+                } catch (NumberFormatException e){
+                    return false;
+                }
+                break;
+            case "Afecciones":
+                Valor = "afecciones";
+                valorParaSQL = nuevoValor;
+                break;
+            case "Estado (Activo/Inactivo)":
+                Valor = "estado";
+                valorParaSQL = nuevoValor;
+                break;
+            default:
+                return false;
+        }
+        String sql = "UPDATE cliente SET " + Valor + " = ? WHERE codCli = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setObject(1, valorParaSQL);
+            ps.setInt(2, codCli);
+            int filas = ps.executeUpdate();
+            return filas > 0;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error SQL al actualizar el campo: " + e.getMessage());
+            return false;
+        }
+    }
+    
 }

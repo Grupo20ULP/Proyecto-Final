@@ -4,6 +4,13 @@
  */
 package Vistas;
 
+import Modelo.Cliente;
+import Persistencia.ClienteData;
+import Vistas.VtnaEmergCliente;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Carreño Lucas
@@ -13,10 +20,108 @@ public class ModificarCliente extends javax.swing.JInternalFrame {
     /**
      * Creates new form modificarCliente
      */
+    
+    private DefaultTableModel modelo;
+    private int clienteSeleccionadoID = -1;
+    private String nombreCliente = null;
+    
     public ModificarCliente() {
         initComponents();
+        armadoTabla(); 
+        ClienteData cd = new ClienteData();
+        llenarTabla(cd.clientesAll());
+        ocultarColumnaID();
+        
+        txtFiltrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFiltrarKeyReleased(evt);
+            }
+        });
+
+        jTableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            jTableClientesMouseClicked(evt);
+        }
+    });
+    }
+    
+    
+    private void armadoTabla() {
+        String[] titulos = {"ID", "DNI", "Nombre Completo", "Telefono", "Edad", "Afecciones", "Estado"};
+        modelo = new DefaultTableModel(null, titulos) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false; 
+            }
+        };
+        jTableClientes.setModel(modelo);
+    }
+    
+    
+    private void ocultarColumnaID() {
+        jTableClientes.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTableClientes.getColumnModel().getColumn(0).setMinWidth(0);
+        jTableClientes.getColumnModel().getColumn(0).setPreferredWidth(0);
+    
+        jTableClientes.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        jTableClientes.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        jTableClientes.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
+
+    private void llenarTabla(List<Cliente> clientes) {
+        modelo.setRowCount(0); 
+        for (Cliente cli : clientes) {
+            modelo.addRow(new Object[]{
+                cli.getCodCli(),
+                cli.getDni(),
+                cli.getNombre_completo(),
+                cli.getTelefono(),
+                cli.getEdad(),
+                cli.getAfecciones(),
+                cli.getEstado()
+            });
+        }
+    }
+
+
+    private void txtFiltrarKeyReleased(java.awt.event.KeyEvent evt) {                                          
+        String textoFiltro = txtFiltrar.getText().trim();
+        ClienteData llenado = new ClienteData();
+        List<Cliente> clientesFiltrados;
+        if (textoFiltro.isEmpty()) {
+            clientesFiltrados = llenado.clientesAll();
+        } else {
+            clientesFiltrados = llenado.busquedaDNI(textoFiltro);
+        }
+        llenarTabla(clientesFiltrados);
+    }
+    
+    private void jTableClientesMouseClicked(java.awt.event.MouseEvent evt) {                                          
+        int fila = jTableClientes.getSelectedRow();
+        if (fila != -1) {
+            clienteSeleccionadoID = (Integer) modelo.getValueAt(fila, 0);
+            nombreCliente = (String) modelo.getValueAt(fila, 2);
+            btnModificar.setEnabled(true); 
+        } else {
+            clienteSeleccionadoID = -1;
+            nombreCliente = null;
+            btnModificar.setEnabled(false);
+        }
+    }
+    
+
+    private String estado(int idCliente) {
+        ClienteData clien = new ClienteData();
+        List<Cliente> todosLosClientes = clien.clientesAll();
+        for (Cliente cliente : todosLosClientes) {
+            if (cliente.getCodCli() == idCliente) {
+                return cliente.getEstado();
+            }
+        }
+        return null;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +131,19 @@ public class ModificarCliente extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jScrollPaneClientes = new javax.swing.JScrollPane();
+        jTableClientes = new javax.swing.JTable();
+        lblTitulo = new javax.swing.JLabel();
+        lblFiltrar = new javax.swing.JLabel();
+        txtFiltrar = new javax.swing.JTextField();
+        btnModificar = new javax.swing.JButton();
+        btnAlta = new javax.swing.JButton();
+        btnBaja = new javax.swing.JButton();
 
         setClosable(true);
         setPreferredSize(new java.awt.Dimension(700, 390));
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -64,40 +169,50 @@ public class ModificarCliente extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable4.setToolTipText("");
-        jTable4.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(jTable4);
-        if (jTable4.getColumnModel().getColumnCount() > 0) {
-            jTable4.getColumnModel().getColumn(0).setResizable(false);
-            jTable4.getColumnModel().getColumn(1).setResizable(false);
-            jTable4.getColumnModel().getColumn(2).setResizable(false);
-            jTable4.getColumnModel().getColumn(3).setResizable(false);
-            jTable4.getColumnModel().getColumn(4).setResizable(false);
-            jTable4.getColumnModel().getColumn(5).setResizable(false);
+        jTableClientes.setToolTipText("");
+        jTableClientes.getTableHeader().setReorderingAllowed(false);
+        jScrollPaneClientes.setViewportView(jTableClientes);
+        if (jTableClientes.getColumnModel().getColumnCount() > 0) {
+            jTableClientes.getColumnModel().getColumn(0).setResizable(false);
+            jTableClientes.getColumnModel().getColumn(1).setResizable(false);
+            jTableClientes.getColumnModel().getColumn(2).setResizable(false);
+            jTableClientes.getColumnModel().getColumn(3).setResizable(false);
+            jTableClientes.getColumnModel().getColumn(4).setResizable(false);
+            jTableClientes.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        jLabel1.setFont(new java.awt.Font("MingLiU-ExtB", 1, 24)); // NOI18N
-        jLabel1.setText("MODIFICAR CLIENTE");
+        lblTitulo.setFont(new java.awt.Font("MingLiU-ExtB", 1, 24)); // NOI18N
+        lblTitulo.setText("MODIFICAR CLIENTE");
 
-        jLabel6.setFont(new java.awt.Font("Myanmar Text", 0, 12)); // NOI18N
-        jLabel6.setText("Filtrar por DNI :");
+        lblFiltrar.setFont(new java.awt.Font("Myanmar Text", 0, 12)); // NOI18N
+        lblFiltrar.setText("Filtrar por DNI :");
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        txtFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                txtFiltrarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Modificar");
-
-        jButton3.setText("Alta");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Baja");
+        btnAlta.setText("Alta");
+        btnAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltaActionPerformed(evt);
+            }
+        });
+
+        btnBaja.setText("Baja");
+        btnBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBajaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,67 +220,129 @@ public class ModificarCliente extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4)
+                .addComponent(jScrollPaneClientes)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(214, 214, 214)
-                .addComponent(jLabel1)
+                .addComponent(lblTitulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jLabel6)
+                .addComponent(lblFiltrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblTitulo)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblFiltrar)
+                        .addComponent(txtFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAlta)
+                        .addComponent(btnBaja)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txtFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txtFiltrarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        if (clienteSeleccionadoID == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente de la tabla antes de dar de alta.", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String estadoActual = estado(clienteSeleccionadoID);
+        if (estadoActual == null) {
+            JOptionPane.showMessageDialog(this, "El cliente ' " + nombreCliente + " ' no esta en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            clienteSeleccionadoID = -1;
+            return;
+        }
+        if ("activo".equals(estadoActual)){
+            JOptionPane.showMessageDialog(this, "El cliente ' " + nombreCliente + " ' ya esta en estado Activo.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int confirmacion = JOptionPane.showConfirmDialog(this, "Estas seguro de dar alta al cliente ' " + nombreCliente + " ' ? ", "Mensaje de confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            ClienteData clien = new ClienteData();
+            Cliente codClien = new Cliente();
+            codClien.setCodCli(clienteSeleccionadoID);
+            clien.alta(codClien); 
+            llenarTabla(clien.clientesAll());
+            ocultarColumnaID();
+            clienteSeleccionadoID = -1;
+        }
+    }//GEN-LAST:event_btnAltaActionPerformed
 
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        if (clienteSeleccionadoID == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente de la tabla antes de modificar.", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        VtnaEmergCliente valoresModificar = new VtnaEmergCliente(null, true, clienteSeleccionadoID); 
+        valoresModificar.setVisible(true);
+        if (valoresModificar.modExitosa()) {
+            ClienteData clien = new ClienteData();
+            llenarTabla(clien.clientesAll());
+            ocultarColumnaID();
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
+    private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
+        // TODO add your handling code here:
+        if (clienteSeleccionadoID == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente de la tabla antes de dar de baja.", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String estadoActual = estado(clienteSeleccionadoID);
+        if (estadoActual == null) {
+            JOptionPane.showMessageDialog(this, "El cliente con ' " + nombreCliente + " ' no esta en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            clienteSeleccionadoID = -1;
+            return;
+        }
+        if ("inactivo".equals(estadoActual)){
+            JOptionPane.showMessageDialog(this, "El cliente ' " + nombreCliente + " ' ya esta en estado Activo.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int confirmacion = JOptionPane.showConfirmDialog(this, "Estas seguro de dar baja al cliente ' " + nombreCliente + " ' ? ", "Mensaje de confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            ClienteData clien = new ClienteData();
+            clien.baja(clienteSeleccionadoID); 
+            llenarTabla(clien.clientesAll());
+            ocultarColumnaID();
+            clienteSeleccionadoID = -1;
+        }
+    }//GEN-LAST:event_btnBajaActionPerformed
+
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JButton btnAlta;
+    private javax.swing.JButton btnBaja;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JScrollPane jScrollPaneClientes;
+    private javax.swing.JTable jTableClientes;
+    private javax.swing.JLabel lblFiltrar;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextField txtFiltrar;
     // End of variables declaration//GEN-END:variables
 }
