@@ -5,6 +5,7 @@
 package Vistas;
 
 import Modelo.Cliente;
+import Modelo.Dia_De_Spa;
 import Persistencia.ClienteData;
 import Persistencia.Dia_De_SpaData;
 import java.sql.SQLException;
@@ -19,15 +20,15 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Juan
  */
-public class Dia_De_Spa extends javax.swing.JInternalFrame {
+public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Dia_De_Spa
      */
-    public Dia_De_Spa() {
+    public vistaDiaDeSpa() {
         initComponents();
         inicializarComboBox();
-        jTFTotal.setEditable(false);
+        jTFTotal.setEditable(true);
     }
 
     private void limpiarCampos() {
@@ -114,6 +115,7 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
         jCBEstado = new javax.swing.JComboBox<>();
         BtnBuscarCodPack = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
+        BtnCrearDia = new javax.swing.JButton();
 
         jTableSesiones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -211,22 +213,19 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnCrearDia.setText("Crear Dia");
+        BtnCrearDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCrearDiaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLMonto)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLestado)
-                        .addGap(30, 30, 30)
-                        .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -260,18 +259,30 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
                                 .addGap(53, 53, 53)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(97, 97, 97)
-                                        .addComponent(jBtnEliminarDia)
-                                        .addGap(74, 74, 74)
-                                        .addComponent(jBtnListarDias))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(170, 170, 170)
-                                        .addComponent(jLSUBTITULO)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BtnActualizar)))
-                        .addGap(0, 18, Short.MAX_VALUE)))
+                                .addGap(34, 34, 34)
+                                .addComponent(BtnCrearDia, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jBtnEliminarDia)
+                                    .addComponent(jLSUBTITULO))))
+                        .addGap(0, 18, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBtnListarDias)
+                                .addGap(54, 54, 54)
+                                .addComponent(BtnActualizar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLMonto)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLestado)
+                                .addGap(30, 30, 30)
+                                .addComponent(jCBEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(22, 22, 22)))
                 .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
@@ -310,7 +321,8 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBtnEliminarDia)
                             .addComponent(jBtnListarDias)
-                            .addComponent(BtnActualizar))
+                            .addComponent(BtnActualizar)
+                            .addComponent(BtnCrearDia))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addComponent(jLSUBTITULO)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -477,10 +489,55 @@ public class Dia_De_Spa extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
+    private void BtnCrearDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCrearDiaActionPerformed
+        try {
+            if (jCBCliente.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(this, "Seleccione un cliente.");
+                return;
+            }
+
+            if (jTFFecha.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese la fecha del día de spa.");
+                return;
+            }
+
+            Dia_De_Spa dia = new Dia_De_Spa();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+            dia.setFechaHora(LocalDateTime.parse(jTFFecha.getText(), formatter));
+            dia.setPreferencias(jTXTAREAPREF.getText());
+            dia.setEstado(jCBEstado.getSelectedItem().toString());
+            dia.setMonto(Double.parseDouble(jTFTotal.getText()));
+
+            // CODPACK si lo cargás vos
+            dia.setCodPack(Integer.parseInt(jTFCodPack.getText()));
+
+            // CLIENTE
+            ClienteData cData = new ClienteData();
+            String sel = jCBCliente.getSelectedItem().toString();
+            int codCli = Integer.parseInt(sel.split(" - ")[0]);
+            Cliente cli = cData.buscarClientePorId(codCli);
+            dia.setCliente(cli);
+
+            // GUARDAR
+            Dia_De_SpaData diaData = new Dia_De_SpaData();
+            int codPack = diaData.guardarDiaDeSpa(dia);
+
+            jTFCodPack.setText(String.valueOf(codPack));
+            JOptionPane.showMessageDialog(this, "Día de Spa creado. Código: " + codPack);
+
+            BtnCrearDia.setEnabled(true);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al crear el Día de Spa: " + e.getMessage());
+        }
+    }//GEN-LAST:event_BtnCrearDiaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnBuscarCodPack;
+    private javax.swing.JButton BtnCrearDia;
     private javax.swing.JButton jBtnEliminarDia;
     private javax.swing.JButton jBtnListarDias;
     private javax.swing.JComboBox<String> jCBCliente;

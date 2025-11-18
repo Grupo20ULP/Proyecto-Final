@@ -19,9 +19,12 @@ public class Dia_De_SpaData {
     }
 
     // Inserta un nuevo registro en la tabla
-    public void guardarDiaDeSpa(Dia_De_Spa dia) throws SQLException {
-        String sql = "INSERT INTO dia_de_spa (codPack, fechaHora, preferencias, cliente_id, monto, estado) VALUES (?, ?, ?, ?, ?, ?)";
+    public int guardarDiaDeSpa(Dia_De_Spa dia) throws SQLException {
+        String sql = "INSERT INTO dia_de_spa (codPack, fechaHora, preferencias, cliente_id, monto, estado) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+
         PreparedStatement ps = con.prepareStatement(sql);
+
         ps.setInt(1, dia.getCodPack());
         ps.setTimestamp(2, Timestamp.valueOf(dia.getFechaHora()));
         ps.setString(3, dia.getPreferencias());
@@ -30,6 +33,8 @@ public class Dia_De_SpaData {
         ps.setString(6, dia.getEstado());
         ps.executeUpdate();
         ps.close();
+
+        return dia.getCodPack();
     }
 
     // Trae un dia de spa por su codigo
@@ -152,27 +157,28 @@ public class Dia_De_SpaData {
         ps.setInt(1, codPack);
         int filasAfectadas = ps.executeUpdate();
         ps.close();
-        return filasAfectadas > 0; 
+        return filasAfectadas > 0;
     }
     // Elimina todas las sesiones de un día de spa
-public boolean eliminarSesionesPorDia(int codPack) throws SQLException {
-    String sql = "DELETE FROM sesion WHERE dia_spa_id = ?";
-    PreparedStatement ps = con.prepareStatement(sql);
-    ps.setInt(1, codPack);
-    int filas = ps.executeUpdate();
-    ps.close();
-    return filas > 0; // Devuelve true si había sesiones eliminadas
-}
+
+    public boolean eliminarSesionesPorDia(int codPack) throws SQLException {
+        String sql = "DELETE FROM sesion WHERE dia_spa_id = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, codPack);
+        int filas = ps.executeUpdate();
+        ps.close();
+        return filas > 0; // Devuelve true si había sesiones eliminadas
+    }
 
 //       Prueba
-public boolean actualizarEstadoYPreferencias(int codPack, String estado, String preferencias) throws SQLException {
-    String sql = "UPDATE dia_de_spa SET estado = ?, preferencias = ? WHERE codPack = ?";
-    PreparedStatement ps = con.prepareStatement(sql);
-    ps.setString(1, estado);
-    ps.setString(2, preferencias);
-    ps.setInt(3, codPack);
-    int filas = ps.executeUpdate();
-    ps.close();
-    return filas > 0;
-}
+    public boolean actualizarEstadoYPreferencias(int codPack, String estado, String preferencias) throws SQLException {
+        String sql = "UPDATE dia_de_spa SET estado = ?, preferencias = ? WHERE codPack = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, estado);
+        ps.setString(2, preferencias);
+        ps.setInt(3, codPack);
+        int filas = ps.executeUpdate();
+        ps.close();
+        return filas > 0;
+    }
 }

@@ -259,7 +259,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItemDiaDeSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDiaDeSpaActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        Dia_De_Spa insertModClient = new Dia_De_Spa();
+        vistaDiaDeSpa insertModClient = new vistaDiaDeSpa();
         insertModClient.setVisible(true);
         Escritorio.add(insertModClient);
         Escritorio.moveToFront(insertModClient);
