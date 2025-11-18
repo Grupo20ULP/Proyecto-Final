@@ -20,20 +20,27 @@ public class Dia_De_SpaData {
 
     // Inserta un nuevo registro en la tabla
     public int guardarDiaDeSpa(Dia_De_Spa dia) throws SQLException {
-        String sql = "INSERT INTO dia_de_spa (codPack, fechaHora, preferencias, cliente_id, monto, estado) "
-                + "VALUES (?, ?, ?, ?, ?, ?)";
 
-        PreparedStatement ps = con.prepareStatement(sql);
+        String sql = "INSERT INTO dia_de_spa (fecha_hora, preferencias, cliente_id, monto_total, estado) "
+                + "VALUES (?, ?, ?, ?, ?)";
 
-        ps.setInt(1, dia.getCodPack());
-        ps.setTimestamp(2, Timestamp.valueOf(dia.getFechaHora()));
-        ps.setString(3, dia.getPreferencias());
-        ps.setInt(4, dia.getCliente().getCodCli());
-        ps.setDouble(5, dia.getMonto());
-        ps.setString(6, dia.getEstado());
+        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+        ps.setTimestamp(1, Timestamp.valueOf(dia.getFechaHora()));
+        ps.setString(2, dia.getPreferencias());
+        ps.setInt(3, dia.getCliente().getCodCli());
+        ps.setDouble(4, dia.getMonto());
+        ps.setString(5, dia.getEstado());
+
         ps.executeUpdate();
-        ps.close();
 
+        // obtener el autoincrement generado
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            dia.setCodPack(rs.getInt(1));
+        }
+
+        ps.close();
         return dia.getCodPack();
     }
 

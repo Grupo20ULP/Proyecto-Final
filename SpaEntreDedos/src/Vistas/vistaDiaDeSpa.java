@@ -28,7 +28,7 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
     public vistaDiaDeSpa() {
         initComponents();
         inicializarComboBox();
-        jTFTotal.setEditable(true);
+        jTFTotal.setEditable(false);
     }
 
     private void limpiarCampos() {
@@ -73,16 +73,42 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
         // Cargar clientes
         ClienteData clienteData = new ClienteData();
         List<Cliente> listaClientes = clienteData.clientesActivos();
+
         jCBCliente.removeAllItems();
         for (Cliente c : listaClientes) {
-            jCBCliente.addItem(c.getNombre_completo());
+            // MOSTRAR: "id - nombre"
+            jCBCliente.addItem(c.getCodCli() + " - " + c.getNombre_completo());
         }
+        jCBCliente.setSelectedIndex(-1);
+
         // Cargar estados posibles
         jCBEstado.removeAllItems();
         jCBEstado.addItem("pendiente");
         jCBEstado.addItem("confirmado");
         jCBEstado.addItem("realizado");
         jCBEstado.addItem("cancelado");
+    }
+
+    private void mostrarSoloEsteDia(Modelo.Dia_De_Spa dia) {
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("CodPack");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Cliente");
+        modelo.addColumn("Monto");
+        modelo.addColumn("Estado");
+
+        Object[] fila = {
+            dia.getCodPack(),
+            dia.getFechaHora().toString(),
+            dia.getCliente().getNombre_completo(),
+            dia.getMonto(),
+            dia.getEstado()
+        };
+
+        modelo.addRow(fila);
+
+        jTableSesiones.setModel(modelo);
     }
 
     /**
@@ -387,22 +413,30 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
                 jTXTAREAPREF.setText(dia.getPreferencias());
                 jTFTotal.setText(String.valueOf(dia.getMonto()));
 
-                // Seleccionar cliente en el combo box
-                jCBCliente.setSelectedItem(dia.getCliente().getNombre_completo());
+                // -------------------------------
+                // Seleccionar cliente en el combo
+                String itemCliente = dia.getCliente().getCodCli()
+                        + " - " + dia.getCliente().getNombre_completo();
+                jCBCliente.setSelectedItem(itemCliente);
+                // -------------------------------
 
                 // Seleccionar estado
                 jCBEstado.setSelectedItem(dia.getEstado());
-                // 👉 Cargar sesiones en la tabla
+
+                // Cargar sesiones en la tabla
                 mostrarSesiones(dia.getSesiones());
+                // ⬇️ AQUI se actualiza la tabla principal con SOLO este día
+                mostrarSoloEsteDia(dia);
 
             } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "No se encontró el Día de Spa con ese código.");
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "No se encontró el Día de Spa con ese código.");
                 limpiarCampos();
-
             }
 
         } catch (NumberFormatException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Ingrese un número válido en CodPack.");
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Ingrese un número válido en CodPack.");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -507,10 +541,12 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
             dia.setFechaHora(LocalDateTime.parse(jTFFecha.getText(), formatter));
             dia.setPreferencias(jTXTAREAPREF.getText());
             dia.setEstado(jCBEstado.getSelectedItem().toString());
-            dia.setMonto(Double.parseDouble(jTFTotal.getText()));
 
-            // CODPACK si lo cargás vos
-            dia.setCodPack(Integer.parseInt(jTFCodPack.getText()));
+            double monto = 0;
+            if (!jTFTotal.getText().trim().isEmpty()) {
+                monto = Double.parseDouble(jTFTotal.getText().trim());
+            }
+            dia.setMonto(monto);
 
             // CLIENTE
             ClienteData cData = new ClienteData();
