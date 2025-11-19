@@ -55,13 +55,16 @@ public class Sesion extends javax.swing.JInternalFrame {
         BtnEditarSesion = new javax.swing.JToggleButton();
         content = new javax.swing.JPanel();
 
+        setClosable(true);
+
         Escritorio.setBackground(new java.awt.Color(40, 24, 0));
 
         JMenu.setBackground(new java.awt.Color(75, 48, 24));
 
         BtnCrearSesion.setBackground(new java.awt.Color(77, 54, 54));
         BtnCrearSesion.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
-        BtnCrearSesion.setText("Crear Sesion");
+        BtnCrearSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detalle.png"))); // NOI18N
+        BtnCrearSesion.setText("Crear Sesion  ");
         BtnCrearSesion.setBorder(null);
         BtnCrearSesion.setBorderPainted(false);
         BtnCrearSesion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -72,7 +75,8 @@ public class Sesion extends javax.swing.JInternalFrame {
 
         BtnBuscarSesion.setBackground(new java.awt.Color(77, 54, 54));
         BtnBuscarSesion.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
-        BtnBuscarSesion.setText("Buscar Sesion");
+        BtnBuscarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lupita_1.png"))); // NOI18N
+        BtnBuscarSesion.setText("Buscar Sesion ");
         BtnBuscarSesion.setBorder(null);
         BtnBuscarSesion.setBorderPainted(false);
         BtnBuscarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -83,7 +87,8 @@ public class Sesion extends javax.swing.JInternalFrame {
 
         BtnEditarSesion.setBackground(new java.awt.Color(77, 54, 54));
         BtnEditarSesion.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
-        BtnEditarSesion.setText("Editar Sesion");
+        BtnEditarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificado.png"))); // NOI18N
+        BtnEditarSesion.setText("Editar Sesion  ");
         BtnEditarSesion.setBorder(null);
         BtnEditarSesion.setBorderPainted(false);
         BtnEditarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -98,11 +103,11 @@ public class Sesion extends javax.swing.JInternalFrame {
             JMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JMenuLayout.createSequentialGroup()
                 .addGap(103, 103, 103)
-                .addComponent(BtnCrearSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addComponent(BtnCrearSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(88, 88, 88)
-                .addComponent(BtnBuscarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                .addGap(89, 89, 89)
-                .addComponent(BtnEditarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                .addComponent(BtnBuscarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
+                .addComponent(BtnEditarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(84, 84, 84))
         );
         JMenuLayout.setVerticalGroup(

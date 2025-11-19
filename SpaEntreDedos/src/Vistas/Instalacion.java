@@ -64,6 +64,7 @@ public class Instalacion extends javax.swing.JInternalFrame {
         Jmenu.setBackground(new java.awt.Color(124, 71, 0));
 
         BtnEditarInstalaciones.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        BtnEditarInstalaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificado.png"))); // NOI18N
         BtnEditarInstalaciones.setText("Editar Instalaciones");
         BtnEditarInstalaciones.setBorder(null);
         BtnEditarInstalaciones.setBorderPainted(false);
@@ -75,6 +76,7 @@ public class Instalacion extends javax.swing.JInternalFrame {
         });
 
         BtnVerDispo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        BtnVerDispo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/masaje.png"))); // NOI18N
         BtnVerDispo.setText("Ver Disponibles");
         BtnVerDispo.setBorder(null);
         BtnVerDispo.setBorderPainted(false);
@@ -86,6 +88,7 @@ public class Instalacion extends javax.swing.JInternalFrame {
         });
 
         BtnListarInstalaciones.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        BtnListarInstalaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/todas.png"))); // NOI18N
         BtnListarInstalaciones.setText("Lista Instalaciones");
         BtnListarInstalaciones.setBorder(null);
         BtnListarInstalaciones.setBorderPainted(false);
@@ -99,6 +102,7 @@ public class Instalacion extends javax.swing.JInternalFrame {
         Salir.setBackground(new java.awt.Color(255, 153, 153));
         Salir.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         Salir.setForeground(new java.awt.Color(0, 0, 0));
+        Salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/volver.png"))); // NOI18N
         Salir.setText("Salir");
         Salir.setBorder(null);
         Salir.setBorderPainted(false);
@@ -119,6 +123,7 @@ public class Instalacion extends javax.swing.JInternalFrame {
         jLabel1.setText("Menu Instalaciones");
 
         btnAddInsta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnAddInsta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detalle.png"))); // NOI18N
         btnAddInsta.setText("Agregar Instalacion");
         btnAddInsta.setBorder(null);
         btnAddInsta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -166,7 +171,7 @@ public class Instalacion extends javax.swing.JInternalFrame {
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 586, Short.MAX_VALUE)
+            .addGap(0, 583, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
