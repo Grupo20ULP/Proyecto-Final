@@ -14,6 +14,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import Modelo.Sesion;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,6 +30,10 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
         initComponents();
         inicializarComboBox();
         jTFTotal.setEditable(true);
+        this.setClosable(true);
+        this.setIconifiable(true);
+        this.setMaximizable(true);
+        this.setResizable(true);
     }
 
     private void limpiarCampos() {
@@ -422,7 +427,6 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
                         + " - " + dia.getCliente().getNombre_completo();
                 jCBCliente.setSelectedItem(itemCliente);
 
-
                 // Seleccionar estado
                 jCBEstado.setSelectedItem(dia.getEstado());
 
@@ -450,8 +454,14 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
             Dia_De_SpaData diaData = new Dia_De_SpaData();
             List<Modelo.Dia_De_Spa> dias = diaData.listarDiasDeSpa();
 
-            // Crear modelo para la tabla
-            DefaultTableModel modelo = new DefaultTableModel();
+            // Crear modelo NO editable
+            DefaultTableModel modelo = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false; // 🔒 NINGUNA celda editable
+                }
+            };
+
             modelo.addColumn("CodPack");
             modelo.addColumn("Fecha");
             modelo.addColumn("Cliente");
@@ -470,6 +480,9 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
             }
 
             jTableSesiones.setModel(modelo);
+
+            // 🔒 Seguridad extra: desactivar cualquier editor
+            jTableSesiones.setDefaultEditor(Object.class, null);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -538,49 +551,61 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnCrearDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCrearDiaActionPerformed
-            try {
-        //Validar selección de cliente
-        if (jCBCliente.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione un cliente.");
-            return;
-        }
-
-        //  Validar fecha
-        if (jTFFecha.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese la fecha del día de spa.");
-            return;
-        }
-
-        // Crear objeto Dia_De_Spa y asignar fecha
-        Dia_De_Spa dia = new Dia_De_Spa();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        dia.setFechaHora(LocalDateTime.parse(jTFFecha.getText(), formatter));
-
-        //Asignar preferencias y estado
-        dia.setPreferencias(jTXTAREAPREF.getText());
-        dia.setEstado(jCBEstado.getSelectedItem().toString());
-
-        //Leer y validar monto (precio)
-        double monto = 0;
         try {
-            if (!jTFTotal.getText().trim().isEmpty()) {
-                monto = Double.parseDouble(jTFTotal.getText().trim());
-                if (monto < 0) {
-                    JOptionPane.showMessageDialog(this, "El monto no puede ser negativo.");
+            // Validar selección de cliente
+            if (jCBCliente.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(this, "Seleccione un cliente.");
+                return;
+            }
+
+            // Validar fecha
+            String fechaTexto = jTFFecha.getText().trim();
+            if (fechaTexto.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese la fecha del día de spa.");
+                return;
+            }
+
+            Dia_De_Spa dia = new Dia_De_Spa();
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+                dia.setFechaHora(LocalDateTime.parse(fechaTexto, formatter));
+            } catch (DateTimeParseException e) {
+                JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto. Use yyyy-MM-dd'T'HH:mm");
+                jTFFecha.requestFocus();
+                return;
+            }
+
+            // Asignar preferencias y estado
+            dia.setPreferencias(jTXTAREAPREF.getText());
+            dia.setEstado(jCBEstado.getSelectedItem().toString());
+
+            // Leer y validar monto
+            double monto = 0;
+            String montoTexto = jTFTotal.getText().trim();
+            if (!montoTexto.isEmpty()) {
+                try {
+                    monto = Double.parseDouble(montoTexto);
+                    if (monto < 0) {
+                        JOptionPane.showMessageDialog(this, "El monto no puede ser negativo.");
+                        jTFTotal.requestFocus();
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Ingrese un número válido para el monto.");
+                    jTFTotal.requestFocus();
                     return;
                 }
             }
-<<<<<<< HEAD
             dia.setMonto(monto);
 
-            // CLIENTE
+            // Asignar cliente al día
             ClienteData cData = new ClienteData();
             String sel = jCBCliente.getSelectedItem().toString();
             int codCli = Integer.parseInt(sel.split(" - ")[0]);
             Cliente cli = cData.buscarClientePorId(codCli);
             dia.setCliente(cli);
 
-            // GUARDAR
+            // Guardar el día de spa
             Dia_De_SpaData diaData = new Dia_De_SpaData();
             int codPack = diaData.guardarDiaDeSpa(dia);
 
@@ -592,34 +617,7 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al crear el Día de Spa: " + e.getMessage());
-=======
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un número válido para el monto.");
-            return;
->>>>>>> 90a139e51e6bdb722265583c4a1cb5137995f9a3
         }
-        dia.setMonto(monto);
-
-        //Asignar cliente al día
-        ClienteData cData = new ClienteData();
-        String sel = jCBCliente.getSelectedItem().toString();
-        int codCli = Integer.parseInt(sel.split(" - ")[0]);
-        Cliente cli = cData.buscarClientePorId(codCli);
-        dia.setCliente(cli);
-
-        //Guardar el día de spa en la base
-        Dia_De_SpaData diaData = new Dia_De_SpaData();
-        int codPack = diaData.guardarDiaDeSpa(dia);
-
-        jTFCodPack.setText(String.valueOf(codPack));
-        JOptionPane.showMessageDialog(this, "Día de Spa creado. Código: " + codPack);
-
-        // Habilitar botón crear
-        BtnCrearDia.setEnabled(true);
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error al crear el Día de Spa: " + e.getMessage());
-    }
     }//GEN-LAST:event_BtnCrearDiaActionPerformed
 
 
