@@ -225,6 +225,7 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
 
         jCBEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        BtnBuscarCodPack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/loupe_78956.png"))); // NOI18N
         BtnBuscarCodPack.setText("Buscar");
         BtnBuscarCodPack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,6 +233,7 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/actualizar_93493.png"))); // NOI18N
         BtnActualizar.setText("Actualizar");
         BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,6 +241,8 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnCrearDia.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        BtnCrearDia.setForeground(new java.awt.Color(0, 0, 0));
         BtnCrearDia.setText("Crear Dia");
         BtnCrearDia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -291,7 +295,7 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jBtnEliminarDia)
                                     .addComponent(jLSUBTITULO))))
-                        .addGap(0, 18, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -349,7 +353,7 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
                             .addComponent(jBtnListarDias)
                             .addComponent(BtnActualizar)
                             .addComponent(BtnCrearDia))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLSUBTITULO)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -413,19 +417,18 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
                 jTXTAREAPREF.setText(dia.getPreferencias());
                 jTFTotal.setText(String.valueOf(dia.getMonto()));
 
-                // -------------------------------
                 // Seleccionar cliente en el combo
                 String itemCliente = dia.getCliente().getCodCli()
                         + " - " + dia.getCliente().getNombre_completo();
                 jCBCliente.setSelectedItem(itemCliente);
-                // -------------------------------
+
 
                 // Seleccionar estado
                 jCBEstado.setSelectedItem(dia.getEstado());
 
                 // Cargar sesiones en la tabla
                 mostrarSesiones(dia.getSesiones());
-                // ⬇️ AQUI se actualiza la tabla principal con SOLO este día
+                //️ AQUI se actualiza la tabla principal con SOLO este día
                 mostrarSoloEsteDia(dia);
 
             } else {
@@ -477,20 +480,31 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
     private void jBtnEliminarDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarDiaActionPerformed
         try {
             int codPack = Integer.parseInt(jTFCodPack.getText().trim());
-            Dia_De_SpaData diaData = new Dia_De_SpaData();
 
-            // Primero eliminamos las sesiones vinculadas al día
-            boolean sesionesEliminadas = diaData.eliminarSesionesPorDia(codPack);
+            // Confirmación antes de eliminar
+            int respuesta = JOptionPane.showConfirmDialog(this,
+                    "¿ESTÁS SEGURO QUE QUIERES ELIMINAR este Día de Spa y todas sus sesiones?",
+                    "Confirmar eliminación",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
 
-            // Después eliminamos el día de spa
-            boolean eliminado = diaData.eliminarDiaDeSpa(codPack);
+            if (respuesta == JOptionPane.YES_OPTION) {
+                Dia_De_SpaData diaData = new Dia_De_SpaData();
 
-            if (eliminado) {
-                JOptionPane.showMessageDialog(this, "Día de Spa y sus sesiones eliminados correctamente.");
-                limpiarCampos();
-            } else {
-                JOptionPane.showMessageDialog(this, "No se encontró el Día de Spa a eliminar.");
-            }
+                // Primero eliminamos las sesiones vinculadas al día
+                boolean sesionesEliminadas = diaData.eliminarSesionesPorDia(codPack);
+
+                // Después eliminamos el día de spa
+                boolean eliminado = diaData.eliminarDiaDeSpa(codPack);
+
+                if (eliminado) {
+                    JOptionPane.showMessageDialog(this, "Día de Spa y sus sesiones eliminados correctamente.");
+                    limpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró el Día de Spa a eliminar.");
+                }
+            } // Si el usuario elige NO, no hace nada
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un número válido en CodPack.");
         } catch (SQLException ex) {
@@ -524,28 +538,39 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnCrearDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCrearDiaActionPerformed
+            try {
+        //Validar selección de cliente
+        if (jCBCliente.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione un cliente.");
+            return;
+        }
+
+        //  Validar fecha
+        if (jTFFecha.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese la fecha del día de spa.");
+            return;
+        }
+
+        // Crear objeto Dia_De_Spa y asignar fecha
+        Dia_De_Spa dia = new Dia_De_Spa();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        dia.setFechaHora(LocalDateTime.parse(jTFFecha.getText(), formatter));
+
+        //Asignar preferencias y estado
+        dia.setPreferencias(jTXTAREAPREF.getText());
+        dia.setEstado(jCBEstado.getSelectedItem().toString());
+
+        //Leer y validar monto (precio)
+        double monto = 0;
         try {
-            if (jCBCliente.getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(this, "Seleccione un cliente.");
-                return;
-            }
-
-            if (jTFFecha.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingrese la fecha del día de spa.");
-                return;
-            }
-
-            Dia_De_Spa dia = new Dia_De_Spa();
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-            dia.setFechaHora(LocalDateTime.parse(jTFFecha.getText(), formatter));
-            dia.setPreferencias(jTXTAREAPREF.getText());
-            dia.setEstado(jCBEstado.getSelectedItem().toString());
-
-            double monto = 0;
             if (!jTFTotal.getText().trim().isEmpty()) {
                 monto = Double.parseDouble(jTFTotal.getText().trim());
+                if (monto < 0) {
+                    JOptionPane.showMessageDialog(this, "El monto no puede ser negativo.");
+                    return;
+                }
             }
+<<<<<<< HEAD
             dia.setMonto(monto);
 
             // CLIENTE
@@ -567,7 +592,34 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al crear el Día de Spa: " + e.getMessage());
+=======
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un número válido para el monto.");
+            return;
+>>>>>>> 90a139e51e6bdb722265583c4a1cb5137995f9a3
         }
+        dia.setMonto(monto);
+
+        //Asignar cliente al día
+        ClienteData cData = new ClienteData();
+        String sel = jCBCliente.getSelectedItem().toString();
+        int codCli = Integer.parseInt(sel.split(" - ")[0]);
+        Cliente cli = cData.buscarClientePorId(codCli);
+        dia.setCliente(cli);
+
+        //Guardar el día de spa en la base
+        Dia_De_SpaData diaData = new Dia_De_SpaData();
+        int codPack = diaData.guardarDiaDeSpa(dia);
+
+        jTFCodPack.setText(String.valueOf(codPack));
+        JOptionPane.showMessageDialog(this, "Día de Spa creado. Código: " + codPack);
+
+        // Habilitar botón crear
+        BtnCrearDia.setEnabled(true);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al crear el Día de Spa: " + e.getMessage());
+    }
     }//GEN-LAST:event_BtnCrearDiaActionPerformed
 
 
