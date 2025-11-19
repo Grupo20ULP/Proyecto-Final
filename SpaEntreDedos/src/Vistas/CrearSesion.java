@@ -216,7 +216,7 @@ public class CrearSesion extends javax.swing.JInternalFrame {
             sesion.setMasajista(masajista);
             
             String diaSpaStr = (String) ComboDiaSpa.getSelectedItem();
-            int codPack = Integer.parseInt(diaSpaStr.split(" - ")[0].split(" ")[1]);
+            int codPack = Integer.parseInt(diaSpaStr.split(" - ")[0]);
             Dia_De_Spa diaSpa = diaSpaData.buscarDiaDeSpa(codPack);
             sesion.setDiaSpa(diaSpa);
             

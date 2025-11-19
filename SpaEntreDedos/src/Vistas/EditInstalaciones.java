@@ -116,7 +116,7 @@ public class EditInstalaciones extends javax.swing.JInternalFrame {
                     }
                     
                     if (!estado.equalsIgnoreCase("activa") && !estado.equalsIgnoreCase("inactiva")) {
-                        errores.add("Fila " + (i + 1) + ": El estado debe ser 'activa' o 'inactiva' en MINUSCULA");
+                        errores.add("Fila " + (i + 1) + ": El estado debe ser 'activa' o 'inactiva'");
                         continue;
                     }
                                         

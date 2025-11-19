@@ -246,9 +246,9 @@ public class RegistroCliente extends javax.swing.JInternalFrame {
                 txtAfecciones.requestFocus();
                 return;
             }
-        
-            int dni = 0;
             int edad = 0;
+            int dni = 0;
+            
         
             try {
                 dni = Integer.parseInt(dniT);
@@ -264,18 +264,20 @@ public class RegistroCliente extends javax.swing.JInternalFrame {
                 txtDni.requestFocus();
                 return;
             }
-        
-            if (edad <= 5 || edad > 100) {
-                JOptionPane.showMessageDialog(this, "La Edad debe estar en un rango de (6 a 100 años).", "Error", JOptionPane.ERROR_MESSAGE);
-                txtEdad.requestFocus();
-                return;
-            }
+            
+            
             
             try {
                 edad = Integer.parseInt(edadT);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "En el campo EDAD deben ser solo numeros enteros, sin coma.", "Error", JOptionPane.ERROR_MESSAGE);
                 txtDni.requestFocus();
+                return;
+            }
+            
+            if (edad <= 5 || edad > 100) {
+                JOptionPane.showMessageDialog(this, "La Edad debe estar en un rango de (6 a 100 años).", "Error", JOptionPane.ERROR_MESSAGE);
+                txtEdad.requestFocus();
                 return;
             }
     

@@ -28,7 +28,7 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
     public vistaDiaDeSpa() {
         initComponents();
         inicializarComboBox();
-        jTFTotal.setEditable(false);
+        jTFTotal.setEditable(true);
     }
 
     private void limpiarCampos() {
@@ -560,6 +560,7 @@ public class vistaDiaDeSpa extends javax.swing.JInternalFrame {
             int codPack = diaData.guardarDiaDeSpa(dia);
 
             jTFCodPack.setText(String.valueOf(codPack));
+            jTFTotal.setText(String.valueOf(monto));
             JOptionPane.showMessageDialog(this, "Día de Spa creado. Código: " + codPack);
 
             BtnCrearDia.setEnabled(true);
